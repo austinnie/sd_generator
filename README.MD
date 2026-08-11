@@ -52,10 +52,12 @@ python scripts/lora_index.py --refresh
 
 模型路径
 sd15_model_dir: str = "../models/sd-v1-5" # SD 1.5 模型
+
 sdxl_model_dir: str = "../models/sdxl" # SDXL 模型
 
 LoRA 路径
 sd15_lora_dir: str = "../models/sd15-lora" # SD 1.5 LoRA
+
 sdxl_lora_dir: str = "../models/sdxl-lora" # SDXL LoRA
 
 生成图片
@@ -80,11 +82,16 @@ scripts/model_index.py - 模型索引生成器
 自动扫描模型目录，生成索引 JSON 文件，供其他工具使用。
 
 用法：
+
 python scripts/model_index.py # 基本用法
+
 python scripts/model_index.py --refresh # 强制重新扫描
+
 python scripts/model_index.py --list # 列出所有已索引的模型
 
-输出文件：scripts/models_index.json
+输出文件：
+scripts/models_index.json
+
 
 包含内容：
 
@@ -104,7 +111,9 @@ scripts/lora_index.py - LoRA 索引生成器
 
 用法：
 python scripts/lora_index.py # 基本用法
+
 python scripts/lora_index.py --refresh # 强制重新扫描
+
 python scripts/lora_index.py --list # 列出所有已索引的 LoRA
 
 输出文件：scripts/lora_index.json
@@ -127,22 +136,34 @@ scripts/switch_model.py - 模型切换工具
 
 用法：
 python scripts/switch_model.py --status # 显示当前状态
+
 python scripts/switch_model.py --list # 列出所有可用模型
+
 python scripts/switch_model.py --mode smart # 智能模式
+
 python scripts/switch_model.py --mode manual # 手动模式
+
 python scripts/switch_model.py --manual anytimeRealistic # 指定模型
+
 python scripts/switch_model.py --mode legacy # 旧版模式
+
 python scripts/switch_model.py --legacy 1 # 使用编号
+
 python scripts/switch_model.py --set DreamShaper # 设置默认模型
+
 python scripts/switch_model.py --ov # 启用 OpenVINO
+
 python scripts/switch_model.py --no-ov # 禁用 OpenVINO
+
 python scripts/switch_model.py --refresh # 重新生成索引
 
 三种模式说明：
 
 模式 说明 适用场景
 smart 使用索引推荐的模型（默认） 大多数情况，自动选择最佳模型
+
 manual 手动指定模型名称 需要精确控制模型时
+
 legacy 使用编号 0-3 选择 兼容旧代码的编号方式
 
 scripts/switch_lora.py - LoRA 切换工具
@@ -151,18 +172,26 @@ scripts/switch_lora.py - LoRA 切换工具
 
 用法：
 python scripts/switch_lora.py --status # 显示当前状态
+
 python scripts/switch_lora.py --list # 列出所有可用 LoRA
+
 python scripts/switch_lora.py --active 0 # 激活指定索引
+
 python scripts/switch_lora.py --set MechaGirlFigure_v1 # 设置默认
+
 python scripts/switch_lora.py --refresh # 重新生成索引
 
 常用 LoRA 索引参考：
 
 索引 名称 分类 说明
 0 MechaGirlFigure_v1 mecha 机甲少女（推荐）
+
 1 AMechaSSS mecha 机甲风格
+
 6 eula character 角色 Eula
+
 10 chunli character 角色春丽
+
 17 busty_slider body 身材调整
 
 scripts/organize_output.py - 输出整理工具
@@ -238,8 +267,11 @@ LoRA 选择选项：
 
 风格名 分类 说明
 pure_serene base 清纯风格
+
 gallery_elegant gallery 画廊优雅
+
 mecha_blueprint mecha 白模机甲
+
 tiger_sketch sketch 猛虎线稿
 
 添加新风格：在 prompts/ 目录下创建 .py 文件，按照 STYLE 格式定义即可。
@@ -316,6 +348,7 @@ python cli.py --clear
 🤖 智能推荐: anytimeRealistic_v10 (1.99GB)
 
 📚 可用风格 (共 58 个):
+text
 ======================================================================
   [ 0] anime_figure_girl              [hierarchical] 72种组合 -> 动漫手办_女孩
   [ 1] anime_greyscale_portrait       [hierarchical] 12种组合 -> 灰阶半身动漫
