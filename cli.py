@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+"""
+命令行入口
+用法: python cli.py <风格名> [-n 数量] [--model 模型名] [--lora LoRA名]
+"""
+
 import sys
 import os
 import argparse
@@ -11,17 +16,17 @@ from core.engine import GenerationEngine
 from core.model import ModelManager
 from core.lora import LoraManager
 from core.prompts import PromptLoader
-from config.app import (
-    SD_MODEL_PATH, FINAL_LORA_LIST, OUTPUT_DIR, PROMPTS_DIR,
-    STEPS, MODEL_SELECTION_MODE
-)
+from config.app import config, load_user_config, save_user_config, SD_MODEL_PATH, FINAL_LORA_LIST
 
 
 def parse_lora_spec(spec: str) -> tuple:
+    """解析 LoRA 规格: 'name' 或 'name@0.8'"""
     if '@' in spec:
         name, weight_str = spec.rsplit('@', 1)
-        try: weight = float(weight_str)
-        except: weight = 1.0
+        try:
+            weight = float(weight_str)
+        except:
+            weight = 1.0
         return name.strip(), weight
     return spec.strip(), 1.0
 
@@ -29,21 +34,29 @@ def parse_lora_spec(spec: str) -> tuple:
 def main():
     parser = argparse.ArgumentParser(description="SD Generator")
     parser.add_argument("style", nargs="?", help="风格名称")
-    parser.add_argument("-n", "--count", type=int, default=1, help="生成数量")
-    parser.add_argument("--steps", type=int, default=STEPS, help="迭代步数")
+    parser.add_argument("-n", "--count", type=int, default=None, help="生成数量")
+    parser.add_argument("--steps", type=int, default=25, help="迭代步数")
     parser.add_argument("--cfg", type=float, default=7.5, help="CFG")
     parser.add_argument("--width", type=int, default=512, help="宽度")
     parser.add_argument("--height", type=int, default=768, help="高度")
     parser.add_argument("--seed", type=int, default=-1, help="种子")
     
+    # 模型选择
     parser.add_argument("--model", "-m", help="指定模型名称")
     parser.add_argument("--model-type", choices=["sd15", "sdxl"], help="模型类型")
-    parser.add_argument("--list-models", action="store_true", help="列出所有模型")
+    parser.add_argument("--list-models", action="store_true", help="列出所有可用模型")
     
+    # LoRA 选择
     parser.add_argument("--lora", "-l", action="append", help="LoRA (name@weight)")
-    parser.add_argument("--list-loras", action="store_true", help="列出所有 LoRA")
+    parser.add_argument("--list-loras", action="store_true", help="列出所有可用 LoRA")
     parser.add_argument("--no-lora", action="store_true", help="禁用所有 LoRA")
     
+    # 风格列表
+    parser.add_argument("--list-styles", action="store_true", help="列出所有可用风格")
+    
+    # 配置管理
+    parser.add_argument("--save", action="store_true", help="保存当前选择为默认")
+    parser.add_argument("--clear", action="store_true", help="清除默认配置")
     parser.add_argument("--show-config", action="store_true", help="显示当前配置")
     
     args = parser.parse_args()
@@ -51,51 +64,118 @@ def main():
     model_mgr = ModelManager()
     lora_mgr = LoraManager()
     
+    # 加载提示词（用于 --list-styles）
+    prompts = PromptLoader(config.prompts_dir)
+    
+    # ===== 列出所有风格 =====
+    if args.list_styles:
+        styles = prompts.list_styles()
+        print(f"\n📚 可用风格 (共 {len(styles)} 个):")
+        print("=" * 70)
+        for i, name in enumerate(styles):
+            style_info = prompts.get_style_info(name)
+            style_type = style_info.get('type', 'flat')
+            combo = style_info.get('total_combinations', 0)
+            folder = style_info.get('folder', '')
+            print(f"  [{i:2d}] {name:30s} [{style_type}] {combo}种组合 -> {folder}")
+        return
+    
+    # ===== 列出模型 =====
     if args.list_models:
         models = model_mgr.list_models(args.model_type)
+        default = model_mgr.get_default_model()
         print(f"\n📚 可用模型 (共 {len(models)} 个):")
+        print("=" * 70)
         for i, m in enumerate(models):
-            default = " 👑" if m['name'] == model_mgr.get_default_model() else ""
-            print(f"  [{i:2d}] {m['name'][:45]} {m.get('size_gb', 0):.1f}GB{m.get('type', '')}{default}")
+            default_mark = " 👑" if m['name'] == default else ""
+            tags = m.get('tags', [])
+            tag_str = f" [{', '.join(tags[:3])}]" if tags else ""
+            print(f"  [{i:2d}] {m['name'][:45]:45s} {m.get('size_gb', 0):.1f}GB  {m.get('type', '')}{tag_str}{default_mark}")
+        print(f"\n🏆 默认推荐: {default or '无'}")
         return
     
+    # ===== 列出 LoRA =====
     if args.list_loras:
         loras = lora_mgr.list(args.model_type)
+        default = lora_mgr.get_default_lora()
         print(f"\n📚 可用 LoRA (共 {len(loras)} 个):")
+        print("=" * 70)
         for i, l in enumerate(loras):
-            default = " 👑" if l['name'] == lora_mgr.get_default_lora() else ""
-            print(f"  [{i:2d}] {l['name'][:45]} {l.get('size_mb', 0):.1f}MB{l.get('type', '')}{default}")
+            default_mark = " 👑" if l['name'] == default else ""
+            tags = l.get('tags', [])
+            tag_str = f" [{', '.join(tags[:3])}]" if tags else ""
+            print(f"  [{i:2d}] {l['name'][:45]:45s} {l.get('size_mb', 0):.1f}MB  {l.get('type', '')}{tag_str}{default_mark}")
+        print(f"\n🏆 默认推荐: {default or '无'}")
         return
     
+    # ===== 清除配置 =====
+    if args.clear:
+        save_user_config({})
+        print("✅ 已清除默认配置")
+        return
+    
+    # ===== 显示配置 =====
     if args.show_config:
-        print(f"\n📊 当前配置:")
-        print(f"  模式: {MODEL_SELECTION_MODE}")
+        user_config = load_user_config()
+        print("\n📊 当前配置:")
+        print(f"  模式: smart")
         print(f"  模型: {os.path.basename(SD_MODEL_PATH) if SD_MODEL_PATH else '未设置'}")
-        if FINAL_LORA_LIST:
-            print(f"  LoRA: {len(FINAL_LORA_LIST)} 个")
-            for l in FINAL_LORA_LIST:
-                print(f"    - {os.path.basename(l['path'])} (权重: {l.get('weight', 1.0)})")
+        loras = user_config.get('default_loras', [])
+        if loras:
+            default_lora_str = ', '.join([f"{l['name']}@{l.get('weight', 1.0)}" for l in loras])
+            print(f"  默认 LoRA: {default_lora_str}")
         else:
-            print(f"  LoRA: 无")
+            print(f"  默认 LoRA: 无")
         return
     
+    # ===== 需要指定风格 =====
     if not args.style:
         parser.print_help()
+        print("\n❌ 请指定风格名称")
+        print("   提示: 使用 --list-styles 查看所有可用风格")
         return
     
-    # 加载提示词
-    prompts = PromptLoader(PROMPTS_DIR)
+    # ===== 1. 加载提示词 =====
+    print("📝 加载提示词...")
     style = prompts.get_style(args.style)
     if not style:
         print(f"❌ 未找到风格: {args.style}")
+        print(f"   可用: {', '.join(prompts.list_styles()[:10])}")
         return
     
-    # 加载模型
+    # 显示风格信息
+    style_info = prompts.get_style_info(args.style)
+    print(f"📋 风格: {args.style}")
+    print(f"📁 分类: {style_info.get('folder', '未分类')}")
+    print(f"📊 类型: {style_info.get('type', 'flat')}")
+    print(f"📝 组合数: {style_info.get('total_combinations', 0)}")
+    if style_info.get('type') == 'hierarchical':
+        print(f"   ├─ 主体: {style_info.get('subjects', 0)} 种")
+        print(f"   ├─ 风格: {style_info.get('styles', 0)} 种")
+        print(f"   └─ 情绪: {style_info.get('moods', 0)} 种")
+        if style_info.get('has_content_texts'):
+            print(f"   └─ 内容文本: 有")
+    
+    # ===== 确定生成数量 =====
+    total_combinations = style_info.get('total_combinations', 1)
+    if args.count is None:
+        if style_info.get('type') == 'hierarchical':
+            total_count = min(total_combinations, 20)
+            print(f"📊 分层模式：将生成 {total_count} 张（全部组合）")
+        else:
+            total_count = style_info.get('subjects', 1)
+            print(f"📊 扁平模式：将生成 {total_count} 张（全部提示词）")
+    else:
+        total_count = args.count
+        if total_count > total_combinations:
+            print(f"⚠️ 指定数量 {total_count} 超过组合数 {total_combinations}，实际生成 {total_combinations}")
+            total_count = total_combinations
+    
+    # ===== 2. 加载模型 =====
     if args.model:
         if not model_mgr.load(args.model, args.model_type):
             return
     else:
-        # 使用 config 中的默认模型路径
         if SD_MODEL_PATH and os.path.exists(SD_MODEL_PATH):
             if not model_mgr._load_from_path(SD_MODEL_PATH):
                 return
@@ -107,7 +187,7 @@ def main():
             if not model_mgr.load(models[0]['name']):
                 return
     
-    # 加载 LoRA
+    # ===== 3. 加载 LoRA =====
     lora_specs = []
     if args.no_lora:
         print("🔗 LoRA 已禁用")
@@ -115,27 +195,38 @@ def main():
         for spec in args.lora:
             name, weight = parse_lora_spec(spec)
             lora_specs.append((name, weight))
-    elif FINAL_LORA_LIST and not args.no_lora:
-        # 使用 config 中的默认 LoRA
-        print(f"🔗 使用默认 LoRA: {len(FINAL_LORA_LIST)} 个")
-        for lora in FINAL_LORA_LIST:
-            lora_name = os.path.basename(lora['path'])
-            lora_specs.append((lora_name, lora.get('weight', 1.0)))
+    else:
+        user_config = load_user_config()
+        default_loras = user_config.get('default_loras', [])
+        if default_loras:
+            print(f"🔗 使用默认 LoRA: {len(default_loras)} 个")
+            for lora in default_loras:
+                lora_specs.append((lora['name'], lora.get('weight', 1.0)))
+        elif FINAL_LORA_LIST:
+            print(f"🔗 使用配置 LoRA: {len(FINAL_LORA_LIST)} 个")
+            for lora in FINAL_LORA_LIST:
+                lora_name = os.path.basename(lora['path'])
+                lora_specs.append((lora_name, lora.get('weight', 1.0)))
     
     for name, weight in lora_specs:
         if lora_mgr.load_by_name(model_mgr.get_pipeline(), name, weight,
                                  model_mgr.get_model_type()):
             print(f"🔗 加载 LoRA: {name} (权重: {weight})")
     
-    # 生成
+    # ===== 4. 生成 =====
+    print(f"\n🎨 开始生成 {total_count} 张...")
     engine = GenerationEngine(model_mgr.get_pipeline())
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    os.makedirs(config.output_dir, exist_ok=True)
     
-    for i in range(args.count):
+    for i in range(total_count):
         prompt = prompts.get_prompt(args.style, i)
         if not prompt:
+            print(f"❌ 提示词不足（只有 {total_combinations} 个组合）")
             break
-        print(f"\n🎨 [{i+1}/{args.count}] {prompt[:60]}...")
+        
+        print(f"\n🎨 [{i+1}/{total_count}]")
+        print(f"   📝 {prompt[:80]}...")
+        
         try:
             image = engine.generate_single(
                 prompt=prompt,
@@ -145,14 +236,18 @@ def main():
                 height=args.height,
                 seed=args.seed if args.seed != -1 else None,
             )
+            
             filename = f"{args.style}_{datetime.now():%Y%m%d_%H%M%S}_{i+1}.png"
-            filepath = os.path.join(OUTPUT_DIR, filename)
+            filepath = os.path.join(config.output_dir, filename)
             image.save(filepath)
             print(f"   ✅ {filepath}")
         except Exception as e:
-            print(f"   ❌ {e}")
+            print(f"   ❌ 生成失败: {e}")
+            import traceback
+            traceback.print_exc()
     
-    print(f"\n✅ 完成")
+    print(f"\n✅ 完成，共 {total_count} 张")
+    print(f"📁 输出目录: {config.output_dir}")
 
 
 if __name__ == "__main__":

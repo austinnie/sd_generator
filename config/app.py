@@ -172,6 +172,30 @@ DEFAULT_STRENGTH = 0.35
 OUTPUT_DIR = "./output"
 PROMPTS_DIR = "./prompts"
 
+# ==================== 用户配置管理 ====================
+USER_CONFIG_FILE = os.path.join(PROJECT_ROOT, ".user_config.json")
+
+
+def load_user_config() -> dict:
+    """加载用户配置（模型/LoRA 选择）"""
+    if os.path.exists(USER_CONFIG_FILE):
+        try:
+            with open(USER_CONFIG_FILE, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except:
+            pass
+    return {}
+
+
+def save_user_config(data: dict):
+    """保存用户配置"""
+    try:
+        with open(USER_CONFIG_FILE, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print(f"⚠️ 保存用户配置失败: {e}")
+
+
 # ==================== 兼容旧代码的 config 对象 ====================
 class Config:
     """兼容旧代码的配置对象"""
@@ -198,5 +222,6 @@ __all__ = [
     'STEPS', 'MAX_LIMIT', 'OUTPUT_DIR', 'PROMPTS_DIR',
     'MODEL_SELECTION_MODE', 'USE_OPENVINO_MODEL',
     'resolve_model_path', 'resolve_model_path_from_index',
-    'get_lora_path_by_index'
+    'get_lora_path_by_index',
+    'load_user_config', 'save_user_config'
 ]
