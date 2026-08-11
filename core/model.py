@@ -1,146 +1,114 @@
 # core/model.py
-"""模型管理 - 支持 SD 1.5 和 SDXL"""
-
 import os
 import gc
 import torch
 from typing import List, Optional, Dict
 from diffusers import StableDiffusionPipeline, StableDiffusionXLPipeline, EulerDiscreteScheduler
 
-from config.app import get_sd15_model_dir, get_sdxl_model_dir
+from config.app import (
+    SD_MODEL_PATH, AVAILABLE_MODELS, MODEL_INDEX,
+    resolve_model_path_from_index, MODEL_SELECTION_MODE
+)
 
 
 class ModelManager:
-    """模型管理器 - 支持 SD 1.5 和 SDXL"""
-    
     def __init__(self):
-        self.sd15_dir = get_sd15_model_dir()
-        self.sdxl_dir = get_sdxl_model_dir()
         self.pipeline = None
         self.current = None
-        self.model_type = None  # "sd15" 或 "sdxl"
+        self.model_type = None
+        self._current_path = None
+        self._models_cache = AVAILABLE_MODELS  # 直接使用 config 中的索引
     
-    def list_models(self) -> List[Dict]:
-        """列出所有模型，带类型标记"""
-        models = []
-        
-        # SD 1.5
-        if os.path.exists(self.sd15_dir):
-            for f in os.listdir(self.sd15_dir):
-                if f.endswith(('.safetensors', '.ckpt')):
-                    path = os.path.join(self.sd15_dir, f)
-                    size_gb = os.path.getsize(path) / (1024**3)
-                    if size_gb > 1.5:
-                        models.append({
-                            "name": f,
-                            "path": path,
-                            "type": "sd15",
-                            "size_gb": round(size_gb, 2),
-                        })
-        
-        # SDXL
-        if os.path.exists(self.sdxl_dir):
-            for f in os.listdir(self.sdxl_dir):
-                if f.endswith(('.safetensors', '.ckpt')):
-                    path = os.path.join(self.sdxl_dir, f)
-                    size_gb = os.path.getsize(path) / (1024**3)
-                    if size_gb > 3.0:  # SDXL 通常 > 4GB
-                        models.append({
-                            "name": f,
-                            "path": path,
-                            "type": "sdxl",
-                            "size_gb": round(size_gb, 2),
-                        })
-        
-        return sorted(models, key=lambda x: x["size_gb"], reverse=True)
+    def list_models(self, model_type: str = None) -> List[Dict]:
+        """获取模型列表"""
+        models = self._models_cache
+        if model_type:
+            models = [m for m in models if m.get('type') == model_type]
+        return models
     
-    def load(self, name: str, model_type: str = None) -> bool:
+    def get_default_model(self) -> Optional[str]:
+        """获取默认推荐模型"""
+        return MODEL_INDEX.get('default') if MODEL_INDEX else None
+    
+    def find_by_name(self, name: str, model_type: str = None) -> Optional[Dict]:
+        """根据名称查找模型"""
+        models = self.list_models(model_type)
+        name_lower = name.lower()
+        for m in models:
+            if m['name'].lower() == name_lower or name_lower in m['name'].lower():
+                return m
+        return None
+    
+    def load(self, name: str = None, model_type: str = None) -> bool:
         """加载模型"""
-        # 查找模型
-        all_models = self.list_models()
-        target = None
-        for m in all_models:
-            if m["name"] == name:
-                target = m
-                break
+        if name is None:
+            # 使用 config 中解析的路径
+            path = SD_MODEL_PATH
+            if not path or not os.path.exists(path):
+                print(f"❌ 模型路径不存在: {path}")
+                return False
+            return self._load_from_path(path)
         
+        target = self.find_by_name(name, model_type)
         if not target:
             print(f"❌ 模型不存在: {name}")
             return False
         
-        self.unload()
+        path = resolve_model_path_from_index(target)
+        if not path or not os.path.exists(path):
+            print(f"❌ 模型文件不存在: {path}")
+            return False
         
+        return self._load_from_path(path)
+    
+    def _load_from_path(self, path: str) -> bool:
+        """从路径加载模型"""
+        self.unload()
         try:
-            print(f"📦 加载模型: {name} ({target['type'].upper()})")
-            self.model_type = target["type"]
+            # 自动判断类型
+            is_sdxl = "sdxl" in path.lower() or "xl" in path.lower()
+            model_type = "sdxl" if is_sdxl else "sd15"
             
-            if target["type"] == "sdxl":
+            print(f"📦 加载模型: {os.path.basename(path)} ({model_type.upper()})")
+            self.model_type = model_type
+            self._current_path = path
+            
+            if model_type == "sdxl":
                 self.pipeline = StableDiffusionXLPipeline.from_single_file(
-                    target["path"],
-                    torch_dtype=torch.float32,
-                    safety_checker=None,
-                    requires_safety_checker=False,
-                    use_safetensors=True,
+                    path, torch_dtype=torch.float32,
+                    safety_checker=None, requires_safety_checker=False
                 )
             else:
                 self.pipeline = StableDiffusionPipeline.from_single_file(
-                    target["path"],
-                    torch_dtype=torch.float32,
-                    safety_checker=None,
-                    requires_safety_checker=False,
-                    use_safetensors=True,
+                    path, torch_dtype=torch.float32,
+                    safety_checker=None, requires_safety_checker=False
                 )
             
             self.pipeline.to("cpu")
+            self.current = os.path.basename(path)
             
-            # VAE 切片
+            # 优化设置
             if hasattr(self.pipeline, 'vae'):
-                try:
-                    self.pipeline.vae.enable_slicing()
-                except:
-                    pass
-                try:
-                    self.pipeline.vae.enable_tiling()
-                except:
-                    pass
+                try: self.pipeline.vae.enable_slicing()
+                except: pass
+            try: self.pipeline.enable_attention_slicing()
+            except: pass
             
-            # 注意力切片
-            try:
-                self.pipeline.enable_attention_slicing()
-            except:
-                pass
-            
-            # 调度器
-            self.pipeline.scheduler = EulerDiscreteScheduler.from_config(
-                self.pipeline.scheduler.config
-            )
-            
-            self.current = name
-            print(f"✅ 模型加载成功: {name}")
+            print(f"✅ 模型加载成功: {self.current}")
             return True
-            
         except Exception as e:
             print(f"❌ 加载失败: {e}")
-            import traceback
-            traceback.print_exc()
             return False
     
     def unload(self):
-        """卸载模型"""
         if self.pipeline:
-            try:
-                del self.pipeline
-            except:
-                pass
+            try: del self.pipeline
+            except: pass
             self.pipeline = None
         self.current = None
         self.model_type = None
         gc.collect()
-        if torch.cuda.is_available():
-            torch.cuda.empty_cache()
     
-    def get_pipeline(self):
-        return self.pipeline
-    
-    def get_model_type(self) -> str:
-        return self.model_type or "unknown"
+    def get_pipeline(self): return self.pipeline
+    def get_model_type(self) -> str: return self.model_type or "unknown"
+    def is_loaded(self) -> bool: return self.pipeline is not None

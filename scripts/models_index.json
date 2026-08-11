@@ -1,0 +1,420 @@
+{
+  "generated": "2026-08-11T22:51:08.760968",
+  "project_root": "E:\\SD_OpenVINO\\sd_generator",
+  "models_dir": "E:\\SD_OpenVINO\\models\\sd-v1-5",
+  "models_dir_relative": "../models/sd-v1-5",
+  "total_models": 22,
+  "models": [
+    {
+      "name": "anytimeRealistic_v10",
+      "filename": "anytimeRealistic_v10.safetensors",
+      "path": "../models/sd-v1-5/anytimeRealistic_v10.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\anytimeRealistic_v10.safetensors",
+      "size_gb": 1.99,
+      "tags": [
+        "realistic"
+      ],
+      "score": 95,
+      "is_ov": false,
+      "ov_path": null,
+      "ov_absolute_path": null,
+      "version": "10",
+      "modified": "2026-05-22T23:17:45.140277"
+    },
+    {
+      "name": "henmixrealV10_henmixrealV10",
+      "filename": "henmixrealV10_henmixrealV10.safetensors",
+      "path": "../models/sd-v1-5/henmixrealV10_henmixrealV10.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\henmixrealV10_henmixrealV10.safetensors",
+      "size_gb": 2.22,
+      "tags": [
+        "realistic",
+        "anime"
+      ],
+      "score": 92,
+      "is_ov": false,
+      "ov_path": null,
+      "ov_absolute_path": null,
+      "version": "10",
+      "modified": "2026-05-22T23:21:32.577251"
+    },
+    {
+      "name": "nextphoto_v30",
+      "filename": "nextphoto_v30.safetensors",
+      "path": "../models/sd-v1-5/nextphoto_v30.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\nextphoto_v30.safetensors",
+      "size_gb": 1.99,
+      "tags": [
+        "realistic"
+      ],
+      "score": 88,
+      "is_ov": false,
+      "ov_path": null,
+      "ov_absolute_path": null,
+      "version": "30",
+      "modified": "2026-05-23T00:09:45.424002"
+    },
+    {
+      "name": "realisticmix_iiV12Version12",
+      "filename": "realisticmix_iiV12Version12.safetensors",
+      "path": "../models/sd-v1-5/realisticmix_iiV12Version12.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\realisticmix_iiV12Version12.safetensors",
+      "size_gb": 3.97,
+      "tags": [
+        "realistic",
+        "anime"
+      ],
+      "score": 85,
+      "is_ov": false,
+      "ov_path": null,
+      "ov_absolute_path": null,
+      "version": "12",
+      "modified": "2026-05-23T00:31:50.376620"
+    },
+    {
+      "name": "shmRealistic_v40",
+      "filename": "shmRealistic_v40.safetensors",
+      "path": "../models/sd-v1-5/shmRealistic_v40.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\shmRealistic_v40.safetensors",
+      "size_gb": 3.97,
+      "tags": [
+        "realistic"
+      ],
+      "score": 85,
+      "is_ov": false,
+      "ov_path": null,
+      "ov_absolute_path": null,
+      "version": "40",
+      "modified": "2026-05-23T00:31:30.899166"
+    },
+    {
+      "name": "DreamShaper_8_pruned",
+      "filename": "DreamShaper_8_pruned.safetensors",
+      "path": "../models/sd-v1-5/DreamShaper_8_pruned.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\DreamShaper_8_pruned.safetensors",
+      "size_gb": 1.99,
+      "tags": [
+        "anime",
+        "fantasy"
+      ],
+      "score": 82,
+      "is_ov": false,
+      "ov_path": null,
+      "ov_absolute_path": null,
+      "version": null,
+      "modified": "2026-05-28T08:35:02.328189"
+    },
+    {
+      "name": "asianrealisticSdlife_v40",
+      "filename": "asianrealisticSdlife_v40.safetensors",
+      "path": "../models/sd-v1-5/asianrealisticSdlife_v40.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\asianrealisticSdlife_v40.safetensors",
+      "size_gb": 3.06,
+      "tags": [
+        "realistic",
+        "east_asian"
+      ],
+      "score": 80,
+      "is_ov": false,
+      "ov_path": null,
+      "ov_absolute_path": null,
+      "version": "40",
+      "modified": "2026-05-22T22:45:42.786103"
+    },
+    {
+      "name": "detailAsianRealistic_v60X21b",
+      "filename": "detailAsianRealistic_v60X21b.safetensors",
+      "path": "../models/sd-v1-5/detailAsianRealistic_v60X21b.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\detailAsianRealistic_v60X21b.safetensors",
+      "size_gb": 1.99,
+      "tags": [
+        "realistic",
+        "east_asian",
+        "portrait"
+      ],
+      "score": 80,
+      "is_ov": false,
+      "ov_path": null,
+      "ov_absolute_path": null,
+      "version": "60",
+      "modified": "2026-05-22T22:41:42.528119"
+    },
+    {
+      "name": "real_asia",
+      "filename": "real_asia.safetensors",
+      "path": "../models/sd-v1-5/real_asia.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\real_asia.safetensors",
+      "size_gb": 1.7,
+      "tags": [
+        "realistic"
+      ],
+      "score": 80,
+      "is_ov": false,
+      "ov_path": null,
+      "ov_absolute_path": null,
+      "version": null,
+      "modified": "2026-05-24T13:38:01.206273"
+    },
+    {
+      "name": "t3_sdVer3",
+      "filename": "t3_sdVer3.safetensors",
+      "path": "../models/sd-v1-5/t3_sdVer3.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\t3_sdVer3.safetensors",
+      "size_gb": 4.51,
+      "tags": [],
+      "score": 75,
+      "is_ov": false,
+      "ov_path": null,
+      "ov_absolute_path": null,
+      "version": null,
+      "modified": "2026-05-23T00:31:48.760255"
+    },
+    {
+      "name": "zemihr_v2",
+      "filename": "zemihr_v2.safetensors",
+      "path": "../models/sd-v1-5/zemihr_v2.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\zemihr_v2.safetensors",
+      "size_gb": 1.99,
+      "tags": [
+        "realistic"
+      ],
+      "score": 75,
+      "is_ov": false,
+      "ov_path": null,
+      "ov_absolute_path": null,
+      "version": "2",
+      "modified": "2026-05-23T08:36:17.147236"
+    },
+    {
+      "name": "girlMix_V2",
+      "filename": "girlMix_V2.safetensors",
+      "path": "../models/sd-v1-5/girlMix_V2.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\girlMix_V2.safetensors",
+      "size_gb": 2.91,
+      "tags": [
+        "anime"
+      ],
+      "score": 70,
+      "is_ov": false,
+      "ov_path": null,
+      "ov_absolute_path": null,
+      "version": "2",
+      "modified": "2026-05-22T23:23:30.046585"
+    },
+    {
+      "name": "nexblendmixVividAsian_v10",
+      "filename": "nexblendmixVividAsian_v10.safetensors",
+      "path": "../models/sd-v1-5/nexblendmixVividAsian_v10.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\nexblendmixVividAsian_v10.safetensors",
+      "size_gb": 1.99,
+      "tags": [
+        "anime",
+        "east_asian"
+      ],
+      "score": 68,
+      "is_ov": false,
+      "ov_path": null,
+      "ov_absolute_path": null,
+      "version": "10",
+      "modified": "2026-06-19T23:49:52.244081"
+    },
+    {
+      "name": "ultimixFantastic_v11",
+      "filename": "ultimixFantastic_v11.safetensors",
+      "path": "../models/sd-v1-5/ultimixFantastic_v11.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\ultimixFantastic_v11.safetensors",
+      "size_gb": 1.99,
+      "tags": [
+        "anime",
+        "fantasy"
+      ],
+      "score": 65,
+      "is_ov": false,
+      "ov_path": null,
+      "ov_absolute_path": null,
+      "version": "11",
+      "modified": "2026-05-23T08:45:28.143270"
+    },
+    {
+      "name": "aiiiiii01_v10",
+      "filename": "aiiiiii01_v10.safetensors",
+      "path": "../models/sd-v1-5/aiiiiii01_v10.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\aiiiiii01_v10.safetensors",
+      "size_gb": 1.99,
+      "tags": [],
+      "score": 50,
+      "is_ov": false,
+      "ov_path": null,
+      "ov_absolute_path": null,
+      "version": "10",
+      "modified": "2026-05-23T00:09:33.064989"
+    },
+    {
+      "name": "anycharactermixBaked_v20BakedVae",
+      "filename": "anycharactermixBaked_v20BakedVae.safetensors",
+      "path": "../models/sd-v1-5/anycharactermixBaked_v20BakedVae.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\anycharactermixBaked_v20BakedVae.safetensors",
+      "size_gb": 3.97,
+      "tags": [
+        "anime"
+      ],
+      "score": 50,
+      "is_ov": false,
+      "ov_path": null,
+      "ov_absolute_path": null,
+      "version": "20",
+      "modified": "2026-05-23T08:58:02.787263"
+    },
+    {
+      "name": "evalisenniaRealisticEastAsian_v40",
+      "filename": "evalisenniaRealisticEastAsian_v40.safetensors",
+      "path": "../models/sd-v1-5/evalisenniaRealisticEastAsian_v40.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\evalisenniaRealisticEastAsian_v40.safetensors",
+      "size_gb": 6.46,
+      "tags": [
+        "realistic",
+        "east_asian"
+      ],
+      "score": 50,
+      "is_ov": false,
+      "ov_path": null,
+      "ov_absolute_path": null,
+      "version": "40",
+      "modified": "2026-06-20T00:20:32.123705"
+    },
+    {
+      "name": "evalisenniaSD15Ultra_v20",
+      "filename": "evalisenniaSD15Ultra_v20.safetensors",
+      "path": "../models/sd-v1-5/evalisenniaSD15Ultra_v20.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\evalisenniaSD15Ultra_v20.safetensors",
+      "size_gb": 2.96,
+      "tags": [],
+      "score": 50,
+      "is_ov": false,
+      "ov_path": null,
+      "ov_absolute_path": null,
+      "version": "20",
+      "modified": "2026-06-19T23:57:48.947535"
+    },
+    {
+      "name": "fantasticchixHR_v10Fp16NoEma",
+      "filename": "fantasticchixHR_v10Fp16NoEma.safetensors",
+      "path": "../models/sd-v1-5/fantasticchixHR_v10Fp16NoEma.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\fantasticchixHR_v10Fp16NoEma.safetensors",
+      "size_gb": 2.24,
+      "tags": [
+        "anime",
+        "fantasy"
+      ],
+      "score": 50,
+      "is_ov": false,
+      "ov_path": null,
+      "ov_absolute_path": null,
+      "version": "10",
+      "modified": "2026-05-23T08:48:58.753767"
+    },
+    {
+      "name": "nexblendApex04Asian_v10",
+      "filename": "nexblendApex04Asian_v10.safetensors",
+      "path": "../models/sd-v1-5/nexblendApex04Asian_v10.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\nexblendApex04Asian_v10.safetensors",
+      "size_gb": 1.99,
+      "tags": [
+        "east_asian"
+      ],
+      "score": 50,
+      "is_ov": false,
+      "ov_path": null,
+      "ov_absolute_path": null,
+      "version": "10",
+      "modified": "2026-06-19T23:49:39.744943"
+    },
+    {
+      "name": "sd-v1-5-inpainting-tiny",
+      "filename": "sd-v1-5-inpainting-tiny.safetensors",
+      "path": "../models/sd-v1-5/sd-v1-5-inpainting-tiny.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\sd-v1-5-inpainting-tiny.safetensors",
+      "size_gb": 1.99,
+      "tags": [
+        "artistic",
+        "tiny"
+      ],
+      "score": 50,
+      "is_ov": false,
+      "ov_path": null,
+      "ov_absolute_path": null,
+      "version": "1",
+      "modified": "2026-07-07T02:13:27.068436"
+    },
+    {
+      "name": "sd-v1-5-tiny",
+      "filename": "sd-v1-5-tiny.safetensors",
+      "path": "../models/sd-v1-5/sd-v1-5-tiny.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\sd-v1-5-tiny.safetensors",
+      "size_gb": 1.99,
+      "tags": [
+        "tiny"
+      ],
+      "score": 50,
+      "is_ov": false,
+      "ov_path": null,
+      "ov_absolute_path": null,
+      "version": "1",
+      "modified": "2026-07-07T02:13:16.422483"
+    }
+  ],
+  "default": "anytimeRealistic_v10",
+  "categories": {
+    "realistic": [
+      "anytimeRealistic_v10",
+      "henmixrealV10_henmixrealV10",
+      "nextphoto_v30",
+      "realisticmix_iiV12Version12",
+      "shmRealistic_v40",
+      "asianrealisticSdlife_v40",
+      "detailAsianRealistic_v60X21b",
+      "real_asia",
+      "zemihr_v2",
+      "evalisenniaRealisticEastAsian_v40"
+    ],
+    "anime": [
+      "henmixrealV10_henmixrealV10",
+      "realisticmix_iiV12Version12",
+      "DreamShaper_8_pruned",
+      "girlMix_V2",
+      "nexblendmixVividAsian_v10",
+      "ultimixFantastic_v11",
+      "anycharactermixBaked_v20BakedVae",
+      "fantasticchixHR_v10Fp16NoEma"
+    ],
+    "artistic": [
+      "sd-v1-5-inpainting-tiny"
+    ],
+    "east_asian": [
+      "asianrealisticSdlife_v40",
+      "detailAsianRealistic_v60X21b",
+      "nexblendmixVividAsian_v10",
+      "evalisenniaRealisticEastAsian_v40",
+      "nexblendApex04Asian_v10"
+    ],
+    "portrait": [
+      "detailAsianRealistic_v60X21b"
+    ],
+    "landscape": [],
+    "fantasy": [
+      "DreamShaper_8_pruned",
+      "ultimixFantastic_v11",
+      "fantasticchixHR_v10Fp16NoEma"
+    ],
+    "tiny": [
+      "sd-v1-5-inpainting-tiny",
+      "sd-v1-5-tiny"
+    ]
+  },
+  "legacy_mapping": {
+    "0": "aiiiii01_v10.safetensors",
+    "1": "anytimeRealistic_v10.safetensors",
+    "2": "henmixrealV10_henmixrealV10.safetensors",
+    "3": "sd-v1-5-tiny.safetensors"
+  }
+}

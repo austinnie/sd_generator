@@ -1,0 +1,2596 @@
+{
+  "generated": "2026-08-11T22:51:09.214243",
+  "project_root": "E:\\SD_OpenVINO\\sd_generator",
+  "lora_dir": "E:\\SD_OpenVINO\\models\\sd15-lora",
+  "lora_dir_relative": "../models/sd15-lora",
+  "total_loras": 183,
+  "loras": [
+    {
+      "name": "MechaGirlFigure_v1",
+      "filename": "MechaGirlFigure_v1.safetensors",
+      "path": "../models/sd15-lora/MechaGirlFigure_v1.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\MechaGirlFigure_v1.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "mecha"
+      ],
+      "score": 95,
+      "version": "1",
+      "modified": "2026-08-07T22:33:51.969795"
+    },
+    {
+      "name": "AMechaSSS",
+      "filename": "AMechaSSS.safetensors",
+      "path": "../models/sd15-lora/AMechaSSS.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\AMechaSSS.safetensors",
+      "size_mb": 72.11,
+      "tags": [
+        "mecha"
+      ],
+      "score": 92,
+      "version": null,
+      "modified": "2026-08-07T22:29:00.850905"
+    },
+    {
+      "name": "mecha_offset",
+      "filename": "mecha_offset.safetensors",
+      "path": "../models/sd15-lora/mecha_offset.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\mecha_offset.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "mecha"
+      ],
+      "score": 90,
+      "version": null,
+      "modified": "2026-08-07T22:32:13.476676"
+    },
+    {
+      "name": "Mechav2_1.0",
+      "filename": "Mechav2_1.0.safetensors",
+      "path": "../models/sd15-lora/Mechav2_1.0.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\Mechav2_1.0.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "mecha"
+      ],
+      "score": 88,
+      "version": "2",
+      "modified": "2026-08-07T22:33:45.901836"
+    },
+    {
+      "name": "MechaGirl_v1",
+      "filename": "MechaGirl_v1.safetensors",
+      "path": "../models/sd15-lora/MechaGirl_v1.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\MechaGirl_v1.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "mecha"
+      ],
+      "score": 85,
+      "version": "1",
+      "modified": "2026-08-07T22:33:52.591127"
+    },
+    {
+      "name": "mecha_girl",
+      "filename": "mecha_girl.safetensors",
+      "path": "../models/sd15-lora/mecha_girl.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\mecha_girl.safetensors",
+      "size_mb": 37.27,
+      "tags": [
+        "mecha"
+      ],
+      "score": 82,
+      "version": null,
+      "modified": "2026-08-07T22:30:30.973073"
+    },
+    {
+      "name": "eula",
+      "filename": "eula.safetensors",
+      "path": "../models/sd15-lora/eula.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\eula.safetensors",
+      "size_mb": 116.52,
+      "tags": [
+        "character"
+      ],
+      "score": 80,
+      "version": null,
+      "modified": "2026-05-22T22:45:00.282039"
+    },
+    {
+      "name": "eula_noface",
+      "filename": "eula_noface.safetensors",
+      "path": "../models/sd15-lora/eula_noface.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\eula_noface.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "character"
+      ],
+      "score": 80,
+      "version": null,
+      "modified": "2026-05-23T07:30:42.162196"
+    },
+    {
+      "name": "eula_v2",
+      "filename": "eula_v2.safetensors",
+      "path": "../models/sd15-lora/eula_v2.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\eula_v2.safetensors",
+      "size_mb": 36.21,
+      "tags": [
+        "character"
+      ],
+      "score": 80,
+      "version": "2",
+      "modified": "2026-05-23T07:29:48.601235"
+    },
+    {
+      "name": "eula_v3",
+      "filename": "eula_v3.safetensors",
+      "path": "../models/sd15-lora/eula_v3.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\eula_v3.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "character"
+      ],
+      "score": 80,
+      "version": "3",
+      "modified": "2026-05-23T07:29:56.904669"
+    },
+    {
+      "name": "chunli",
+      "filename": "chunli.safetensors",
+      "path": "../models/sd15-lora/chunli.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\chunli.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "character"
+      ],
+      "score": 78,
+      "version": null,
+      "modified": "2026-05-22T22:41:52.322983"
+    },
+    {
+      "name": "chunli_cos",
+      "filename": "chunli_cos.safetensors",
+      "path": "../models/sd15-lora/chunli_cos.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\chunli_cos.safetensors",
+      "size_mb": 72.11,
+      "tags": [
+        "character",
+        "cosplay"
+      ],
+      "score": 78,
+      "version": null,
+      "modified": "2026-05-22T23:53:00.223590"
+    },
+    {
+      "name": "tifa",
+      "filename": "tifa.safetensors",
+      "path": "../models/sd15-lora/tifa.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\tifa.safetensors",
+      "size_mb": 18.11,
+      "tags": [
+        "character"
+      ],
+      "score": 75,
+      "version": null,
+      "modified": "2026-05-23T07:41:34.740426"
+    },
+    {
+      "name": "yor",
+      "filename": "yor.safetensors",
+      "path": "../models/sd15-lora/yor.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\yor.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "character"
+      ],
+      "score": 73,
+      "version": null,
+      "modified": "2026-05-22T23:10:01.872204"
+    },
+    {
+      "name": "asian_beauty",
+      "filename": "asian_beauty.safetensors",
+      "path": "../models/sd15-lora/asian_beauty.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\asian_beauty.safetensors",
+      "size_mb": 82.06,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 70,
+      "version": null,
+      "modified": "2026-05-22T08:23:37.527210"
+    },
+    {
+      "name": "hanfu_transparent",
+      "filename": "hanfu_transparent.safetensors",
+      "path": "../models/sd15-lora/hanfu_transparent.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\hanfu_transparent.safetensors",
+      "size_mb": 72.11,
+      "tags": [
+        "asian"
+      ],
+      "score": 68,
+      "version": null,
+      "modified": "2026-05-22T23:57:22.746661"
+    },
+    {
+      "name": "qipao_bluegreen",
+      "filename": "qipao_bluegreen.safetensors",
+      "path": "../models/sd15-lora/qipao_bluegreen.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\qipao_bluegreen.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "clothing"
+      ],
+      "score": 65,
+      "version": null,
+      "modified": "2026-05-22T22:37:31.695167"
+    },
+    {
+      "name": "busty_slider",
+      "filename": "busty_slider.safetensors",
+      "path": "../models/sd15-lora/busty_slider.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\busty_slider.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "body"
+      ],
+      "score": 60,
+      "version": null,
+      "modified": "2026-07-13T00:01:52.144967"
+    },
+    {
+      "name": "airi_shadowstrike",
+      "filename": "airi_shadowstrike.safetensors",
+      "path": "../models/sd15-lora/airi_shadowstrike.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\airi_shadowstrike.safetensors",
+      "size_mb": 72.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:20:57.892959"
+    },
+    {
+      "name": "akiryomai_realistic",
+      "filename": "akiryomai_realistic.safetensors",
+      "path": "../models/sd15-lora/akiryomai_realistic.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\akiryomai_realistic.safetensors",
+      "size_mb": 39.9,
+      "tags": [
+        "style"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:09:30.752287"
+    },
+    {
+      "name": "albedo",
+      "filename": "albedo.safetensors",
+      "path": "../models/sd15-lora/albedo.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\albedo.safetensors",
+      "size_mb": 109.13,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-24T13:23:08.640147"
+    },
+    {
+      "name": "alessandra",
+      "filename": "alessandra.safetensors",
+      "path": "../models/sd15-lora/alessandra.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\alessandra.safetensors",
+      "size_mb": 18.12,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T07:34:34.687067"
+    },
+    {
+      "name": "angie",
+      "filename": "angie.safetensors",
+      "path": "../models/sd15-lora/angie.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\angie.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T07:43:09.597427"
+    },
+    {
+      "name": "anne_mary",
+      "filename": "anne_mary.safetensors",
+      "path": "../models/sd15-lora/anne_mary.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\anne_mary.safetensors",
+      "size_mb": 35.01,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T22:56:35.470981"
+    },
+    {
+      "name": "aqua",
+      "filename": "aqua.safetensors",
+      "path": "../models/sd15-lora/aqua.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\aqua.safetensors",
+      "size_mb": 162.64,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-24T13:50:10.117644"
+    },
+    {
+      "name": "arachi",
+      "filename": "arachi.safetensors",
+      "path": "../models/sd15-lora/arachi.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\arachi.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T07:41:37.904408"
+    },
+    {
+      "name": "arboliva",
+      "filename": "arboliva.safetensors",
+      "path": "../models/sd15-lora/arboliva.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\arboliva.safetensors",
+      "size_mb": 18.12,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:15:54.060585"
+    },
+    {
+      "name": "ayane",
+      "filename": "ayane.safetensors",
+      "path": "../models/sd15-lora/ayane.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\ayane.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T22:45:53.489851"
+    },
+    {
+      "name": "barghest_swim",
+      "filename": "barghest_swim.safetensors",
+      "path": "../models/sd15-lora/barghest_swim.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\barghest_swim.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "clothing"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T22:57:03.943535"
+    },
+    {
+      "name": "beauty_masters",
+      "filename": "beauty_masters.safetensors",
+      "path": "../models/sd15-lora/beauty_masters.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\beauty_masters.safetensors",
+      "size_mb": 18.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T07:54:19.856954"
+    },
+    {
+      "name": "belle",
+      "filename": "belle.safetensors",
+      "path": "../models/sd15-lora/belle.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\belle.safetensors",
+      "size_mb": 72.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T07:47:32.141235"
+    },
+    {
+      "name": "better_cleavage",
+      "filename": "better_cleavage.safetensors",
+      "path": "../models/sd15-lora/better_cleavage.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\better_cleavage.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "body"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T07:47:13.189055"
+    },
+    {
+      "name": "bgirl",
+      "filename": "bgirl.safetensors",
+      "path": "../models/sd15-lora/bgirl.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\bgirl.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T07:40:49.037642"
+    },
+    {
+      "name": "blue_lace_dress",
+      "filename": "blue_lace_dress.safetensors",
+      "path": "../models/sd15-lora/blue_lace_dress.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\blue_lace_dress.safetensors",
+      "size_mb": 72.11,
+      "tags": [
+        "clothing"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:33:10.993491"
+    },
+    {
+      "name": "boobs",
+      "filename": "boobs.safetensors",
+      "path": "../models/sd15-lora/boobs.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\boobs.safetensors",
+      "size_mb": 109.14,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-24T13:54:02.719855"
+    },
+    {
+      "name": "bsmt",
+      "filename": "bsmt.safetensors",
+      "path": "../models/sd15-lora/bsmt.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\bsmt.safetensors",
+      "size_mb": 72.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T07:47:45.027512"
+    },
+    {
+      "name": "cattleya_glory",
+      "filename": "cattleya_glory.safetensors",
+      "path": "../models/sd15-lora/cattleya_glory.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\cattleya_glory.safetensors",
+      "size_mb": 18.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T07:56:23.310667"
+    },
+    {
+      "name": "cat_maid",
+      "filename": "cat_maid.safetensors",
+      "path": "../models/sd15-lora/cat_maid.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\cat_maid.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "clothing"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:54:10.867754"
+    },
+    {
+      "name": "china_dress",
+      "filename": "china_dress.safetensors",
+      "path": "../models/sd15-lora/china_dress.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\china_dress.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "clothing",
+        "asian"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:39:05.011705"
+    },
+    {
+      "name": "Chinese dragon-000014",
+      "filename": "Chinese dragon-000014.safetensors",
+      "path": "../models/sd15-lora/Chinese dragon-000014.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\Chinese dragon-000014.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "fantasy"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-08-02T22:26:18.878934"
+    },
+    {
+      "name": "chutxkan",
+      "filename": "chutxkan.safetensors",
+      "path": "../models/sd15-lora/chutxkan.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\chutxkan.safetensors",
+      "size_mb": 72.14,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T08:35:53.221269"
+    },
+    {
+      "name": "clothed",
+      "filename": "clothed.safetensors",
+      "path": "../models/sd15-lora/clothed.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\clothed.safetensors",
+      "size_mb": 74.32,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-24T14:08:10.859208"
+    },
+    {
+      "name": "coco",
+      "filename": "coco.safetensors",
+      "path": "../models/sd15-lora/coco.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\coco.safetensors",
+      "size_mb": 144.12,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T08:39:08.870351"
+    },
+    {
+      "name": "colored_contacts",
+      "filename": "colored_contacts.safetensors",
+      "path": "../models/sd15-lora/colored_contacts.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\colored_contacts.safetensors",
+      "size_mb": 18.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T07:34:51.256680"
+    },
+    {
+      "name": "comp_swim",
+      "filename": "comp_swim.safetensors",
+      "path": "../models/sd15-lora/comp_swim.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\comp_swim.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "clothing"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:37:55.290616"
+    },
+    {
+      "name": "cross_short",
+      "filename": "cross_short.safetensors",
+      "path": "../models/sd15-lora/cross_short.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\cross_short.safetensors",
+      "size_mb": 72.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:45:21.120548"
+    },
+    {
+      "name": "cure_berry_v2",
+      "filename": "cure_berry_v2.safetensors",
+      "path": "../models/sd15-lora/cure_berry_v2.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\cure_berry_v2.safetensors",
+      "size_mb": 37.27,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": "2",
+      "modified": "2026-05-23T07:34:10.879228"
+    },
+    {
+      "name": "cybermaid_melanite",
+      "filename": "cybermaid_melanite.safetensors",
+      "path": "../models/sd15-lora/cybermaid_melanite.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\cybermaid_melanite.safetensors",
+      "size_mb": 72.11,
+      "tags": [
+        "clothing"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:45:21.326627"
+    },
+    {
+      "name": "dcp001",
+      "filename": "dcp001.safetensors",
+      "path": "../models/sd15-lora/dcp001.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\dcp001.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:55:56.279823"
+    },
+    {
+      "name": "dcp002",
+      "filename": "dcp002.safetensors",
+      "path": "../models/sd15-lora/dcp002.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\dcp002.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:48:19.700603"
+    },
+    {
+      "name": "dolphin_shorts",
+      "filename": "dolphin_shorts.safetensors",
+      "path": "../models/sd15-lora/dolphin_shorts.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\dolphin_shorts.safetensors",
+      "size_mb": 9.13,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:08:26.391934"
+    },
+    {
+      "name": "dorothy",
+      "filename": "dorothy.safetensors",
+      "path": "../models/sd15-lora/dorothy.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\dorothy.safetensors",
+      "size_mb": 72.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:02:21.698525"
+    },
+    {
+      "name": "edg_bond",
+      "filename": "edg_bond.safetensors",
+      "path": "../models/sd15-lora/edg_bond.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\edg_bond.safetensors",
+      "size_mb": 18.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T07:35:00.958722"
+    },
+    {
+      "name": "elysia_cos",
+      "filename": "elysia_cos.safetensors",
+      "path": "../models/sd15-lora/elysia_cos.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\elysia_cos.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "cosplay"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:15:27.360636"
+    },
+    {
+      "name": "ennezju9",
+      "filename": "ennezju9.safetensors",
+      "path": "../models/sd15-lora/ennezju9.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\ennezju9.safetensors",
+      "size_mb": 72.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:33:21.161936"
+    },
+    {
+      "name": "equitation",
+      "filename": "equitation.safetensors",
+      "path": "../models/sd15-lora/equitation.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\equitation.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:24:48.878735"
+    },
+    {
+      "name": "eunjung",
+      "filename": "eunjung.safetensors",
+      "path": "../models/sd15-lora/eunjung.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\eunjung.safetensors",
+      "size_mb": 18.12,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T07:29:51.891154"
+    },
+    {
+      "name": "european_doll",
+      "filename": "european_doll.safetensors",
+      "path": "../models/sd15-lora/european_doll.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\european_doll.safetensors",
+      "size_mb": 144.34,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T07:30:23.364597"
+    },
+    {
+      "name": "fiona",
+      "filename": "fiona.safetensors",
+      "path": "../models/sd15-lora/fiona.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\fiona.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T10:14:49.680488"
+    },
+    {
+      "name": "geronimo",
+      "filename": "geronimo.safetensors",
+      "path": "../models/sd15-lora/geronimo.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\geronimo.safetensors",
+      "size_mb": 36.12,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:20:16.065937"
+    },
+    {
+      "name": "glaceon",
+      "filename": "glaceon.safetensors",
+      "path": "../models/sd15-lora/glaceon.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\glaceon.safetensors",
+      "size_mb": 18.11,
+      "tags": [
+        "clothing"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:15:34.961854"
+    },
+    {
+      "name": "gongbi",
+      "filename": "gongbi.safetensors",
+      "path": "../models/sd15-lora/gongbi.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\gongbi.safetensors",
+      "size_mb": 14.64,
+      "tags": [
+        "style"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:16:25.604209"
+    },
+    {
+      "name": "guqinghan",
+      "filename": "guqinghan.safetensors",
+      "path": "../models/sd15-lora/guqinghan.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\guqinghan.safetensors",
+      "size_mb": 72.11,
+      "tags": [
+        "asian"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:38:35.349937"
+    },
+    {
+      "name": "g_20230717",
+      "filename": "g_20230717.safetensors",
+      "path": "../models/sd15-lora/g_20230717.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\g_20230717.safetensors",
+      "size_mb": 108.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:55:33.720927"
+    },
+    {
+      "name": "hard_zipping",
+      "filename": "hard_zipping.safetensors",
+      "path": "../models/sd15-lora/hard_zipping.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\hard_zipping.safetensors",
+      "size_mb": 15.67,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:34:06.839974"
+    },
+    {
+      "name": "her7",
+      "filename": "her7.safetensors",
+      "path": "../models/sd15-lora/her7.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\her7.safetensors",
+      "size_mb": 435.39,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-07-13T00:52:57.884599"
+    },
+    {
+      "name": "hot_pants",
+      "filename": "hot_pants.safetensors",
+      "path": "../models/sd15-lora/hot_pants.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\hot_pants.safetensors",
+      "size_mb": 18.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:44:27.352822"
+    },
+    {
+      "name": "houshou_marine",
+      "filename": "houshou_marine.safetensors",
+      "path": "../models/sd15-lora/houshou_marine.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\houshou_marine.safetensors",
+      "size_mb": 72.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:52:32.573762"
+    },
+    {
+      "name": "hu1a4",
+      "filename": "hu1a4.safetensors",
+      "path": "../models/sd15-lora/hu1a4.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\hu1a4.safetensors",
+      "size_mb": 36.12,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:26:29.528616"
+    },
+    {
+      "name": "humantaur",
+      "filename": "humantaur.safetensors",
+      "path": "../models/sd15-lora/humantaur.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\humantaur.safetensors",
+      "size_mb": 86.41,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:17:52.133663"
+    },
+    {
+      "name": "illustrious",
+      "filename": "illustrious.safetensors",
+      "path": "../models/sd15-lora/illustrious.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\illustrious.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:49:52.679490"
+    },
+    {
+      "name": "ishtar",
+      "filename": "ishtar.safetensors",
+      "path": "../models/sd15-lora/ishtar.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\ishtar.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T07:35:39.851387"
+    },
+    {
+      "name": "izayoi_nonomi",
+      "filename": "izayoi_nonomi.safetensors",
+      "path": "../models/sd15-lora/izayoi_nonomi.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\izayoi_nonomi.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:23:33.502486"
+    },
+    {
+      "name": "jill",
+      "filename": "jill.safetensors",
+      "path": "../models/sd15-lora/jill.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\jill.safetensors",
+      "size_mb": 72.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T22:41:54.858249"
+    },
+    {
+      "name": "jiyingying",
+      "filename": "jiyingying.safetensors",
+      "path": "../models/sd15-lora/jiyingying.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\jiyingying.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:37:27.926737"
+    },
+    {
+      "name": "kalawarner",
+      "filename": "kalawarner.safetensors",
+      "path": "../models/sd15-lora/kalawarner.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\kalawarner.safetensors",
+      "size_mb": 36.12,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T07:59:42.125701"
+    },
+    {
+      "name": "kandisi",
+      "filename": "kandisi.safetensors",
+      "path": "../models/sd15-lora/kandisi.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\kandisi.safetensors",
+      "size_mb": 72.11,
+      "tags": [
+        "character"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T22:35:41.118056"
+    },
+    {
+      "name": "kashino_yong",
+      "filename": "kashino_yong.safetensors",
+      "path": "../models/sd15-lora/kashino_yong.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\kashino_yong.safetensors",
+      "size_mb": 36.12,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:37:45.871084"
+    },
+    {
+      "name": "kiara",
+      "filename": "kiara.safetensors",
+      "path": "../models/sd15-lora/kiara.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\kiara.safetensors",
+      "size_mb": 18.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:15:24.506737"
+    },
+    {
+      "name": "kido_saori",
+      "filename": "kido_saori.safetensors",
+      "path": "../models/sd15-lora/kido_saori.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\kido_saori.safetensors",
+      "size_mb": 109.13,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-24T13:49:21.264926"
+    },
+    {
+      "name": "killer_01",
+      "filename": "killer_01.safetensors",
+      "path": "../models/sd15-lora/killer_01.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\killer_01.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:54:27.814585"
+    },
+    {
+      "name": "killer_02",
+      "filename": "killer_02.safetensors",
+      "path": "../models/sd15-lora/killer_02.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\killer_02.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:52:47.945567"
+    },
+    {
+      "name": "killer_03",
+      "filename": "killer_03.safetensors",
+      "path": "../models/sd15-lora/killer_03.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\killer_03.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:46:10.292602"
+    },
+    {
+      "name": "killer_04",
+      "filename": "killer_04.safetensors",
+      "path": "../models/sd15-lora/killer_04.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\killer_04.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:54:08.133121"
+    },
+    {
+      "name": "killer_sheer",
+      "filename": "killer_sheer.safetensors",
+      "path": "../models/sd15-lora/killer_sheer.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\killer_sheer.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:56:03.273496"
+    },
+    {
+      "name": "kimonos",
+      "filename": "kimonos.safetensors",
+      "path": "../models/sd15-lora/kimonos.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\kimonos.safetensors",
+      "size_mb": 37.27,
+      "tags": [
+        "clothing"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T07:36:51.873189"
+    },
+    {
+      "name": "kimono_seethrough",
+      "filename": "kimono_seethrough.safetensors",
+      "path": "../models/sd15-lora/kimono_seethrough.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\kimono_seethrough.safetensors",
+      "size_mb": 36.12,
+      "tags": [
+        "clothing"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:55:12.514952"
+    },
+    {
+      "name": "kisaragi_maya",
+      "filename": "kisaragi_maya.safetensors",
+      "path": "../models/sd15-lora/kisaragi_maya.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\kisaragi_maya.safetensors",
+      "size_mb": 36.12,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:40:39.523778"
+    },
+    {
+      "name": "kitana",
+      "filename": "kitana.safetensors",
+      "path": "../models/sd15-lora/kitana.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\kitana.safetensors",
+      "size_mb": 109.14,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-24T13:26:25.345615"
+    },
+    {
+      "name": "lace_blindfold",
+      "filename": "lace_blindfold.safetensors",
+      "path": "../models/sd15-lora/lace_blindfold.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\lace_blindfold.safetensors",
+      "size_mb": 72.11,
+      "tags": [
+        "clothing"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:43:53.378547"
+    },
+    {
+      "name": "lace_mini",
+      "filename": "lace_mini.safetensors",
+      "path": "../models/sd15-lora/lace_mini.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\lace_mini.safetensors",
+      "size_mb": 9.11,
+      "tags": [
+        "clothing"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:32:03.825778"
+    },
+    {
+      "name": "lace_nightgown",
+      "filename": "lace_nightgown.safetensors",
+      "path": "../models/sd15-lora/lace_nightgown.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\lace_nightgown.safetensors",
+      "size_mb": 36.12,
+      "tags": [
+        "clothing"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:36:54.781586"
+    },
+    {
+      "name": "leia",
+      "filename": "leia.safetensors",
+      "path": "../models/sd15-lora/leia.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\leia.safetensors",
+      "size_mb": 18.13,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:26:15.997591"
+    },
+    {
+      "name": "leifang",
+      "filename": "leifang.safetensors",
+      "path": "../models/sd15-lora/leifang.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\leifang.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "character"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:26:50.743705"
+    },
+    {
+      "name": "leifang_v2",
+      "filename": "leifang_v2.safetensors",
+      "path": "../models/sd15-lora/leifang_v2.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\leifang_v2.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "character"
+      ],
+      "score": 50,
+      "version": "2",
+      "modified": "2026-05-23T08:46:13.876727"
+    },
+    {
+      "name": "leila",
+      "filename": "leila.safetensors",
+      "path": "../models/sd15-lora/leila.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\leila.safetensors",
+      "size_mb": 18.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:26:07.385513"
+    },
+    {
+      "name": "leilei",
+      "filename": "leilei.safetensors",
+      "path": "../models/sd15-lora/leilei.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\leilei.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:46:06.082575"
+    },
+    {
+      "name": "leipzig",
+      "filename": "leipzig.safetensors",
+      "path": "../models/sd15-lora/leipzig.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\leipzig.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:46:53.804008"
+    },
+    {
+      "name": "lei_lei",
+      "filename": "lei_lei.safetensors",
+      "path": "../models/sd15-lora/lei_lei.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\lei_lei.safetensors",
+      "size_mb": 18.13,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:25:30.067618"
+    },
+    {
+      "name": "linghan",
+      "filename": "linghan.safetensors",
+      "path": "../models/sd15-lora/linghan.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\linghan.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "asian"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:40:35.448416"
+    },
+    {
+      "name": "long_dress_h6",
+      "filename": "long_dress_h6.safetensors",
+      "path": "../models/sd15-lora/long_dress_h6.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\long_dress_h6.safetensors",
+      "size_mb": 18.11,
+      "tags": [
+        "clothing"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:40:42.242543"
+    },
+    {
+      "name": "LoRA Collection of Trauter's",
+      "filename": "LoRA Collection of Trauter's.safetensors",
+      "path": "../models/sd15-lora/LoRA Collection of Trauter's.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\LoRA Collection of Trauter's.safetensors",
+      "size_mb": 144.08,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-07-14T08:17:32.198656"
+    },
+    {
+      "name": "Lora4Cute_girl_mix4",
+      "filename": "Lora4Cute_girl_mix4.safetensors",
+      "path": "../models/sd15-lora/Lora4Cute_girl_mix4.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\Lora4Cute_girl_mix4.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-07-14T08:00:56.505882"
+    },
+    {
+      "name": "Lora4FigmaAnimeFigures",
+      "filename": "Lora4FigmaAnimeFigures.safetensors",
+      "path": "../models/sd15-lora/Lora4FigmaAnimeFigures.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\Lora4FigmaAnimeFigures.safetensors",
+      "size_mb": 147.94,
+      "tags": [
+        "style"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-07-14T08:10:28.535927"
+    },
+    {
+      "name": "Lora4guofeng3_Dream",
+      "filename": "Lora4guofeng3_Dream.safetensors",
+      "path": "../models/sd15-lora/Lora4guofeng3_Dream.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\Lora4guofeng3_Dream.safetensors",
+      "size_mb": 14.74,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-07-14T07:55:29.125673"
+    },
+    {
+      "name": "Lora4guofeng3_WuMo2",
+      "filename": "Lora4guofeng3_WuMo2.safetensors",
+      "path": "../models/sd15-lora/Lora4guofeng3_WuMo2.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\Lora4guofeng3_WuMo2.safetensors",
+      "size_mb": 14.74,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-07-14T07:55:29.634965"
+    },
+    {
+      "name": "lora_000006",
+      "filename": "lora_000006.safetensors",
+      "path": "../models/sd15-lora/lora_000006.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\lora_000006.safetensors",
+      "size_mb": 72.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T07:44:24.226866"
+    },
+    {
+      "name": "lora_1733",
+      "filename": "lora_1733.safetensors",
+      "path": "../models/sd15-lora/lora_1733.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\lora_1733.safetensors",
+      "size_mb": 37.27,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T07:37:31.286941"
+    },
+    {
+      "name": "lora_1760",
+      "filename": "lora_1760.safetensors",
+      "path": "../models/sd15-lora/lora_1760.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\lora_1760.safetensors",
+      "size_mb": 37.27,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T22:42:09.225834"
+    },
+    {
+      "name": "lora_20260212",
+      "filename": "lora_20260212.safetensors",
+      "path": "../models/sd15-lora/lora_20260212.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\lora_20260212.safetensors",
+      "size_mb": 162.25,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:58:40.566926"
+    },
+    {
+      "name": "Lora_20d_new",
+      "filename": "Lora_20d_new.safetensors",
+      "path": "../models/sd15-lora/Lora_20d_new.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\Lora_20d_new.safetensors",
+      "size_mb": 72.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-07-14T08:29:16.137648"
+    },
+    {
+      "name": "Lora_ChilloutMixss3.0",
+      "filename": "Lora_ChilloutMixss3.0.safetensors",
+      "path": "../models/sd15-lora/Lora_ChilloutMixss3.0.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\Lora_ChilloutMixss3.0.safetensors",
+      "size_mb": 72.12,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-07-14T08:30:37.636730"
+    },
+    {
+      "name": "Lora_dunhuang_v20",
+      "filename": "Lora_dunhuang_v20.safetensors",
+      "path": "../models/sd15-lora/Lora_dunhuang_v20.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\Lora_dunhuang_v20.safetensors",
+      "size_mb": 168.53,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": "20",
+      "modified": "2026-07-14T08:38:29.571188"
+    },
+    {
+      "name": "Lora_epiCRealismHelper",
+      "filename": "Lora_epiCRealismHelper.safetensors",
+      "path": "../models/sd15-lora/Lora_epiCRealismHelper.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\Lora_epiCRealismHelper.safetensors",
+      "size_mb": 55.83,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-07-14T08:16:44.383300"
+    },
+    {
+      "name": "Lora_Realistic_Anime",
+      "filename": "Lora_Realistic_Anime.safetensors",
+      "path": "../models/sd15-lora/Lora_Realistic_Anime.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\Lora_Realistic_Anime.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "style"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-07-14T08:31:06.982825"
+    },
+    {
+      "name": "Lora_Reallife",
+      "filename": "Lora_Reallife.safetensors",
+      "path": "../models/sd15-lora/Lora_Reallife.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\Lora_Reallife.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-07-14T08:38:10.291383"
+    },
+    {
+      "name": "lou",
+      "filename": "lou.safetensors",
+      "path": "../models/sd15-lora/lou.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\lou.safetensors",
+      "size_mb": 144.12,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T22:46:11.989026"
+    },
+    {
+      "name": "mei",
+      "filename": "mei.safetensors",
+      "path": "../models/sd15-lora/mei.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\mei.safetensors",
+      "size_mb": 144.12,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T08:24:25.950617"
+    },
+    {
+      "name": "mejiro_kaori",
+      "filename": "mejiro_kaori.safetensors",
+      "path": "../models/sd15-lora/mejiro_kaori.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\mejiro_kaori.safetensors",
+      "size_mb": 18.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:40:40.695590"
+    },
+    {
+      "name": "melanie",
+      "filename": "melanie.safetensors",
+      "path": "../models/sd15-lora/melanie.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\melanie.safetensors",
+      "size_mb": 99.47,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:47:06.070751"
+    },
+    {
+      "name": "meru_kiky",
+      "filename": "meru_kiky.safetensors",
+      "path": "../models/sd15-lora/meru_kiky.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\meru_kiky.safetensors",
+      "size_mb": 36.12,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:40:35.994010"
+    },
+    {
+      "name": "mix4",
+      "filename": "mix4.safetensors",
+      "path": "../models/sd15-lora/mix4.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\mix4.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:04:52.147005"
+    },
+    {
+      "name": "monogatari",
+      "filename": "monogatari.safetensors",
+      "path": "../models/sd15-lora/monogatari.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\monogatari.safetensors",
+      "size_mb": 54.77,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-24T13:47:46.988721"
+    },
+    {
+      "name": "moona_hoshinova",
+      "filename": "moona_hoshinova.safetensors",
+      "path": "../models/sd15-lora/moona_hoshinova.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\moona_hoshinova.safetensors",
+      "size_mb": 72.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:37:39.534661"
+    },
+    {
+      "name": "multi_girls",
+      "filename": "multi_girls.safetensors",
+      "path": "../models/sd15-lora/multi_girls.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\multi_girls.safetensors",
+      "size_mb": 42.24,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:05:26.575441"
+    },
+    {
+      "name": "mune03",
+      "filename": "mune03.safetensors",
+      "path": "../models/sd15-lora/mune03.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\mune03.safetensors",
+      "size_mb": 144.12,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T08:23:43.337464"
+    },
+    {
+      "name": "musashi_azur",
+      "filename": "musashi_azur.safetensors",
+      "path": "../models/sd15-lora/musashi_azur.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\musashi_azur.safetensors",
+      "size_mb": 36.13,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:02:44.304496"
+    },
+    {
+      "name": "nagato_seethrough",
+      "filename": "nagato_seethrough.safetensors",
+      "path": "../models/sd15-lora/nagato_seethrough.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\nagato_seethrough.safetensors",
+      "size_mb": 14.37,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:54:17.334084"
+    },
+    {
+      "name": "natasha",
+      "filename": "natasha.safetensors",
+      "path": "../models/sd15-lora/natasha.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\natasha.safetensors",
+      "size_mb": 217.87,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-07-13T00:41:29.306430"
+    },
+    {
+      "name": "nelson",
+      "filename": "nelson.safetensors",
+      "path": "../models/sd15-lora/nelson.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\nelson.safetensors",
+      "size_mb": 36.12,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T07:59:45.156929"
+    },
+    {
+      "name": "ningrongrong",
+      "filename": "ningrongrong.safetensors",
+      "path": "../models/sd15-lora/ningrongrong.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\ningrongrong.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:40:46.665291"
+    },
+    {
+      "name": "ningyao",
+      "filename": "ningyao.safetensors",
+      "path": "../models/sd15-lora/ningyao.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\ningyao.safetensors",
+      "size_mb": 63.09,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:41:51.846227"
+    },
+    {
+      "name": "ninja_suit",
+      "filename": "ninja_suit.safetensors",
+      "path": "../models/sd15-lora/ninja_suit.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\ninja_suit.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:50:31.248349"
+    },
+    {
+      "name": "nyo",
+      "filename": "nyo.safetensors",
+      "path": "../models/sd15-lora/nyo.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\nyo.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T22:44:39.012911"
+    },
+    {
+      "name": "OC",
+      "filename": "OC.safetensors",
+      "path": "../models/sd15-lora/OC.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\OC.safetensors",
+      "size_mb": 144.12,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-07-14T21:32:49.325628"
+    },
+    {
+      "name": "oil_painting",
+      "filename": "oil_painting.safetensors",
+      "path": "../models/sd15-lora/oil_painting.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\oil_painting.safetensors",
+      "size_mb": 9.11,
+      "tags": [
+        "style"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:08:35.209122"
+    },
+    {
+      "name": "ooaya_mari",
+      "filename": "ooaya_mari.safetensors",
+      "path": "../models/sd15-lora/ooaya_mari.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\ooaya_mari.safetensors",
+      "size_mb": 18.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:34:40.510874"
+    },
+    {
+      "name": "pants_down",
+      "filename": "pants_down.safetensors",
+      "path": "../models/sd15-lora/pants_down.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\pants_down.safetensors",
+      "size_mb": 36.13,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:42:37.578093"
+    },
+    {
+      "name": "PAseerEasternDragonV3",
+      "filename": "PAseerEasternDragonV3.safetensors",
+      "path": "../models/sd15-lora/PAseerEasternDragonV3.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\PAseerEasternDragonV3.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "fantasy"
+      ],
+      "score": 50,
+      "version": "3",
+      "modified": "2026-08-02T22:34:01.708427"
+    },
+    {
+      "name": "pencil_pants",
+      "filename": "pencil_pants.safetensors",
+      "path": "../models/sd15-lora/pencil_pants.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\pencil_pants.safetensors",
+      "size_mb": 18.12,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:44:37.977789"
+    },
+    {
+      "name": "preggo",
+      "filename": "preggo.safetensors",
+      "path": "../models/sd15-lora/preggo.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\preggo.safetensors",
+      "size_mb": 36.13,
+      "tags": [
+        "body"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T22:35:17.390240"
+    },
+    {
+      "name": "public_v3",
+      "filename": "public_v3.safetensors",
+      "path": "../models/sd15-lora/public_v3.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\public_v3.safetensors",
+      "size_mb": 18.75,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": "3",
+      "modified": "2026-05-22T23:03:12.790357"
+    },
+    {
+      "name": "pytorch_weights",
+      "filename": "pytorch_weights.safetensors",
+      "path": "../models/sd15-lora/pytorch_weights.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\pytorch_weights.safetensors",
+      "size_mb": 1.66,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-21T20:02:21.084234"
+    },
+    {
+      "name": "qp_blackflower",
+      "filename": "qp_blackflower.safetensors",
+      "path": "../models/sd15-lora/qp_blackflower.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\qp_blackflower.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T22:36:58.778390"
+    },
+    {
+      "name": "qp_cyan",
+      "filename": "qp_cyan.safetensors",
+      "path": "../models/sd15-lora/qp_cyan.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\qp_cyan.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T22:37:00.661592"
+    },
+    {
+      "name": "qp_shuimo",
+      "filename": "qp_shuimo.safetensors",
+      "path": "../models/sd15-lora/qp_shuimo.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\qp_shuimo.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T22:36:28.768032"
+    },
+    {
+      "name": "realistic_face",
+      "filename": "realistic_face.safetensors",
+      "path": "../models/sd15-lora/realistic_face.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\realistic_face.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "style"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T08:30:52.948385"
+    },
+    {
+      "name": "red_dudou",
+      "filename": "red_dudou.safetensors",
+      "path": "../models/sd15-lora/red_dudou.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\red_dudou.safetensors",
+      "size_mb": 36.12,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T08:30:18.134976"
+    },
+    {
+      "name": "red_envelope",
+      "filename": "red_envelope.safetensors",
+      "path": "../models/sd15-lora/red_envelope.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\red_envelope.safetensors",
+      "size_mb": 29.23,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:14:46.894674"
+    },
+    {
+      "name": "red_snake",
+      "filename": "red_snake.safetensors",
+      "path": "../models/sd15-lora/red_snake.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\red_snake.safetensors",
+      "size_mb": 72.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:02:19.609877"
+    },
+    {
+      "name": "reina_rave",
+      "filename": "reina_rave.safetensors",
+      "path": "../models/sd15-lora/reina_rave.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\reina_rave.safetensors",
+      "size_mb": 18.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T07:54:33.760921"
+    },
+    {
+      "name": "ruyue_zhenling",
+      "filename": "ruyue_zhenling.safetensors",
+      "path": "../models/sd15-lora/ruyue_zhenling.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\ruyue_zhenling.safetensors",
+      "size_mb": 72.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:42:01.446263"
+    },
+    {
+      "name": "sarah",
+      "filename": "sarah.safetensors",
+      "path": "../models/sd15-lora/sarah.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\sarah.safetensors",
+      "size_mb": 144.12,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T08:24:54.793947"
+    },
+    {
+      "name": "satin_seduct",
+      "filename": "satin_seduct.safetensors",
+      "path": "../models/sd15-lora/satin_seduct.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\satin_seduct.safetensors",
+      "size_mb": 162.64,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-24T14:11:16.634591"
+    },
+    {
+      "name": "sb_lyfe",
+      "filename": "sb_lyfe.safetensors",
+      "path": "../models/sd15-lora/sb_lyfe.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\sb_lyfe.safetensors",
+      "size_mb": 36.12,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:50:54.534474"
+    },
+    {
+      "name": "shiraori",
+      "filename": "shiraori.safetensors",
+      "path": "../models/sd15-lora/shiraori.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\shiraori.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:16:21.987519"
+    },
+    {
+      "name": "siemradzki",
+      "filename": "siemradzki.safetensors",
+      "path": "../models/sd15-lora/siemradzki.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\siemradzki.safetensors",
+      "size_mb": 217.89,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-07-07T21:57:46.514349"
+    },
+    {
+      "name": "silky_leisure",
+      "filename": "silky_leisure.safetensors",
+      "path": "../models/sd15-lora/silky_leisure.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\silky_leisure.safetensors",
+      "size_mb": 72.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:37:37.719802"
+    },
+    {
+      "name": "silver_tight",
+      "filename": "silver_tight.safetensors",
+      "path": "../models/sd15-lora/silver_tight.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\silver_tight.safetensors",
+      "size_mb": 72.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:46:00.317944"
+    },
+    {
+      "name": "sirius",
+      "filename": "sirius.safetensors",
+      "path": "../models/sd15-lora/sirius.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\sirius.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "character"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:53:26.765065"
+    },
+    {
+      "name": "sportswear_white",
+      "filename": "sportswear_white.safetensors",
+      "path": "../models/sd15-lora/sportswear_white.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\sportswear_white.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:53:59.093844"
+    },
+    {
+      "name": "sp_000008",
+      "filename": "sp_000008.safetensors",
+      "path": "../models/sd15-lora/sp_000008.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\sp_000008.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:30:09.647522"
+    },
+    {
+      "name": "stockings_black",
+      "filename": "stockings_black.safetensors",
+      "path": "../models/sd15-lora/stockings_black.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\stockings_black.safetensors",
+      "size_mb": 72.12,
+      "tags": [
+        "clothing"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:43:53.236025"
+    },
+    {
+      "name": "stockings_tan",
+      "filename": "stockings_tan.safetensors",
+      "path": "../models/sd15-lora/stockings_tan.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\stockings_tan.safetensors",
+      "size_mb": 72.13,
+      "tags": [
+        "clothing"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:44:29.350463"
+    },
+    {
+      "name": "stocking_teaser",
+      "filename": "stocking_teaser.safetensors",
+      "path": "../models/sd15-lora/stocking_teaser.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\stocking_teaser.safetensors",
+      "size_mb": 36.12,
+      "tags": [
+        "clothing"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T08:14:46.708234"
+    },
+    {
+      "name": "super_busty",
+      "filename": "super_busty.safetensors",
+      "path": "../models/sd15-lora/super_busty.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\super_busty.safetensors",
+      "size_mb": 72.11,
+      "tags": [
+        "body"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:35:27.774946"
+    },
+    {
+      "name": "taiho",
+      "filename": "taiho.safetensors",
+      "path": "../models/sd15-lora/taiho.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\taiho.safetensors",
+      "size_mb": 43.7,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:36:25.177491"
+    },
+    {
+      "name": "tawawa",
+      "filename": "tawawa.safetensors",
+      "path": "../models/sd15-lora/tawawa.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\tawawa.safetensors",
+      "size_mb": 109.14,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-24T13:26:14.845400"
+    },
+    {
+      "name": "ta_trained",
+      "filename": "ta_trained.safetensors",
+      "path": "../models/sd15-lora/ta_trained.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\ta_trained.safetensors",
+      "size_mb": 386.27,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-07-13T00:47:22.977719"
+    },
+    {
+      "name": "teela",
+      "filename": "teela.safetensors",
+      "path": "../models/sd15-lora/teela.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\teela.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:04:11.836331"
+    },
+    {
+      "name": "thin_top",
+      "filename": "thin_top.safetensors",
+      "path": "../models/sd15-lora/thin_top.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\thin_top.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:57:31.083751"
+    },
+    {
+      "name": "transparent_sailor",
+      "filename": "transparent_sailor.safetensors",
+      "path": "../models/sd15-lora/transparent_sailor.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\transparent_sailor.safetensors",
+      "size_mb": 72.11,
+      "tags": [
+        "clothing"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:56:17.320481"
+    },
+    {
+      "name": "trans_dressing",
+      "filename": "trans_dressing.safetensors",
+      "path": "../models/sd15-lora/trans_dressing.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\trans_dressing.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "clothing"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:57:27.210332"
+    },
+    {
+      "name": "tulle_lace",
+      "filename": "tulle_lace.safetensors",
+      "path": "../models/sd15-lora/tulle_lace.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\tulle_lace.safetensors",
+      "size_mb": 72.11,
+      "tags": [
+        "clothing"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:32:57.869344"
+    },
+    {
+      "name": "tutuqpqp",
+      "filename": "tutuqpqp.safetensors",
+      "path": "../models/sd15-lora/tutuqpqp.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\tutuqpqp.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:33:12.625549"
+    },
+    {
+      "name": "volleyball_uniform",
+      "filename": "volleyball_uniform.safetensors",
+      "path": "../models/sd15-lora/volleyball_uniform.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\volleyball_uniform.safetensors",
+      "size_mb": 42.24,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T22:51:00.179757"
+    },
+    {
+      "name": "waist_chain",
+      "filename": "waist_chain.safetensors",
+      "path": "../models/sd15-lora/waist_chain.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\waist_chain.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T22:36:36.297882"
+    },
+    {
+      "name": "wanghong_shuiyi",
+      "filename": "wanghong_shuiyi.safetensors",
+      "path": "../models/sd15-lora/wanghong_shuiyi.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\wanghong_shuiyi.safetensors",
+      "size_mb": 144.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:52:31.314501"
+    },
+    {
+      "name": "white_lace",
+      "filename": "white_lace.safetensors",
+      "path": "../models/sd15-lora/white_lace.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\white_lace.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "clothing"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:32:47.632591"
+    },
+    {
+      "name": "winry",
+      "filename": "winry.safetensors",
+      "path": "../models/sd15-lora/winry.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\winry.safetensors",
+      "size_mb": 36.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T22:41:50.675109"
+    },
+    {
+      "name": "yoga_pants",
+      "filename": "yoga_pants.safetensors",
+      "path": "../models/sd15-lora/yoga_pants.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\yoga_pants.safetensors",
+      "size_mb": 18.11,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T23:44:22.805623"
+    },
+    {
+      "name": "yui_zit",
+      "filename": "yui_zit.safetensors",
+      "path": "../models/sd15-lora/yui_zit.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\yui_zit.safetensors",
+      "size_mb": 162.25,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-22T08:28:34.903913"
+    },
+    {
+      "name": "zara_azur",
+      "filename": "zara_azur.safetensors",
+      "path": "../models/sd15-lora/zara_azur.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sd15-lora\\zara_azur.safetensors",
+      "size_mb": 36.12,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 50,
+      "version": null,
+      "modified": "2026-05-23T08:02:49.109558"
+    }
+  ],
+  "default": "MechaGirlFigure_v1",
+  "categories": {
+    "mecha": [
+      "MechaGirlFigure_v1",
+      "AMechaSSS",
+      "mecha_offset",
+      "Mechav2_1.0",
+      "MechaGirl_v1",
+      "mecha_girl"
+    ],
+    "character": [
+      "eula",
+      "eula_noface",
+      "eula_v2",
+      "eula_v3",
+      "chunli",
+      "chunli_cos",
+      "tifa",
+      "yor",
+      "kandisi",
+      "leifang",
+      "leifang_v2",
+      "sirius"
+    ],
+    "clothing": [
+      "qipao_bluegreen",
+      "barghest_swim",
+      "blue_lace_dress",
+      "cat_maid",
+      "china_dress",
+      "comp_swim",
+      "cybermaid_melanite",
+      "glaceon",
+      "kimonos",
+      "kimono_seethrough",
+      "lace_blindfold",
+      "lace_mini",
+      "lace_nightgown",
+      "long_dress_h6",
+      "stockings_black",
+      "stockings_tan",
+      "stocking_teaser",
+      "transparent_sailor",
+      "trans_dressing",
+      "tulle_lace",
+      "white_lace"
+    ],
+    "style": [
+      "akiryomai_realistic",
+      "gongbi",
+      "Lora4FigmaAnimeFigures",
+      "Lora_Realistic_Anime",
+      "oil_painting",
+      "realistic_face"
+    ],
+    "body": [
+      "busty_slider",
+      "better_cleavage",
+      "preggo",
+      "super_busty"
+    ],
+    "cosplay": [
+      "chunli_cos",
+      "elysia_cos"
+    ],
+    "asian": [
+      "hanfu_transparent",
+      "china_dress",
+      "guqinghan",
+      "linghan"
+    ],
+    "fantasy": [
+      "Chinese dragon-000014",
+      "PAseerEasternDragonV3"
+    ],
+    "uncategorized": [
+      "asian_beauty",
+      "airi_shadowstrike",
+      "albedo",
+      "alessandra",
+      "angie",
+      "anne_mary",
+      "aqua",
+      "arachi",
+      "arboliva",
+      "ayane",
+      "beauty_masters",
+      "belle",
+      "bgirl",
+      "boobs",
+      "bsmt",
+      "cattleya_glory",
+      "chutxkan",
+      "clothed",
+      "coco",
+      "colored_contacts",
+      "cross_short",
+      "cure_berry_v2",
+      "dcp001",
+      "dcp002",
+      "dolphin_shorts",
+      "dorothy",
+      "edg_bond",
+      "ennezju9",
+      "equitation",
+      "eunjung",
+      "european_doll",
+      "fiona",
+      "geronimo",
+      "g_20230717",
+      "hard_zipping",
+      "her7",
+      "hot_pants",
+      "houshou_marine",
+      "hu1a4",
+      "humantaur",
+      "illustrious",
+      "ishtar",
+      "izayoi_nonomi",
+      "jill",
+      "jiyingying",
+      "kalawarner",
+      "kashino_yong",
+      "kiara",
+      "kido_saori",
+      "killer_01",
+      "killer_02",
+      "killer_03",
+      "killer_04",
+      "killer_sheer",
+      "kisaragi_maya",
+      "kitana",
+      "leia",
+      "leila",
+      "leilei",
+      "leipzig",
+      "lei_lei",
+      "LoRA Collection of Trauter's",
+      "Lora4Cute_girl_mix4",
+      "Lora4guofeng3_Dream",
+      "Lora4guofeng3_WuMo2",
+      "lora_000006",
+      "lora_1733",
+      "lora_1760",
+      "lora_20260212",
+      "Lora_20d_new",
+      "Lora_ChilloutMixss3.0",
+      "Lora_dunhuang_v20",
+      "Lora_epiCRealismHelper",
+      "Lora_Reallife",
+      "lou",
+      "mei",
+      "mejiro_kaori",
+      "melanie",
+      "meru_kiky",
+      "mix4",
+      "monogatari",
+      "moona_hoshinova",
+      "multi_girls",
+      "mune03",
+      "musashi_azur",
+      "nagato_seethrough",
+      "natasha",
+      "nelson",
+      "ningrongrong",
+      "ningyao",
+      "ninja_suit",
+      "nyo",
+      "OC",
+      "ooaya_mari",
+      "pants_down",
+      "pencil_pants",
+      "public_v3",
+      "pytorch_weights",
+      "qp_blackflower",
+      "qp_cyan",
+      "qp_shuimo",
+      "red_dudou",
+      "red_envelope",
+      "red_snake",
+      "reina_rave",
+      "ruyue_zhenling",
+      "sarah",
+      "satin_seduct",
+      "sb_lyfe",
+      "shiraori",
+      "siemradzki",
+      "silky_leisure",
+      "silver_tight",
+      "sportswear_white",
+      "sp_000008",
+      "taiho",
+      "tawawa",
+      "ta_trained",
+      "teela",
+      "thin_top",
+      "tutuqpqp",
+      "volleyball_uniform",
+      "waist_chain",
+      "wanghong_shuiyi",
+      "winry",
+      "yoga_pants",
+      "yui_zit",
+      "zara_azur"
+    ]
+  }
+}

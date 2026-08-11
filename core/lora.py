@@ -1,72 +1,76 @@
 # core/lora.py
-"""LoRA 管理 - 支持 SD 1.5 和 SDXL"""
-
 import os
-from typing import List, Dict
+from typing import List, Dict, Optional
 
-from config.app import get_sd15_lora_dir, get_sdxl_lora_dir
+from config.app import AVAILABLE_LORAS, LORA_INDEX, FINAL_LORA_LIST, get_lora_path_by_index
 
 
 class LoraManager:
-    """LoRA 管理器"""
-    
     def __init__(self):
-        self.sd15_dir = get_sd15_lora_dir()
-        self.sdxl_dir = get_sdxl_lora_dir()
+        self._loaded_loras = []
+        self._loras_cache = AVAILABLE_LORAS
     
     def list(self, model_type: str = None) -> List[Dict]:
-        """列出 LoRA，可按类型过滤"""
-        loras = []
+        loras = self._loras_cache
+        if model_type:
+            loras = [l for l in loras if l.get('type') == model_type]
+        return loras
+    
+    def get_default_lora(self) -> Optional[str]:
+        return LORA_INDEX.get('default') if LORA_INDEX else None
+    
+    def find_by_name(self, name: str, model_type: str = None) -> Optional[Dict]:
+        loras = self.list(model_type)
+        name_lower = name.lower()
+        for l in loras:
+            if l['name'].lower() == name_lower or name_lower in l['name'].lower():
+                return l
+        return None
+    
+    def load_by_name(self, pipeline, name: str, weight: float = 1.0,
+                     model_type: str = None) -> bool:
+        lora_info = self.find_by_name(name, model_type)
+        if not lora_info:
+            print(f"❌ 未找到 LoRA: {name}")
+            return False
         
-        # SD 1.5 LoRA
-        if model_type is None or model_type == "sd15":
-            if os.path.exists(self.sd15_dir):
-                for f in os.listdir(self.sd15_dir):
-                    if f.endswith('.safetensors'):
-                        path = os.path.join(self.sd15_dir, f)
-                        loras.append({
-                            "name": f,
-                            "path": path,
-                            "type": "sd15",
-                            "size_mb": round(os.path.getsize(path) / (1024**2), 1),
-                        })
+        # 解析路径
+        path = None
+        if "path" in lora_info and lora_info["path"]:
+            from config.app import PROJECT_ROOT
+            path = os.path.normpath(os.path.join(PROJECT_ROOT, lora_info["path"]))
+        if not path or not os.path.exists(path):
+            if "absolute_path" in lora_info:
+                path = lora_info["absolute_path"]
         
-        # SDXL LoRA
-        if model_type is None or model_type == "sdxl":
-            if os.path.exists(self.sdxl_dir):
-                for f in os.listdir(self.sdxl_dir):
-                    if f.endswith('.safetensors'):
-                        path = os.path.join(self.sdxl_dir, f)
-                        loras.append({
-                            "name": f,
-                            "path": path,
-                            "type": "sdxl",
-                            "size_mb": round(os.path.getsize(path) / (1024**2), 1),
-                        })
+        if not path or not os.path.exists(path):
+            print(f"❌ LoRA 文件不存在: {path}")
+            return False
         
-        return sorted(loras, key=lambda x: x["name"])
+        return self.load(pipeline, path, weight)
     
     def load(self, pipeline, path: str, weight: float = 1.0) -> bool:
-        """加载 LoRA"""
         if not os.path.exists(path):
             print(f"❌ LoRA 不存在: {path}")
             return False
-        
         try:
             pipeline.load_lora_weights(path)
             if weight != 1.0 and hasattr(pipeline, 'set_adapters'):
                 pipeline.set_adapters(["default"], adapter_weights=[weight])
+            self._loaded_loras.append({"path": path, "weight": weight})
             return True
         except Exception as e:
             print(f"❌ LoRA 加载失败: {e}")
             return False
     
     def unload(self, pipeline) -> bool:
-        """卸载 LoRA"""
         try:
             if hasattr(pipeline, 'unload_lora_weights'):
                 pipeline.unload_lora_weights()
+                self._loaded_loras = []
                 return True
-        except:
-            pass
+        except: pass
         return False
+    
+    def get_loaded(self) -> List[Dict]:
+        return self._loaded_loras.copy()
