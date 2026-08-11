@@ -245,7 +245,7 @@ tiger_sketch sketch 猛虎线稿
 添加新风格：在 prompts/ 目录下创建 .py 文件，按照 STYLE 格式定义即可。
 
 七、目录结构
-
+text
 sd_generator/
 ├── cli.py # 命令行入口
 ├── main.py # 交互式入口
@@ -311,6 +311,84 @@ python cli.py --show-config
 9. 清除默认配置
 python cli.py --clear
 
-九、License
+九、支持分层提示词
+(venv) E:\SD_OpenVINO\sd_generator>python cli.py --list-styles
+🤖 智能推荐: anytimeRealistic_v10 (1.99GB)
+
+📚 可用风格 (共 58 个):
+======================================================================
+  [ 0] anime_figure_girl              [hierarchical] 72种组合 -> 动漫手办_女孩
+  [ 1] anime_greyscale_portrait       [hierarchical] 12种组合 -> 灰阶半身动漫
+  [ 2] autumn_anime_portrait          [hierarchical] 13种组合 -> 氛围感动漫少女
+  [ 3] pure_serene                    [flat] 4种组合 -> 清纯壁纸
+  [ 4] bag_blueprint                  [hierarchical] 30种组合 -> 包包设计图
+  [ 5] calligraphy_art                [hierarchical] 1920种组合 -> 名贵字画
+  [ 6] gallery_elegant                [flat] 3种组合 -> 优雅画廊
+  [ 7] gallery_elegant_safe           [hierarchical] 39种组合 -> 优雅画廊_知性清纯
+  [ 8] jewelry_blueprint              [hierarchical] 30种组合 -> 珠宝设计图
+  [ 9] jewelry_showcase               [hierarchical] 81种组合 -> 奢华珠宝
+  [10] pure_serene_safe               [hierarchical] 94种组合 -> 安全壁纸_清纯风景
+  [11] watch_blueprint                [hierarchical] 30种组合 -> 名表线稿蓝图
+  [12] mecha_blueprint                [hierarchical] 192种组合 -> 白模机甲设定集
+  [13] mecha_glow                     [hierarchical] 192种组合 -> 仿生机械美少女
+  [14] bird_sketch                    [hierarchical] 120种组合 -> 极简飞鸟线稿
+  [15] cat_sketch                     [hierarchical] 200种组合 -> 猫咪线稿
+  [16] city_sketch                    [hierarchical] 54种组合 -> 城市建筑线稿
+  [17] cn_painting_art                [hierarchical] 90种组合 -> 珍贵字画_国风
+  [18] crane_sketch                   [hierarchical] 200种组合 -> 仙鹤线稿
+  [19] dog_sketch                     [hierarchical] 200种组合 -> 狗狗线稿
+  [20] dragon_sketch                  [hierarchical] 6种组合 -> 长卷盘龙线稿
+  [21] dragon_sketch_v2               [hierarchical] 4种组合 -> 传统龙纹线稿
+  [22] dragon_sketch_v3               [hierarchical] 4种组合 -> 传统龙纹线稿
+  [23] dragon_vertical_sketch         [hierarchical] 6种组合 -> 竖版盘龙线稿
+  [24] dragon_western_sketch          [hierarchical] 240种组合 -> 西方龙素描
+  [25] eva_sketch                     [hierarchical] 20种组合 -> 动漫机甲_EVA
+  [26] flower_sketch                  [hierarchical] 120种组合 -> 极简花朵线稿
+  [27] gits_sketch                    [hierarchical] 20种组合 -> 动漫机甲_攻壳
+  [28] goat_sketch                    [hierarchical] 128种组合 -> 生肖_未羊
+  [29] gundam_sketch                  [hierarchical] 160种组合 -> 机甲_高达线稿
+  [30] horse_sketch                   [hierarchical] 200种组合 -> 骏马线稿
+  [31] japanese_baseball_girl         [hierarchical] 45种组合 -> 运动人像_女子棒球
+  [32] koi_sketch                     [hierarchical] 200种组合 -> 锦鲤线稿
+  [33] mecha_sketch                   [hierarchical] 192种组合 -> 铅笔机械素描
+  [34] monkey_sketch                  [hierarchical] 128种组合 -> 生肖_申猴
+  [35] nuclear_01_sketch              [hierarchical] 4种组合 -> 核聚变_01线稿
+  [36] nuclear_02_exploded            [hierarchical] 4种组合 -> 核聚变_02拆解图
+  [37] nuclear_03_3d                  [hierarchical] 4种组合 -> 核聚变_03白模
+  [38] nuclear_04_operational         [hierarchical] 4种组合 -> 核聚变_04投产
+  [39] ox_sketch                      [hierarchical] 128种组合 -> 生肖_丑牛
+  [40] pencil_sketch_01_fashion       [hierarchical] 160种组合 -> 安全铅笔稿_穿搭速写
+  [41] pencil_sketch_02_anatomy       [hierarchical] 160种组合 -> 安全铅笔稿_五官与手部
+  [42] pencil_sketch_03_mecha         [hierarchical] 160种组合 -> 安全铅笔稿_机甲与设定
+  [43] pencil_sketch_04_atmosphere    [hierarchical] 160种组合 -> 安全铅笔稿_氛围感光影
+  [44] pencil_sketch_05_minimal       [hierarchical] 160种组合 -> 安全铅笔稿_极简留白
+  [45] pencil_sketch_06_mecha_3d      [hierarchical] 108种组合 -> 白模机甲少女_3D
+  [46] pencil_sketch_07_mecha_blueprint [hierarchical] 99种组合 -> 高精机甲蓝图_3D
+  [47] pencil_sketch_08_split_diagram [hierarchical] 52种组合 -> 机甲分屏透视_08
+  [48] pencil_sketch_09_fighter_design [hierarchical] 108种组合 -> 战机设计蓝图_09
+  [49] pig_sketch                     [hierarchical] 128种组合 -> 生肖_亥猪
+  [50] rabbit_sketch                  [hierarchical] 128种组合 -> 生肖_卯兔
+  [51] rat_sketch                     [hierarchical] 128种组合 -> 生肖_子鼠
+  [52] rider_sketch                   [hierarchical] 20种组合 -> 动漫机甲_特摄战队
+  [53] rooster_sketch                 [hierarchical] 128种组合 -> 生肖_酉鸡
+  [54] sketch_portrait                [hierarchical] 1种组合 -> 人像转素描
+  [55] snake_sketch                   [hierarchical] 128种组合 -> 生肖_巳蛇
+  [56] tiger_sketch                   [hierarchical] 200种组合 -> 猛虎线稿
+  [57] transformers_sketch            [hierarchical] 160种组合 -> 机甲_变形金刚线稿
+
+(venv) E:\SD_OpenVINO\sd_generator>
+(venv) E:\SD_OpenVINO\sd_generator>python cli.py bird_sketch -n 5
+🤖 智能推荐: anytimeRealistic_v10 (1.99GB)
+📝 加载提示词...
+📋 风格: bird_sketch
+📁 分类: 极简飞鸟线稿
+📊 类型: hierarchical
+📝 组合数: 120
+   ├─ 主体: 10 种
+   ├─ 风格: 3 种
+   └─ 情绪: 4 种
+📦 加载模型: anytimeRealistic_v10.safetensors (SD15)
+
+十、License
 
 MIT License
