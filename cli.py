@@ -20,6 +20,7 @@ from config.app import config
 
 def main():
     parser = argparse.ArgumentParser(description="SD Generator")
+    parser.add_argument("--model-type", choices=["sd15", "sdxl"], help="模型类型")
     parser.add_argument("style", help="风格名称")
     parser.add_argument("-n", "--count", type=int, default=1, help="生成数量")
     parser.add_argument("--steps", type=int, default=25, help="迭代步数")
@@ -45,7 +46,9 @@ def main():
     print(f"📦 模型目录: {config.model_dir}")
     model_mgr = ModelManager(config.model_dir)
     models = model_mgr.list_models()
-    
+    if args.model_type:
+        models = [m for m in models if m["type"] == args.model_type]
+        
     if not models:
         print(f"❌ 未找到模型文件")
         print(f"   请将模型放到: {model_mgr.model_dir}")
