@@ -12,7 +12,6 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from core.engine import GenerationEngine
 from core.model import ModelManager
 from core.prompts import PromptLoader
-from core.lora import LoraManager
 from config.app import config
 
 
@@ -20,19 +19,22 @@ def main():
     print("=" * 50)
     print("🎨 SD Generator")
     print("=" * 50)
-    print(f"📂 模型目录: {config.model_dir}")
+    print(f"📂 SD 1.5 目录: {config.sd15_model_dir}")
+    print(f"📂 SDXL 目录: {config.sdxl_model_dir}")
     print(f"📂 输出目录: {config.output_dir}")
     print()
     
     # 1. 加载模型
-    model_mgr = ModelManager(config.model_dir)
+    model_mgr = ModelManager()
     models = model_mgr.list_models()
     if not models:
-        print("❌ 未找到模型，请将模型放到:", config.model_dir)
+        print("❌ 未找到模型")
+        print(f"   请将模型放到: {config.sd15_model_dir} 或 {config.sdxl_model_dir}")
         return
     
-    print(f"📦 加载模型: {models[0]}")
-    if not model_mgr.load(models[0]):
+    print(f"📦 可用模型: {len(models)} 个")
+    print(f"📦 加载: {models[0]['name']} ({models[0]['type'].upper()})")
+    if not model_mgr.load(models[0]["name"]):
         print("❌ 加载失败")
         return
     
