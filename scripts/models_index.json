@@ -1,13 +1,25 @@
 {
-  "generated": "2026-08-11T22:51:08.760968",
+  "generated": "2026-08-12T08:59:40.817418",
   "project_root": "E:\\SD_OpenVINO\\sd_generator",
-  "models_dir": "E:\\SD_OpenVINO\\models\\sd-v1-5",
-  "models_dir_relative": "../models/sd-v1-5",
-  "total_models": 22,
+  "model_dirs": {
+    "sd15": "E:\\SD_OpenVINO\\models\\sd-v1-5",
+    "sdxl": "E:\\SD_OpenVINO\\models\\sdxl"
+  },
+  "model_dirs_relative": {
+    "sd15": "../models/sd-v1-5",
+    "sdxl": "../models/sdxl"
+  },
+  "total_models": 27,
   "models": [
     {
       "name": "anytimeRealistic_v10",
       "filename": "anytimeRealistic_v10.safetensors",
+      "model_type": "sd15",
+      "model_type_name": "SD1.5",
+      "model_type_icon": "🟢",
+      "pipeline": "StableDiffusionPipeline",
+      "max_resolution": 768,
+      "default_steps": 25,
       "path": "../models/sd-v1-5/anytimeRealistic_v10.safetensors",
       "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\anytimeRealistic_v10.safetensors",
       "size_gb": 1.99,
@@ -24,6 +36,12 @@
     {
       "name": "henmixrealV10_henmixrealV10",
       "filename": "henmixrealV10_henmixrealV10.safetensors",
+      "model_type": "sd15",
+      "model_type_name": "SD1.5",
+      "model_type_icon": "🟢",
+      "pipeline": "StableDiffusionPipeline",
+      "max_resolution": 768,
+      "default_steps": 25,
       "path": "../models/sd-v1-5/henmixrealV10_henmixrealV10.safetensors",
       "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\henmixrealV10_henmixrealV10.safetensors",
       "size_gb": 2.22,
@@ -41,6 +59,12 @@
     {
       "name": "nextphoto_v30",
       "filename": "nextphoto_v30.safetensors",
+      "model_type": "sd15",
+      "model_type_name": "SD1.5",
+      "model_type_icon": "🟢",
+      "pipeline": "StableDiffusionPipeline",
+      "max_resolution": 768,
+      "default_steps": 25,
       "path": "../models/sd-v1-5/nextphoto_v30.safetensors",
       "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\nextphoto_v30.safetensors",
       "size_gb": 1.99,
@@ -57,6 +81,12 @@
     {
       "name": "realisticmix_iiV12Version12",
       "filename": "realisticmix_iiV12Version12.safetensors",
+      "model_type": "sd15",
+      "model_type_name": "SD1.5",
+      "model_type_icon": "🟢",
+      "pipeline": "StableDiffusionPipeline",
+      "max_resolution": 768,
+      "default_steps": 25,
       "path": "../models/sd-v1-5/realisticmix_iiV12Version12.safetensors",
       "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\realisticmix_iiV12Version12.safetensors",
       "size_gb": 3.97,
@@ -74,6 +104,12 @@
     {
       "name": "shmRealistic_v40",
       "filename": "shmRealistic_v40.safetensors",
+      "model_type": "sd15",
+      "model_type_name": "SD1.5",
+      "model_type_icon": "🟢",
+      "pipeline": "StableDiffusionPipeline",
+      "max_resolution": 768,
+      "default_steps": 25,
       "path": "../models/sd-v1-5/shmRealistic_v40.safetensors",
       "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\shmRealistic_v40.safetensors",
       "size_gb": 3.97,
@@ -90,6 +126,12 @@
     {
       "name": "DreamShaper_8_pruned",
       "filename": "DreamShaper_8_pruned.safetensors",
+      "model_type": "sd15",
+      "model_type_name": "SD1.5",
+      "model_type_icon": "🟢",
+      "pipeline": "StableDiffusionPipeline",
+      "max_resolution": 768,
+      "default_steps": 25,
       "path": "../models/sd-v1-5/DreamShaper_8_pruned.safetensors",
       "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\DreamShaper_8_pruned.safetensors",
       "size_gb": 1.99,
@@ -107,6 +149,12 @@
     {
       "name": "asianrealisticSdlife_v40",
       "filename": "asianrealisticSdlife_v40.safetensors",
+      "model_type": "sd15",
+      "model_type_name": "SD1.5",
+      "model_type_icon": "🟢",
+      "pipeline": "StableDiffusionPipeline",
+      "max_resolution": 768,
+      "default_steps": 25,
       "path": "../models/sd-v1-5/asianrealisticSdlife_v40.safetensors",
       "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\asianrealisticSdlife_v40.safetensors",
       "size_gb": 3.06,
@@ -124,6 +172,12 @@
     {
       "name": "detailAsianRealistic_v60X21b",
       "filename": "detailAsianRealistic_v60X21b.safetensors",
+      "model_type": "sd15",
+      "model_type_name": "SD1.5",
+      "model_type_icon": "🟢",
+      "pipeline": "StableDiffusionPipeline",
+      "max_resolution": 768,
+      "default_steps": 25,
       "path": "../models/sd-v1-5/detailAsianRealistic_v60X21b.safetensors",
       "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\detailAsianRealistic_v60X21b.safetensors",
       "size_gb": 1.99,
@@ -142,6 +196,12 @@
     {
       "name": "real_asia",
       "filename": "real_asia.safetensors",
+      "model_type": "sd15",
+      "model_type_name": "SD1.5",
+      "model_type_icon": "🟢",
+      "pipeline": "StableDiffusionPipeline",
+      "max_resolution": 768,
+      "default_steps": 25,
       "path": "../models/sd-v1-5/real_asia.safetensors",
       "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\real_asia.safetensors",
       "size_gb": 1.7,
@@ -158,10 +218,18 @@
     {
       "name": "t3_sdVer3",
       "filename": "t3_sdVer3.safetensors",
+      "model_type": "sd15",
+      "model_type_name": "SD1.5",
+      "model_type_icon": "🟢",
+      "pipeline": "StableDiffusionPipeline",
+      "max_resolution": 768,
+      "default_steps": 25,
       "path": "../models/sd-v1-5/t3_sdVer3.safetensors",
       "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\t3_sdVer3.safetensors",
       "size_gb": 4.51,
-      "tags": [],
+      "tags": [
+        "uncategorized"
+      ],
       "score": 75,
       "is_ov": false,
       "ov_path": null,
@@ -172,6 +240,12 @@
     {
       "name": "zemihr_v2",
       "filename": "zemihr_v2.safetensors",
+      "model_type": "sd15",
+      "model_type_name": "SD1.5",
+      "model_type_icon": "🟢",
+      "pipeline": "StableDiffusionPipeline",
+      "max_resolution": 768,
+      "default_steps": 25,
       "path": "../models/sd-v1-5/zemihr_v2.safetensors",
       "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\zemihr_v2.safetensors",
       "size_gb": 1.99,
@@ -188,6 +262,12 @@
     {
       "name": "girlMix_V2",
       "filename": "girlMix_V2.safetensors",
+      "model_type": "sd15",
+      "model_type_name": "SD1.5",
+      "model_type_icon": "🟢",
+      "pipeline": "StableDiffusionPipeline",
+      "max_resolution": 768,
+      "default_steps": 25,
       "path": "../models/sd-v1-5/girlMix_V2.safetensors",
       "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\girlMix_V2.safetensors",
       "size_gb": 2.91,
@@ -204,6 +284,12 @@
     {
       "name": "nexblendmixVividAsian_v10",
       "filename": "nexblendmixVividAsian_v10.safetensors",
+      "model_type": "sd15",
+      "model_type_name": "SD1.5",
+      "model_type_icon": "🟢",
+      "pipeline": "StableDiffusionPipeline",
+      "max_resolution": 768,
+      "default_steps": 25,
       "path": "../models/sd-v1-5/nexblendmixVividAsian_v10.safetensors",
       "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\nexblendmixVividAsian_v10.safetensors",
       "size_gb": 1.99,
@@ -221,6 +307,12 @@
     {
       "name": "ultimixFantastic_v11",
       "filename": "ultimixFantastic_v11.safetensors",
+      "model_type": "sd15",
+      "model_type_name": "SD1.5",
+      "model_type_icon": "🟢",
+      "pipeline": "StableDiffusionPipeline",
+      "max_resolution": 768,
+      "default_steps": 25,
       "path": "../models/sd-v1-5/ultimixFantastic_v11.safetensors",
       "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\ultimixFantastic_v11.safetensors",
       "size_gb": 1.99,
@@ -238,10 +330,18 @@
     {
       "name": "aiiiiii01_v10",
       "filename": "aiiiiii01_v10.safetensors",
+      "model_type": "sd15",
+      "model_type_name": "SD1.5",
+      "model_type_icon": "🟢",
+      "pipeline": "StableDiffusionPipeline",
+      "max_resolution": 768,
+      "default_steps": 25,
       "path": "../models/sd-v1-5/aiiiiii01_v10.safetensors",
       "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\aiiiiii01_v10.safetensors",
       "size_gb": 1.99,
-      "tags": [],
+      "tags": [
+        "uncategorized"
+      ],
       "score": 50,
       "is_ov": false,
       "ov_path": null,
@@ -252,6 +352,12 @@
     {
       "name": "anycharactermixBaked_v20BakedVae",
       "filename": "anycharactermixBaked_v20BakedVae.safetensors",
+      "model_type": "sd15",
+      "model_type_name": "SD1.5",
+      "model_type_icon": "🟢",
+      "pipeline": "StableDiffusionPipeline",
+      "max_resolution": 768,
+      "default_steps": 25,
       "path": "../models/sd-v1-5/anycharactermixBaked_v20BakedVae.safetensors",
       "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\anycharactermixBaked_v20BakedVae.safetensors",
       "size_gb": 3.97,
@@ -268,6 +374,12 @@
     {
       "name": "evalisenniaRealisticEastAsian_v40",
       "filename": "evalisenniaRealisticEastAsian_v40.safetensors",
+      "model_type": "sd15",
+      "model_type_name": "SD1.5",
+      "model_type_icon": "🟢",
+      "pipeline": "StableDiffusionPipeline",
+      "max_resolution": 768,
+      "default_steps": 25,
       "path": "../models/sd-v1-5/evalisenniaRealisticEastAsian_v40.safetensors",
       "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\evalisenniaRealisticEastAsian_v40.safetensors",
       "size_gb": 6.46,
@@ -285,10 +397,18 @@
     {
       "name": "evalisenniaSD15Ultra_v20",
       "filename": "evalisenniaSD15Ultra_v20.safetensors",
+      "model_type": "sd15",
+      "model_type_name": "SD1.5",
+      "model_type_icon": "🟢",
+      "pipeline": "StableDiffusionPipeline",
+      "max_resolution": 768,
+      "default_steps": 25,
       "path": "../models/sd-v1-5/evalisenniaSD15Ultra_v20.safetensors",
       "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\evalisenniaSD15Ultra_v20.safetensors",
       "size_gb": 2.96,
-      "tags": [],
+      "tags": [
+        "uncategorized"
+      ],
       "score": 50,
       "is_ov": false,
       "ov_path": null,
@@ -299,6 +419,12 @@
     {
       "name": "fantasticchixHR_v10Fp16NoEma",
       "filename": "fantasticchixHR_v10Fp16NoEma.safetensors",
+      "model_type": "sd15",
+      "model_type_name": "SD1.5",
+      "model_type_icon": "🟢",
+      "pipeline": "StableDiffusionPipeline",
+      "max_resolution": 768,
+      "default_steps": 25,
       "path": "../models/sd-v1-5/fantasticchixHR_v10Fp16NoEma.safetensors",
       "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\fantasticchixHR_v10Fp16NoEma.safetensors",
       "size_gb": 2.24,
@@ -316,6 +442,12 @@
     {
       "name": "nexblendApex04Asian_v10",
       "filename": "nexblendApex04Asian_v10.safetensors",
+      "model_type": "sd15",
+      "model_type_name": "SD1.5",
+      "model_type_icon": "🟢",
+      "pipeline": "StableDiffusionPipeline",
+      "max_resolution": 768,
+      "default_steps": 25,
       "path": "../models/sd-v1-5/nexblendApex04Asian_v10.safetensors",
       "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\nexblendApex04Asian_v10.safetensors",
       "size_gb": 1.99,
@@ -332,6 +464,12 @@
     {
       "name": "sd-v1-5-inpainting-tiny",
       "filename": "sd-v1-5-inpainting-tiny.safetensors",
+      "model_type": "sd15",
+      "model_type_name": "SD1.5",
+      "model_type_icon": "🟢",
+      "pipeline": "StableDiffusionPipeline",
+      "max_resolution": 768,
+      "default_steps": 25,
       "path": "../models/sd-v1-5/sd-v1-5-inpainting-tiny.safetensors",
       "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\sd-v1-5-inpainting-tiny.safetensors",
       "size_gb": 1.99,
@@ -349,6 +487,12 @@
     {
       "name": "sd-v1-5-tiny",
       "filename": "sd-v1-5-tiny.safetensors",
+      "model_type": "sd15",
+      "model_type_name": "SD1.5",
+      "model_type_icon": "🟢",
+      "pipeline": "StableDiffusionPipeline",
+      "max_resolution": 768,
+      "default_steps": 25,
       "path": "../models/sd-v1-5/sd-v1-5-tiny.safetensors",
       "absolute_path": "E:\\SD_OpenVINO\\models\\sd-v1-5\\sd-v1-5-tiny.safetensors",
       "size_gb": 1.99,
@@ -361,9 +505,122 @@
       "ov_absolute_path": null,
       "version": "1",
       "modified": "2026-07-07T02:13:16.422483"
+    },
+    {
+      "name": "perfectionAsianILXL_v10",
+      "filename": "perfectionAsianILXL_v10.safetensors",
+      "model_type": "sdxl",
+      "model_type_name": "SDXL",
+      "model_type_icon": "🔵",
+      "pipeline": "StableDiffusionXLPipeline",
+      "max_resolution": 1024,
+      "default_steps": 20,
+      "path": "../models/sdxl/perfectionAsianILXL_v10.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sdxl\\perfectionAsianILXL_v10.safetensors",
+      "size_gb": 6.46,
+      "tags": [
+        "east_asian"
+      ],
+      "score": 88,
+      "is_ov": false,
+      "ov_path": null,
+      "ov_absolute_path": null,
+      "version": "10",
+      "modified": "2026-05-22T11:23:59.015142"
+    },
+    {
+      "name": "sdxl_lightning_1step_x0",
+      "filename": "sdxl_lightning_1step_x0.safetensors",
+      "model_type": "sdxl",
+      "model_type_name": "SDXL",
+      "model_type_icon": "🔵",
+      "pipeline": "StableDiffusionXLPipeline",
+      "max_resolution": 1024,
+      "default_steps": 20,
+      "path": "../models/sdxl/sdxl_lightning_1step_x0.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sdxl\\sdxl_lightning_1step_x0.safetensors",
+      "size_gb": 6.46,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 85,
+      "is_ov": false,
+      "ov_path": null,
+      "ov_absolute_path": null,
+      "version": null,
+      "modified": "2026-07-03T12:24:34.333886"
+    },
+    {
+      "name": "sdxl_lightning_2step",
+      "filename": "sdxl_lightning_2step.safetensors",
+      "model_type": "sdxl",
+      "model_type_name": "SDXL",
+      "model_type_icon": "🔵",
+      "pipeline": "StableDiffusionXLPipeline",
+      "max_resolution": 1024,
+      "default_steps": 20,
+      "path": "../models/sdxl/sdxl_lightning_2step.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sdxl\\sdxl_lightning_2step.safetensors",
+      "size_gb": 6.46,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 85,
+      "is_ov": false,
+      "ov_path": null,
+      "ov_absolute_path": null,
+      "version": null,
+      "modified": "2026-07-03T12:38:08.373154"
+    },
+    {
+      "name": "sdxl_lightning_4step",
+      "filename": "sdxl_lightning_4step.safetensors",
+      "model_type": "sdxl",
+      "model_type_name": "SDXL",
+      "model_type_icon": "🔵",
+      "pipeline": "StableDiffusionXLPipeline",
+      "max_resolution": 1024,
+      "default_steps": 20,
+      "path": "../models/sdxl/sdxl_lightning_4step.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sdxl\\sdxl_lightning_4step.safetensors",
+      "size_gb": 6.46,
+      "tags": [
+        "uncategorized"
+      ],
+      "score": 85,
+      "is_ov": false,
+      "ov_path": null,
+      "ov_absolute_path": null,
+      "version": null,
+      "modified": "2026-07-03T10:23:27.468956"
+    },
+    {
+      "name": "xlAsianRealisticMixNhiPNhChU_v10",
+      "filename": "xlAsianRealisticMixNhiPNhChU_v10.safetensors",
+      "model_type": "sdxl",
+      "model_type_name": "SDXL",
+      "model_type_icon": "🔵",
+      "pipeline": "StableDiffusionXLPipeline",
+      "max_resolution": 1024,
+      "default_steps": 20,
+      "path": "../models/sdxl/xlAsianRealisticMixNhiPNhChU_v10.safetensors",
+      "absolute_path": "E:\\SD_OpenVINO\\models\\sdxl\\xlAsianRealisticMixNhiPNhChU_v10.safetensors",
+      "size_gb": 6.46,
+      "tags": [
+        "realistic",
+        "anime",
+        "east_asian"
+      ],
+      "score": 85,
+      "is_ov": false,
+      "ov_path": null,
+      "ov_absolute_path": null,
+      "version": "10",
+      "modified": "2026-05-22T23:15:30.934711"
     }
   ],
   "default": "anytimeRealistic_v10",
+  "default_type": "sd15",
   "categories": {
     "realistic": [
       "anytimeRealistic_v10",
@@ -375,7 +632,8 @@
       "detailAsianRealistic_v60X21b",
       "real_asia",
       "zemihr_v2",
-      "evalisenniaRealisticEastAsian_v40"
+      "evalisenniaRealisticEastAsian_v40",
+      "xlAsianRealisticMixNhiPNhChU_v10"
     ],
     "anime": [
       "henmixrealV10_henmixrealV10",
@@ -385,7 +643,8 @@
       "nexblendmixVividAsian_v10",
       "ultimixFantastic_v11",
       "anycharactermixBaked_v20BakedVae",
-      "fantasticchixHR_v10Fp16NoEma"
+      "fantasticchixHR_v10Fp16NoEma",
+      "xlAsianRealisticMixNhiPNhChU_v10"
     ],
     "artistic": [
       "sd-v1-5-inpainting-tiny"
@@ -395,7 +654,9 @@
       "detailAsianRealistic_v60X21b",
       "nexblendmixVividAsian_v10",
       "evalisenniaRealisticEastAsian_v40",
-      "nexblendApex04Asian_v10"
+      "nexblendApex04Asian_v10",
+      "perfectionAsianILXL_v10",
+      "xlAsianRealisticMixNhiPNhChU_v10"
     ],
     "portrait": [
       "detailAsianRealistic_v60X21b"
@@ -409,12 +670,72 @@
     "tiny": [
       "sd-v1-5-inpainting-tiny",
       "sd-v1-5-tiny"
+    ],
+    "uncategorized": [
+      "t3_sdVer3",
+      "aiiiiii01_v10",
+      "evalisenniaSD15Ultra_v20",
+      "sdxl_lightning_1step_x0",
+      "sdxl_lightning_2step",
+      "sdxl_lightning_4step"
     ]
   },
+  "type_groups": {
+    "sd15": {
+      "name": "SD1.5",
+      "icon": "🟢",
+      "count": 22,
+      "default": "anytimeRealistic_v10",
+      "models": [
+        "anytimeRealistic_v10",
+        "henmixrealV10_henmixrealV10",
+        "nextphoto_v30",
+        "realisticmix_iiV12Version12",
+        "shmRealistic_v40",
+        "DreamShaper_8_pruned",
+        "asianrealisticSdlife_v40",
+        "detailAsianRealistic_v60X21b",
+        "real_asia",
+        "t3_sdVer3",
+        "zemihr_v2",
+        "girlMix_V2",
+        "nexblendmixVividAsian_v10",
+        "ultimixFantastic_v11",
+        "aiiiiii01_v10",
+        "anycharactermixBaked_v20BakedVae",
+        "evalisenniaRealisticEastAsian_v40",
+        "evalisenniaSD15Ultra_v20",
+        "fantasticchixHR_v10Fp16NoEma",
+        "nexblendApex04Asian_v10",
+        "sd-v1-5-inpainting-tiny",
+        "sd-v1-5-tiny"
+      ]
+    },
+    "sdxl": {
+      "name": "SDXL",
+      "icon": "🔵",
+      "count": 5,
+      "default": "perfectionAsianILXL_v10",
+      "models": [
+        "perfectionAsianILXL_v10",
+        "sdxl_lightning_1step_x0",
+        "sdxl_lightning_2step",
+        "sdxl_lightning_4step",
+        "xlAsianRealisticMixNhiPNhChU_v10"
+      ]
+    }
+  },
   "legacy_mapping": {
-    "0": "aiiiii01_v10.safetensors",
-    "1": "anytimeRealistic_v10.safetensors",
-    "2": "henmixrealV10_henmixrealV10.safetensors",
-    "3": "sd-v1-5-tiny.safetensors"
+    "sd15": {
+      "0": "aiiiii01_v10.safetensors",
+      "1": "anytimeRealistic_v10.safetensors",
+      "2": "henmixrealV10_henmixrealV10.safetensors",
+      "3": "sd-v1-5-tiny.safetensors"
+    },
+    "sdxl": {
+      "0": "xlAsianRealisticMixNhiPNhChU_v10.safetensors",
+      "1": "perfectionAsianILXL_v10.safetensors",
+      "2": "sdxl_lightning_4step.safetensors"
+    }
   }
 }

@@ -62,27 +62,32 @@ class ModelManager:
         return self._load_from_path(path)
     
     def _load_from_path(self, path: str) -> bool:
-        """从路径加载模型"""
+        """从路径加载模型（自动识别 SD1.5 / SDXL）"""
         self.unload()
         try:
-            # 自动判断类型
+            # 从 config 获取 MODEL_TYPE
+            from config.app import MODEL_TYPE
+            
+            # 如果路径包含 sdxl 或 xl，自动识别
             is_sdxl = "sdxl" in path.lower() or "xl" in path.lower()
-            model_type = "sdxl" if is_sdxl else "sd15"
             
-            print(f"📦 加载模型: {os.path.basename(path)} ({model_type.upper()})")
-            self.model_type = model_type
-            self._current_path = path
-            
-            if model_type == "sdxl":
+            # 优先使用 config 中的 MODEL_TYPE
+            if MODEL_TYPE == "sdxl" or is_sdxl:
+                model_type = "sdxl"
+                print(f"📦 加载 SDXL 模型: {os.path.basename(path)}")
                 self.pipeline = StableDiffusionXLPipeline.from_single_file(
                     path, torch_dtype=torch.float32,
                     safety_checker=None, requires_safety_checker=False
                 )
             else:
+                model_type = "sd15"
+                print(f"📦 加载 SD1.5 模型: {os.path.basename(path)}")
                 self.pipeline = StableDiffusionPipeline.from_single_file(
                     path, torch_dtype=torch.float32,
                     safety_checker=None, requires_safety_checker=False
                 )
+            
+            self.model_type = model_type
             
             self.pipeline.to("cpu")
             self.current = os.path.basename(path)

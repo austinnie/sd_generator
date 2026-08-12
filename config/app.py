@@ -45,6 +45,9 @@ MODEL_INDEX = load_model_index()
 AVAILABLE_MODELS = MODEL_INDEX.get("models", [])
 
 # ==================== 🔵 模型选择配置 ====================
+# 🆕 模型类型: "sd15" | "sdxl"（由 switch_lora.py / switch_model.py 自动管理）
+MODEL_TYPE = "sdxl"
+
 MODEL_SELECTION_MODE = "smart"  # legacy | smart | manual
 MANUAL_MODEL_NAME = None
 USE_OPENVINO_MODEL = False
@@ -140,7 +143,7 @@ LORA_INDEX = load_lora_index()
 AVAILABLE_LORAS = LORA_INDEX.get("loras", [])
 
 # ==================== LoRA 配置 ====================
-LORA_ACTIVE_INDICES = []  # 例如 [0] 启用第一个
+LORA_ACTIVE_INDICES = [1]  # 例如 [0] 启用第一个
 FINAL_LORA_LIST = []
 
 # 从索引中获取 LoRA 路径

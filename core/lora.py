@@ -27,11 +27,20 @@ class LoraManager:
                 return l
         return None
     
+    # core/lora.py
+
     def load_by_name(self, pipeline, name: str, weight: float = 1.0,
                      model_type: str = None) -> bool:
+        """根据名称加载 LoRA（自动匹配模型类型）"""
+        from config.app import MODEL_TYPE
+        
+        # 如果没有指定类型，使用当前模型类型
+        if model_type is None:
+            model_type = MODEL_TYPE
+        
         lora_info = self.find_by_name(name, model_type)
         if not lora_info:
-            print(f"❌ 未找到 LoRA: {name}")
+            print(f"❌ 未找到 {model_type} 类型的 LoRA: {name}")
             return False
         
         # 解析路径
