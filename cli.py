@@ -7,6 +7,13 @@
 
 import sys
 import os
+import io
+
+# 修复 Windows 终端编码问题
+if sys.platform == "win32":
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
+    
 import argparse
 from datetime import datetime
 from core.postprocessor import remove_ai_traces
@@ -207,6 +214,7 @@ def main():
             print(f"🔗 使用配置 LoRA: {len(FINAL_LORA_LIST)} 个")
             for lora in FINAL_LORA_LIST:
                 lora_name = os.path.basename(lora['path'])
+                lora_name = os.path.splitext(lora_name)[0]  # 🆕 去掉扩展名
                 lora_specs.append((lora_name, lora.get('weight', 1.0)))
     
     for name, weight in lora_specs:
