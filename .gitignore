@@ -1,21 +1,47 @@
-"__pycache__/" 
-"venv/" 
-"output/" 
-"*.pyc" 
-"*.log" 
-".env" 
-".idea/" 
-".vscode/" 
-"project_snapshot_*.txt" 
-"" 
-"# Python ?存" 
-"__pycache__/" 
-"*.pyc" 
-"*.pyo" 
-"*.pyd" 
-"" 
-"# ?目快照" 
-"project_snapshot_*.txt" 
-"" 
-"# 用?配置" 
-".user_config.json" 
+# Python ?存
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# 虚??境
+venv/
+env/
+ENV/
+.venv
+
+# ?出目?
+output/
+*.png
+*.jpg
+*.jpeg
+*.webp
+
+# 索引文件（自?生成的）
+scripts/models_index.json
+scripts/lora_index.json
+
+# 用?配置
+.user_config.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS 文件
+Thumbs.db
+.DS_Store
+
+# 日志文件
+*.log
+
+# ??文件
+*.tmp
+*.bak
+project_snapshot_*.txt
+
+# 快照文件（?目快照）
+project_snapshot_*.txt

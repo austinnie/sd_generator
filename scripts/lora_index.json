@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-12T08:59:51.365178",
+  "generated": "2026-08-15T08:01:35.695250",
   "project_root": "E:\\SD_OpenVINO\\sd_generator",
   "lora_dirs": {
     "sd15": "E:\\SD_OpenVINO\\models\\sd15-lora",

@@ -3,7 +3,7 @@ import os
 import gc
 import torch
 from typing import List, Optional, Dict
-from diffusers import StableDiffusionPipeline, StableDiffusionXLPipeline, EulerDiscreteScheduler
+from diffusers import StableDiffusionPipeline, StableDiffusionXLPipeline
 
 from config.app import (
     SD_MODEL_PATH, AVAILABLE_MODELS, MODEL_INDEX,
@@ -17,13 +17,13 @@ class ModelManager:
         self.current = None
         self.model_type = None
         self._current_path = None
-        self._models_cache = AVAILABLE_MODELS  # 直接使用 config 中的索引
+        self._models_cache = AVAILABLE_MODELS
     
     def list_models(self, model_type: str = None) -> List[Dict]:
         """获取模型列表"""
         models = self._models_cache
         if model_type:
-            models = [m for m in models if m.get('type') == model_type]
+            models = [m for m in models if m.get('model_type') == model_type]
         return models
     
     def get_default_model(self) -> Optional[str]:
@@ -65,29 +65,46 @@ class ModelManager:
         """从路径加载模型（自动识别 SD1.5 / SDXL）"""
         self.unload()
         try:
-            # 从 config 获取 MODEL_TYPE
             from config.app import MODEL_TYPE
             
-            # 如果路径包含 sdxl 或 xl，自动识别
-            is_sdxl = "sdxl" in path.lower() or "xl" in path.lower()
+            path_lower = path.lower()
             
-            # 优先使用 config 中的 MODEL_TYPE
-            if MODEL_TYPE == "sdxl" or is_sdxl:
-                model_type = "sdxl"
+            # 优先根据路径判断模型类型
+            is_sdxl = False
+            
+            # 如果路径包含 sd-v1-5 目录，强制 SD1.5
+            if "sd-v1-5" in path_lower:
+                is_sdxl = False
+            # 如果路径包含 sdxl 目录，强制 SDXL
+            elif "sdxl" in path_lower:
+                is_sdxl = True
+            # 如果文件名包含 xl，判断为 SDXL
+            elif "xl" in path_lower and "sd" not in path_lower:
+                is_sdxl = True
+            # 否则使用配置
+            else:
+                is_sdxl = (MODEL_TYPE == "sdxl")
+            
+            if is_sdxl:
                 print(f"📦 加载 SDXL 模型: {os.path.basename(path)}")
                 self.pipeline = StableDiffusionXLPipeline.from_single_file(
-                    path, torch_dtype=torch.float32,
-                    safety_checker=None, requires_safety_checker=False
+                    path, 
+                    torch_dtype=torch.float32,
+                    safety_checker=None, 
+                    requires_safety_checker=False,
+                    use_safetensors=True
                 )
+                self.model_type = "sdxl"
             else:
-                model_type = "sd15"
                 print(f"📦 加载 SD1.5 模型: {os.path.basename(path)}")
                 self.pipeline = StableDiffusionPipeline.from_single_file(
-                    path, torch_dtype=torch.float32,
-                    safety_checker=None, requires_safety_checker=False
+                    path, 
+                    torch_dtype=torch.float32,
+                    safety_checker=None, 
+                    requires_safety_checker=False,
+                    use_safetensors=True
                 )
-            
-            self.model_type = model_type
+                self.model_type = "sd15"
             
             self.pipeline.to("cpu")
             self.current = os.path.basename(path)
@@ -99,10 +116,12 @@ class ModelManager:
             try: self.pipeline.enable_attention_slicing()
             except: pass
             
-            print(f"✅ 模型加载成功: {self.current}")
+            print(f"✅ 模型加载成功: {self.current} ({self.model_type})")
             return True
         except Exception as e:
             print(f"❌ 加载失败: {e}")
+            import traceback
+            traceback.print_exc()
             return False
     
     def unload(self):
@@ -114,6 +133,11 @@ class ModelManager:
         self.model_type = None
         gc.collect()
     
-    def get_pipeline(self): return self.pipeline
-    def get_model_type(self) -> str: return self.model_type or "unknown"
-    def is_loaded(self) -> bool: return self.pipeline is not None
+    def get_pipeline(self): 
+        return self.pipeline
+    
+    def get_model_type(self) -> str: 
+        return self.model_type or "unknown"
+    
+    def is_loaded(self) -> bool: 
+        return self.pipeline is not None

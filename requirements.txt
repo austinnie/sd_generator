@@ -7,6 +7,8 @@ accelerate
 safetensors
 pillow
 numpy
-opencv-python
 psutil
 tqdm
+python-docx
+piexif
+opencv-python

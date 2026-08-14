@@ -46,7 +46,7 @@ AVAILABLE_MODELS = MODEL_INDEX.get("models", [])
 
 # ==================== 🔵 模型选择配置 ====================
 # 🆕 模型类型: "sd15" | "sdxl"（由 switch_lora.py / switch_model.py 自动管理）
-MODEL_TYPE = "sdxl"
+MODEL_TYPE = "sd15"
 
 MODEL_SELECTION_MODE = "smart"  # legacy | smart | manual
 MANUAL_MODEL_NAME = None
@@ -199,6 +199,26 @@ def save_user_config(data: dict):
         print(f"⚠️ 保存用户配置失败: {e}")
 
 
+# ==================== 🎨 AI 鉴赏配置 ====================
+AI_APPRECIATION_ENGINE = "llm"  # tag / blip / llm / prompt
+
+# ==================== 📷 消除AI痕迹配置 ====================
+REMOVE_AI_TRACES = True
+AI_CLEAR_METADATA = True
+AI_REALISTIC = True
+AI_CAMERA = "sony_a7iv"
+AI_STRENGTH = "light"
+AI_INJECT_EXIF = False
+AI_CHROMATIC_ABERRATION = True
+AI_CHROMATIC_STRENGTH = 0.05
+AI_REALISTIC_NOISE = False
+AI_NOISE_ISO_BASE = 100
+AI_NOISE_RANDOMIZE = True
+AI_MINOR_CROP = True
+AI_CROP_PERCENT = 0.005
+AI_FINGERPRINT_OBFUSCATION = False
+AI_DISTORTION_STRENGTH = 0.0005
+
 # ==================== 兼容旧代码的 config 对象 ====================
 class Config:
     """兼容旧代码的配置对象"""
@@ -218,6 +238,14 @@ class Config:
 config = Config()
 
 # ==================== 导出 ====================
+# 导出 SKETCH_KEYWORDS
+# ==================== 🎨 素描风格检测关键词 ====================
+SKETCH_KEYWORDS = [
+    "pencil sketch", "line art", "black and white sketch", 
+    "graphite drawing", "ink outline", "charcoal portrait",
+    "baimiao", "素描", "线稿", "白描", "水墨", "铅笔", "炭笔", "速写"
+]
+
 __all__ = [
     'config',
     'SD_MODEL_PATH', 'AVAILABLE_MODELS', 'MODEL_INDEX',
@@ -226,5 +254,22 @@ __all__ = [
     'MODEL_SELECTION_MODE', 'USE_OPENVINO_MODEL',
     'resolve_model_path', 'resolve_model_path_from_index',
     'get_lora_path_by_index',
-    'load_user_config', 'save_user_config'
+    'load_user_config', 'save_user_config',
+    'AI_APPRECIATION_ENGINE',  # 🆕
+    'REMOVE_AI_TRACES',        # 🆕
+    'AI_CLEAR_METADATA',       # 🆕
+    'AI_REALISTIC',            # 🆕
+    'AI_CAMERA',               # 🆕
+    'AI_STRENGTH',             # 🆕
+    'AI_INJECT_EXIF',          # 🆕
+    'AI_CHROMATIC_ABERRATION', # 🆕
+    'AI_CHROMATIC_STRENGTH',   # 🆕
+    'AI_REALISTIC_NOISE',      # 🆕
+    'AI_NOISE_ISO_BASE',       # 🆕
+    'AI_NOISE_RANDOMIZE',      # 🆕
+    'AI_MINOR_CROP',           # 🆕
+    'AI_CROP_PERCENT',         # 🆕
+    'AI_FINGERPRINT_OBFUSCATION', # 🆕
+    'AI_DISTORTION_STRENGTH',  # 🆕
+    'SKETCH_KEYWORDS',         # 🆕
 ]

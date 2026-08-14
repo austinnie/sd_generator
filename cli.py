@@ -9,6 +9,7 @@ import sys
 import os
 import argparse
 from datetime import datetime
+from core.postprocessor import remove_ai_traces
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
