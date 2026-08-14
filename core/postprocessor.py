@@ -32,14 +32,6 @@ from config.app import (
     AI_DISTORTION_STRENGTH,
 )
 
-# SKETCH_KEYWORDS 需要先在 config/app.py 中添加
-# 临时定义
-SKETCH_KEYWORDS = [
-    "pencil sketch", "line art", "black and white sketch", 
-    "graphite drawing", "ink outline", "charcoal portrait",
-    "baimiao", "素描", "线稿", "白描", "水墨", "铅笔", "炭笔", "速写"
-]
-
 
 def is_sketch_style(prompt_or_style: str) -> bool:
     """检测是否为素描/线稿风格"""

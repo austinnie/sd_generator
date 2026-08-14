@@ -168,13 +168,13 @@ def main():
     total_combinations = style_info.get('total_combinations', 1)
     if args.count is None:
         if style_info.get('type') == 'hierarchical':
-            total_count = min(total_combinations, 20)
+            total_count = min(total_combinations, 20)  # ← 这里定义了 total_count
             print(f"📊 分层模式：将生成 {total_count} 张（全部组合）")
         else:
-            total_count = style_info.get('subjects', 1)
+            total_count = style_info.get('subjects', 1)  # ← 这里也定义了
             print(f"📊 扁平模式：将生成 {total_count} 张（全部提示词）")
     else:
-        total_count = args.count
+        total_count = args.count  # ← 这里也定义了
         if total_count > total_combinations:
             print(f"⚠️ 指定数量 {total_count} 超过组合数 {total_combinations}，实际生成 {total_combinations}")
             total_count = total_combinations
@@ -226,7 +226,19 @@ def main():
     print(f"\n🎨 开始生成 {total_count} 张...")
     engine = GenerationEngine(model_mgr.get_pipeline())
     os.makedirs(config.output_dir, exist_ok=True)
-    
+
+    # 🆕 初始化鉴赏器（如果启用）
+    from core.appraiser import Appraiser
+    from config.app import AI_APPRECIATION_ENGINE, REMOVE_AI_TRACES
+
+    appraiser = None
+    if AI_APPRECIATION_ENGINE != "prompt":
+        try:
+            appraiser = Appraiser()
+            print(f"📝 AI 鉴赏引擎: {AI_APPRECIATION_ENGINE}")
+        except Exception as e:
+            print(f"⚠️ AI 鉴赏初始化失败: {e}")
+
     for i in range(total_count):
         prompt = prompts.get_prompt(args.style, i)
         if not prompt:
@@ -250,11 +262,34 @@ def main():
             filepath = os.path.join(config.output_dir, filename)
             image.save(filepath)
             print(f"   ✅ {filepath}")
+            
+            # ===== 🆕 后处理 =====
+            if REMOVE_AI_TRACES:
+                from core.postprocessor import remove_ai_traces, is_sketch_style
+                is_sketch = is_sketch_style(args.style) or is_sketch_style(prompt)
+                final_path = remove_ai_traces(filepath, is_sketch=is_sketch)
+                if final_path != filepath:
+                    print(f"   ✅ 后处理完成: {os.path.basename(final_path)}")
+            
+            # ===== 🆕 AI 鉴赏 =====
+            if appraiser:
+                try:
+                    caption = appraiser.appraise(filepath, prompt)
+                    txt_file = filepath.replace('.png', '.txt')
+                    with open(txt_file, 'w', encoding='utf-8') as f:
+                        f.write(f"【风格】: {args.style}\n")
+                        f.write(f"【提示词】: {prompt}\n")
+                        f.write(f"{'='*50}\n")
+                        f.write(f"【AI 鉴赏】:\n{caption}\n")
+                    print(f"   📝 AI 鉴赏已保存: {os.path.basename(txt_file)}")
+                except Exception as e:
+                    print(f"   ⚠️ AI 鉴赏失败: {e}")
+            
         except Exception as e:
             print(f"   ❌ 生成失败: {e}")
             import traceback
             traceback.print_exc()
-    
+
     print(f"\n✅ 完成，共 {total_count} 张")
     print(f"📁 输出目录: {config.output_dir}")
 

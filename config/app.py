@@ -238,13 +238,32 @@ class Config:
 config = Config()
 
 # ==================== 导出 ====================
-# 导出 SKETCH_KEYWORDS
 # ==================== 🎨 素描风格检测关键词 ====================
 SKETCH_KEYWORDS = [
     "pencil sketch", "line art", "black and white sketch", 
     "graphite drawing", "ink outline", "charcoal portrait",
     "baimiao", "素描", "线稿", "白描", "水墨", "铅笔", "炭笔", "速写"
 ]
+
+# ==================== 🎨 AI 鉴赏配置 ====================
+AI_APPRECIATION_ENGINE = "llm"  # tag / blip / llm / prompt
+
+# ==================== 📷 消除AI痕迹配置 ====================
+REMOVE_AI_TRACES = True
+AI_CLEAR_METADATA = True
+AI_REALISTIC = True
+AI_CAMERA = "sony_a7iv"
+AI_STRENGTH = "light"
+AI_INJECT_EXIF = False
+AI_CHROMATIC_ABERRATION = True
+AI_CHROMATIC_STRENGTH = 0.05
+AI_REALISTIC_NOISE = False
+AI_NOISE_ISO_BASE = 100
+AI_NOISE_RANDOMIZE = True
+AI_MINOR_CROP = True
+AI_CROP_PERCENT = 0.005
+AI_FINGERPRINT_OBFUSCATION = False
+AI_DISTORTION_STRENGTH = 0.0005
 
 __all__ = [
     'config',
