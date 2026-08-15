@@ -317,7 +317,7 @@ AI_DISTORTION_STRENGTH = 0.0005
 
 # ==================== 🖼️ API 图像生成配置 ====================
 # 图像生成方式: "local" | "tongyi" | "yige" | "hunyuan" | "huggingface"
-#IMAGE_API_PROVIDER = "local"  # 默认使用本地 SD
+IMAGE_API_PROVIDER = "local"  # 默认使用本地 SD
 
 # config/app.py
 import os
