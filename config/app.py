@@ -250,27 +250,6 @@ def save_user_config(data: dict):
     except Exception as e:
         print(f"⚠️ 保存用户配置失败: {e}")
 
-
-# ==================== 🎨 AI 鉴赏配置 ====================
-AI_APPRECIATION_ENGINE = "llm"  # tag / blip / llm / prompt
-
-# ==================== 📷 消除AI痕迹配置 ====================
-REMOVE_AI_TRACES = True
-AI_CLEAR_METADATA = True
-AI_REALISTIC = True
-AI_CAMERA = "sony_a7iv"
-AI_STRENGTH = "light"
-AI_INJECT_EXIF = False
-AI_CHROMATIC_ABERRATION = True
-AI_CHROMATIC_STRENGTH = 0.05
-AI_REALISTIC_NOISE = False
-AI_NOISE_ISO_BASE = 100
-AI_NOISE_RANDOMIZE = True
-AI_MINOR_CROP = True
-AI_CROP_PERCENT = 0.005
-AI_FINGERPRINT_OBFUSCATION = False
-AI_DISTORTION_STRENGTH = 0.0005
-
 # ==================== 兼容旧代码的 config 对象 ====================
 class Config:
     """兼容旧代码的配置对象"""
@@ -300,6 +279,19 @@ SKETCH_KEYWORDS = [
 # ==================== 🎨 AI 鉴赏配置 ====================
 AI_APPRECIATION_ENGINE = "llm"  # tag / blip / llm / prompt
 
+# ✅ Ollama 模型配置
+OLLAMA_MODEL = "qwen2.5:1.5b"  # 当前使用的模型
+# 可用模型: qwen2.5:1.5b, phi, tinyllama
+
+# 模型推荐：
+# - qwen2.5:1.5b: 中文能力最强，适合中文鉴赏（推荐）
+# - phi: 微软的小模型，逻辑推理能力强，英文好
+# - tinyllama: 最轻量，速度快但能力有限
+
+OLLAMA_HOST = "http://localhost:11434"
+OLLAMA_TEMPERATURE = 0.7
+OLLAMA_MAX_TOKENS = 200
+
 # ==================== 📷 消除AI痕迹配置 ====================
 REMOVE_AI_TRACES = True
 AI_CLEAR_METADATA = True
@@ -326,7 +318,11 @@ __all__ = [
     'resolve_model_path', 'resolve_model_path_from_index',
     'get_lora_path_by_index',
     'load_user_config', 'save_user_config',
-    'AI_APPRECIATION_ENGINE',  # 🆕
+    'AI_APPRECIATION_ENGINE',
+    'OLLAMA_MODEL',  # ✅ 新增
+    'OLLAMA_HOST',
+    'OLLAMA_TEMPERATURE',
+    'OLLAMA_MAX_TOKENS',
     'REMOVE_AI_TRACES',        # 🆕
     'AI_CLEAR_METADATA',       # 🆕
     'AI_REALISTIC',            # 🆕
