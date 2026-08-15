@@ -109,7 +109,26 @@ class ModelManager:
                 try: self.pipeline.vae.enable_slicing()
                 except: pass
             try: self.pipeline.enable_attention_slicing()
-            except: pass
+            except: pass            
+
+            # ✅ 在这里加载 LoRA
+            lora_list = FINAL_LORA_LIST
+            if lora_list:
+                print(f"   📦 加载 {len(lora_list)} 个 LoRA...")
+                from core.lora import LoraManager
+                lora_manager = LoraManager()
+                for i, lora_info in enumerate(lora_list):
+                    lora_path = lora_info.get('path', '')
+                    lora_weight = lora_info.get('weight', 0.8)
+                    if os.path.exists(lora_path):
+                        try:
+                            # ✅ 直接使用 pipeline.load_lora_weights，不经过 LoraManager
+                            self.pipeline.load_lora_weights(lora_path)
+                            print(f"      ✅ LoRA {i+1}: {os.path.basename(lora_path)}")
+                        except Exception as e:
+                            print(f"      ⚠️ LoRA 加载失败: {e}")
+                    else:
+                        print(f"      ⚠️ LoRA 文件不存在: {lora_path}")
             
             print(f"✅ 模型加载成功: {self.current} ({self.model_type})")
             return True

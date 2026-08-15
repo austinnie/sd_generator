@@ -50,6 +50,11 @@ def parse_lora_spec(spec: str) -> tuple:
 
 
 def main():
+
+    # ✅ 在函数内导入 ModelManager 和 LoraManager
+    from core.model import ModelManager
+    from core.lora import LoraManager
+    
     parser = argparse.ArgumentParser(description="SD Generator")
     parser.add_argument("style", nargs="?", help="风格名称")
     parser.add_argument("-n", "--count", type=int, default=None, help="生成数量")
@@ -194,15 +199,20 @@ def main():
         if not model_mgr.load(args.model, args.model_type):
             return
     else:
-        # 改为：
+        # ✅ 使用 setup_pipeline 直接加载模型和 LoRA
         pipe = setup_pipeline()
         model_mgr.pipeline = pipe
         model_mgr.current = os.path.basename(SD_MODEL_PATH)
         model_mgr.model_type = pipe.__class__.__name__.lower().replace('pipeline', '').replace('stablefusion', '').replace('x', 'xl')
-
-    # ===== 3. 加载 LoRA =====
-    # LoRA 由 pipeline.py 在加载模型时自动加载
-    print(f"🔗 使用配置 LoRA（已在模型加载时自动加载）")
+        
+    # ===== 3. LoRA 状态（只显示，不加载） =====
+    if args.no_lora:
+        print(f"🔗 LoRA 已禁用（--no-lora）")
+    else:
+        if FINAL_LORA_LIST:
+            print(f"🔗 已配置 {len(FINAL_LORA_LIST)} 个 LoRA（已在模型加载时自动加载）")
+        else:
+            print(f"🔗 未配置 LoRA")
     
     # ===== 4. 生成 =====
     print(f"\n🎨 开始生成 {total_count} 张...")

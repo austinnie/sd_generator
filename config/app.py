@@ -186,13 +186,16 @@ def get_final_lora_list():
     
     return lora_list
 
-# ✅ 使用动态函数
+
+# config/app.py
+
 def get_final_lora_list_safe():
     """安全获取 LoRA 列表（自动修正索引）"""
     lora_list = []
     if not LORA_ACTIVE_INDICES:
         return lora_list
     
+    # 从 AVAILABLE_LORAS 中获取当前类型的 LoRA
     type_loras = [l for l in AVAILABLE_LORAS if l.get('lora_type') == MODEL_TYPE]
     
     for idx in LORA_ACTIVE_INDICES:
@@ -213,11 +216,14 @@ def get_final_lora_list_safe():
                     "weight": 0.8,
                     "name": lora.get("name", f"lora_{idx}"),
                 })
+            else:
+                print(f"⚠️ LoRA 文件不存在: {lora.get('name', 'unknown')}")
     
     return lora_list
 
 # ✅ 使用安全版本
 FINAL_LORA_LIST = get_final_lora_list_safe()
+
 
 # ==================== 生成参数 ====================
 STEPS = 25

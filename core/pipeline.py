@@ -84,7 +84,7 @@ def _setup_sd15_pipeline():
         pipe.to("cpu")
         print("✅ SD1.5 模型加载成功！")
         
-        # 加载 LoRA
+        ## 加载 LoRA
         _load_loras(pipe)
         
         # 配置调度器
@@ -127,11 +127,10 @@ def _resolve_model_path(model_path):
     return model_path
 
 
-# core/pipeline.py
+# sd_generator/core/pipeline.py
 def _load_loras(pipe):
-    """加载 LoRA - 使用 LoraManager 统一管理"""
+    """加载 LoRA - 移植自 tools 的稳定版本"""
     try:
-        from core.lora import LoraManager
         from config.app import FINAL_LORA_LIST
         import os
         
@@ -142,25 +141,40 @@ def _load_loras(pipe):
             return
         
         print(f"   📦 准备加载 {len(lora_list)} 个 LoRA...")
-        
-        # 创建 LoraManager 实例
-        lora_manager = LoraManager()
+        adapter_names = []
+        adapter_weights = []
         
         for i, lora_info in enumerate(lora_list):
             lora_path = lora_info.get('path', '')
             lora_weight = lora_info.get('weight', 0.8)
             
-            if os.path.exists(lora_path):
-                print(f"      🔗 加载 LoRA {i+1}: {os.path.basename(lora_path)} (权重: {lora_weight})")
-                # ✅ 使用 LoraManager 的 load 方法
-                success = lora_manager.load(pipe, lora_path, lora_weight)
-                if success:
-                    print(f"      ✅ LoRA {i+1} 加载成功")
-                else:
-                    print(f"      ⚠️ LoRA {i+1} 加载失败")
-            else:
+            if not os.path.exists(lora_path):
                 print(f"      ⚠️ LoRA 文件不存在: {lora_path}")
+                continue
             
+            adapter_name = f"lora_{i}"
+            print(f"      🔗 加载 LoRA {i+1}: {os.path.basename(lora_path)} (权重: {lora_weight})")
+            
+            try:
+                pipe.load_lora_weights(lora_path, adapter_name=adapter_name)
+                adapter_names.append(adapter_name)
+                adapter_weights.append(lora_weight)
+            except Exception as e:
+                print(f"      ❌ LoRA {i+1} 加载失败: {e}")
+                # 尝试兼容模式
+                try:
+                    pipe.load_lora_weights(lora_path)
+                    print(f"      ✅ LoRA {i+1} 加载成功（兼容模式）")
+                except Exception as e2:
+                    print(f"      ❌ 兼容模式也失败: {e2}")
+        
+        if adapter_names:
+            try:
+                pipe.set_adapters(adapter_names, adapter_weights=adapter_weights)
+                print(f"      ✅ 全部 {len(adapter_names)} 个 LoRA 加载成功！")
+            except Exception as e:
+                print(f"      ⚠️ 设置权重失败: {e}")
+                
     except Exception as e:
         print(f"   ⚠️ LoRA 加载跳过: {e}")
 
