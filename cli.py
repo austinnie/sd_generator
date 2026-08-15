@@ -24,7 +24,17 @@ from core.engine import GenerationEngine
 from core.model import ModelManager
 from core.lora import LoraManager
 from core.prompts import PromptLoader
-from config.app import config, load_user_config, save_user_config, SD_MODEL_PATH, FINAL_LORA_LIST
+from core.appraiser import Appraiser  # ✅ 添加这行
+from config.app import (
+    config, 
+    load_user_config, 
+    save_user_config, 
+    SD_MODEL_PATH, 
+    FINAL_LORA_LIST,
+    AI_APPRECIATION_ENGINE,  # ✅ 添加这行
+    REMOVE_AI_TRACES,        # ✅ 添加这行
+    SKETCH_KEYWORDS          # ✅ 添加这行（可选，但建议加上）
+)
 from core.pipeline import setup_pipeline
 
 def parse_lora_spec(spec: str) -> tuple:
@@ -199,10 +209,7 @@ def main():
     engine = GenerationEngine(model_mgr.get_pipeline())
     os.makedirs(config.output_dir, exist_ok=True)
 
-    # 🆕 初始化鉴赏器（如果启用）
-    from core.appraiser import Appraiser
-    from config.app import AI_APPRECIATION_ENGINE, REMOVE_AI_TRACES
-
+    # 初始化鉴赏器
     appraiser = None
     if AI_APPRECIATION_ENGINE != "prompt":
         try:
@@ -210,6 +217,11 @@ def main():
             print(f"📝 AI 鉴赏引擎: {AI_APPRECIATION_ENGINE}")
         except Exception as e:
             print(f"⚠️ AI 鉴赏初始化失败: {e}")
+
+    # ✅ 收集数据
+    generated_files = []
+    appraisals = []
+    prompts_used = []
 
     for i in range(total_count):
         prompt = prompts.get_prompt(args.style, i)
@@ -219,6 +231,7 @@ def main():
         
         print(f"\n🎨 [{i+1}/{total_count}]")
         print(f"   📝 {prompt[:80]}...")
+        prompts_used.append(prompt)
         
         try:
             image = engine.generate_single(
@@ -234,33 +247,66 @@ def main():
             filepath = os.path.join(config.output_dir, filename)
             image.save(filepath)
             print(f"   ✅ {filepath}")
+            generated_files.append(filepath)
             
-            # ===== 🆕 后处理 =====
+            # ===== 后处理 =====
+            final_path = filepath
             if REMOVE_AI_TRACES:
                 from core.postprocessor import remove_ai_traces, is_sketch_style
                 is_sketch = is_sketch_style(args.style) or is_sketch_style(prompt)
                 final_path = remove_ai_traces(filepath, is_sketch=is_sketch)
                 if final_path != filepath:
                     print(f"   ✅ 后处理完成: {os.path.basename(final_path)}")
+                    # ✅ 更新为最终的 JPG 路径
+                    generated_files[-1] = final_path
             
-            # ===== 🆕 AI 鉴赏 =====
+            # ===== AI 鉴赏 =====
             if appraiser:
                 try:
-                    caption = appraiser.appraise(filepath, prompt)
-                    txt_file = filepath.replace('.png', '.txt')
+                    caption = appraiser.appraise(final_path, prompt)
+                    txt_file = final_path.replace('.png', '.jpg').replace('.jpg', '.txt')
                     with open(txt_file, 'w', encoding='utf-8') as f:
                         f.write(f"【风格】: {args.style}\n")
                         f.write(f"【提示词】: {prompt}\n")
                         f.write(f"{'='*50}\n")
                         f.write(f"【AI 鉴赏】:\n{caption}\n")
                     print(f"   📝 AI 鉴赏已保存: {os.path.basename(txt_file)}")
+                    appraisals.append(caption)
                 except Exception as e:
                     print(f"   ⚠️ AI 鉴赏失败: {e}")
+                    appraisals.append("（AI 鉴赏生成失败）")
             
         except Exception as e:
             print(f"   ❌ 生成失败: {e}")
             import traceback
             traceback.print_exc()
+
+    # ==================== ✅ 生成 Word 文档 ====================
+    if appraisals and generated_files:
+        try:
+            from utils.doc_generator import generate_word_doc, generate_text_summary
+            
+            print(f"\n📄 正在生成 Word 文档...")
+            
+            # 获取实际输出目录（可能包含子文件夹）
+            output_dir = os.path.dirname(generated_files[0])
+            
+            # 生成 Word 文档
+            doc_success = generate_word_doc(output_dir, args.style, appraisals)
+            
+            # 生成文本摘要
+            txt_success = generate_text_summary(output_dir, args.style, appraisals)
+            
+            if doc_success:
+                print(f"   ✅ Word 文档已生成: {os.path.join(output_dir, '公众号草稿.docx')}")
+            if txt_success:
+                print(f"   ✅ 文本摘要已生成: {os.path.join(output_dir, '点评.txt')}")
+                
+        except ImportError:
+            print(f"⚠️ 未安装 python-docx，跳过 Word 文档生成")
+            print(f"💡 安装: pip install python-docx")
+        except Exception as e:
+            print(f"⚠️ Word 文档生成失败: {e}")
 
     print(f"\n✅ 完成，共 {total_count} 张")
     print(f"📁 输出目录: {config.output_dir}")
