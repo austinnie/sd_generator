@@ -1,34 +1,82 @@
 # core/appraiser.py
-"""AI 鉴赏系统"""
+"""AI 鉴赏系统 - 支持 Ollama 多模型"""
 
 import os
 import sys
 import requests
 from PIL import Image
 
+# 添加项目路径
 CURRENT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if CURRENT_DIR not in sys.path:
     sys.path.insert(0, CURRENT_DIR)
 
-# ✅ 从 config 导入模型配置
-from config.app import AI_APPRECIATION_ENGINE, OLLAMA_MODEL, OLLAMA_HOST, OLLAMA_TEMPERATURE, OLLAMA_MAX_TOKENS
+# ✅ 导入配置
+from config.app import AI_APPRECIATION_ENGINE, OLLAMA_MODEL, OLLAMA_HOST
 
 
 class Appraiser:
-    """AI 鉴赏器"""
+    """AI 鉴赏器 - 支持多种 Ollama 模型"""
     
     def __init__(self, ollama_model: str = None):
-        """
-        初始化鉴赏器
-        参数:
-            ollama_model: Ollama 模型名称，默认使用 config 中的配置
-        """
+        self.ollama_model = ollama_model or OLLAMA_MODEL
+        self.ollama_host = OLLAMA_HOST
         self._blip_processor = None
         self._blip_model = None
         self._blip_loaded = False
-        # ✅ 使用传入的模型或配置中的默认模型
-        self.ollama_model = ollama_model or OLLAMA_MODEL
-        self.ollama_host = OLLAMA_HOST
+        
+        # ✅ 定义不同模型的特性
+        self.model_configs = {
+            # 通义千问系列
+            "qwen": {
+                "language": "zh",
+                "system_prompt": "你是一位资深的高端手办模型收藏家和艺术评论家。",
+                "temperature": 0.7,
+                "max_tokens": 200
+            },
+            # DeepSeek 系列
+            "deepseek": {
+                "language": "zh",
+                "system_prompt": "你是一位专业的艺术评论家和摄影鉴赏家，擅长用精炼的语言描述艺术作品。",
+                "temperature": 0.8,
+                "max_tokens": 250
+            },
+            # Phi 系列（微软）
+            "phi": {
+                "language": "en",
+                "system_prompt": "You are an expert art critic and collector of high-end figurines.",
+                "temperature": 0.7,
+                "max_tokens": 200
+            },
+            # Llama 系列
+            "llama": {
+                "language": "en",
+                "system_prompt": "You are a professional art critic with expertise in photography and sculpture.",
+                "temperature": 0.7,
+                "max_tokens": 200
+            },
+            # Mistral 系列
+            "mistral": {
+                "language": "en",
+                "system_prompt": "You are an experienced art collector and critic.",
+                "temperature": 0.7,
+                "max_tokens": 200
+            },
+            # Gemma 系列（Google）
+            "gemma": {
+                "language": "zh",
+                "system_prompt": "你是一位艺术鉴赏家，擅长用优美的文字描述艺术品。",
+                "temperature": 0.7,
+                "max_tokens": 200
+            },
+            # TinyLlama（轻量）
+            "tinyllama": {
+                "language": "zh",
+                "system_prompt": "你是一位艺术爱好者。",
+                "temperature": 0.5,
+                "max_tokens": 100
+            }
+        }
     
     def appraise(self, image_path: str, prompt: str) -> str:
         """对图片进行鉴赏，返回鉴赏文字"""
@@ -38,8 +86,18 @@ class Appraiser:
             print(f"   📝 鉴赏引擎: 仅使用提示词")
             return prompt
         
+        # ✅ 检查文件是否存在，如果 .png 不存在但 .jpg 存在，使用 .jpg
+        actual_path = image_path
+        if not os.path.exists(actual_path):
+            # 尝试替换扩展名
+            for ext in ['.jpg', '.jpeg', '.png']:
+                test_path = os.path.splitext(image_path)[0] + ext
+                if os.path.exists(test_path):
+                    actual_path = test_path
+                    break
+        
         self._ensure_blip_loaded()
-        caption = self._get_blip_caption(image_path)
+        caption = self._get_blip_caption(actual_path)  # ✅ 使用实际路径
         if not caption:
             caption = prompt
         
@@ -51,6 +109,7 @@ class Appraiser:
         return caption
     
     def _ensure_blip_loaded(self):
+        """加载 BLIP 模型（用于图像描述）"""
         if self._blip_loaded:
             return
         try:
@@ -73,15 +132,17 @@ class Appraiser:
         except Exception as e:
             print(f"   ⚠️ BLIP 加载失败: {e}")
             self._blip_loaded = False
-
+    
     def _llm_available(self) -> bool:
+        """检查 Ollama 是否可用"""
         try:
             response = requests.get(f"{self.ollama_host}/api/tags", timeout=2)
             return response.status_code == 200
         except:
             return False
-            
+    
     def _get_blip_caption(self, image_path: str) -> str:
+        """使用 BLIP 生成图像描述"""
         if not self._blip_loaded or self._blip_model is None:
             return None
         try:
@@ -101,27 +162,28 @@ class Appraiser:
             print(f"   ⚠️ BLIP 推理失败: {e}")
             return None
     
+    def _get_model_config(self):
+        """根据模型名称获取配置"""
+        model_lower = self.ollama_model.lower()
+        for key, config in self.model_configs.items():
+            if key in model_lower:
+                return config
+        # 默认配置
+        return {
+            "language": "zh",
+            "system_prompt": "你是一位专业的艺术评论家。",
+            "temperature": 0.7,
+            "max_tokens": 200
+        }
+    
     def _enhance_with_llm(self, caption: str) -> str:
         """使用 Ollama 增强描述"""
         try:
-            # ✅ 根据不同的模型使用不同的 prompt 风格
-            model_lower = self.ollama_model.lower()
-            
-            if "qwen" in model_lower:
-                # Qwen 系列：中文能力强
-                system_prompt = "你是一位资深的高端手办模型收藏家和艺术评论家。"
-                language = "zh"
-            elif "phi" in model_lower:
-                # Phi 系列：推理能力强，英文好
-                system_prompt = "You are an expert art critic and collector of high-end figurines."
-                language = "en"
-            elif "tinyllama" in model_lower:
-                # TinyLlama：轻量级，简单回复
-                system_prompt = "你是一位艺术爱好者。"
-                language = "zh"
-            else:
-                system_prompt = "你是一位专业的艺术评论家。"
-                language = "zh"
+            config = self._get_model_config()
+            language = config["language"]
+            system_prompt = config["system_prompt"]
+            temperature = config["temperature"]
+            max_tokens = config["max_tokens"]
             
             # ✅ 根据语言构建不同的 prompt
             if language == "zh":
@@ -155,24 +217,22 @@ Image description: {caption}
             
             print(f"   ⏳ 正在请求 Ollama ({self.ollama_model}) 深度分析...")
             
-            # ✅ 使用配置的模型
             response = requests.post(
                 f"{self.ollama_host}/api/generate",
                 json={
                     "model": self.ollama_model,
                     "prompt": llm_prompt,
                     "stream": False,
-                    "temperature": OLLAMA_TEMPERATURE,
-                    "max_tokens": OLLAMA_MAX_TOKENS
+                    "temperature": temperature,
+                    "max_tokens": max_tokens
                 },
-                timeout=45
+                timeout=60
             )
             
             if response.status_code == 200:
                 result = response.json().get("response", caption).strip()
-                # 清理可能的重复内容
-                if len(result) > 200:
-                    result = result[:200] + "..."
+                if len(result) > 300:
+                    result = result[:300] + "..."
                 print(f"   ✅ {self.ollama_model} 深度解析完成！")
                 if len(result) < 5:
                     return caption
@@ -181,7 +241,7 @@ Image description: {caption}
                 print(f"   ⚠️ Ollama 请求失败: {response.status_code}")
                 
         except requests.exceptions.Timeout:
-            print(f"   ⚠️ Ollama 请求超时 (45秒)")
+            print(f"   ⚠️ Ollama 请求超时 (60秒)")
         except requests.exceptions.ConnectionError:
             print(f"   ⚠️ 无法连接到 Ollama，请确保 Ollama 正在运行")
             print(f"   💡 运行: ollama serve")
