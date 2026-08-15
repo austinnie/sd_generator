@@ -68,20 +68,14 @@ class ModelManager:
             from config.app import MODEL_TYPE
             
             path_lower = path.lower()
-            
-            # 优先根据路径判断模型类型
             is_sdxl = False
             
-            # 如果路径包含 sd-v1-5 目录，强制 SD1.5
             if "sd-v1-5" in path_lower:
                 is_sdxl = False
-            # 如果路径包含 sdxl 目录，强制 SDXL
             elif "sdxl" in path_lower:
                 is_sdxl = True
-            # 如果文件名包含 xl，判断为 SDXL
             elif "xl" in path_lower and "sd" not in path_lower:
                 is_sdxl = True
-            # 否则使用配置
             else:
                 is_sdxl = (MODEL_TYPE == "sdxl")
             
@@ -107,7 +101,8 @@ class ModelManager:
                 self.model_type = "sd15"
             
             self.pipeline.to("cpu")
-            self.current = os.path.basename(path)
+            self.current = os.path.basename(path)           
+
             
             # 优化设置
             if hasattr(self.pipeline, 'vae'):
@@ -123,7 +118,8 @@ class ModelManager:
             import traceback
             traceback.print_exc()
             return False
-    
+
+
     def unload(self):
         if self.pipeline:
             try: del self.pipeline

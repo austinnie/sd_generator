@@ -12,3 +12,4 @@ tqdm
 python-docx
 piexif
 opencv-python
+peft

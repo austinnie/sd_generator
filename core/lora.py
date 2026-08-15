@@ -13,7 +13,7 @@ class LoraManager:
     def list(self, model_type: str = None) -> List[Dict]:
         loras = self._loras_cache
         if model_type:
-            loras = [l for l in loras if l.get('type') == model_type]
+            loras = [l for l in loras if l.get('lora_type') == model_type]
         return loras
     
     def get_default_lora(self) -> Optional[str]:
@@ -27,14 +27,11 @@ class LoraManager:
                 return l
         return None
     
-    # core/lora.py
-
     def load_by_name(self, pipeline, name: str, weight: float = 1.0,
                      model_type: str = None) -> bool:
         """根据名称加载 LoRA（自动匹配模型类型）"""
         from config.app import MODEL_TYPE
         
-        # 如果没有指定类型，使用当前模型类型
         if model_type is None:
             model_type = MODEL_TYPE
         
@@ -43,7 +40,6 @@ class LoraManager:
             print(f"❌ 未找到 {model_type} 类型的 LoRA: {name}")
             return False
         
-        # 解析路径
         path = None
         if "path" in lora_info and lora_info["path"]:
             from config.app import PROJECT_ROOT
@@ -59,18 +55,47 @@ class LoraManager:
         return self.load(pipeline, path, weight)
     
     def load(self, pipeline, path: str, weight: float = 1.0) -> bool:
+        """加载 LoRA（参考 v8 pipeline.py 的可靠方式）"""
         if not os.path.exists(path):
             print(f"❌ LoRA 不存在: {path}")
             return False
+        
         try:
-            pipeline.load_lora_weights(path)
-            if weight != 1.0 and hasattr(pipeline, 'set_adapters'):
-                pipeline.set_adapters(["default"], adapter_weights=[weight])
-            self._loaded_loras.append({"path": path, "weight": weight})
+            # ✅ 参考 pipeline.py 的方式：使用 adapter_name
+            adapter_name = "default"
+            print(f"   🔗 加载 LoRA: {os.path.basename(path)} (权重: {weight})")
+            pipeline.load_lora_weights(path, adapter_name=adapter_name)
+            
+            # 设置权重
+            if weight != 1.0:
+                try:
+                    pipeline.set_adapters([adapter_name], adapter_weights=[weight])
+                except Exception as e:
+                    print(f"   ⚠️ 设置权重失败: {e}")
+            
+            self._loaded_loras.append({
+                "path": path, 
+                "weight": weight,
+                "name": os.path.basename(path)
+            })
             return True
+            
         except Exception as e:
-            print(f"❌ LoRA 加载失败: {e}")
-            return False
+            # 如果 adapter_name 参数不被支持，尝试不带参数
+            if "unexpected keyword argument" in str(e) or "adapter_name" in str(e):
+                try:
+                    print(f"   🔗 尝试直接加载 (无 adapter_name)...")
+                    pipeline.load_lora_weights(path)
+                    if weight != 1.0 and hasattr(pipeline, 'set_adapters'):
+                        pipeline.set_adapters(["default"], adapter_weights=[weight])
+                    self._loaded_loras.append({"path": path, "weight": weight})
+                    return True
+                except Exception as e2:
+                    print(f"❌ LoRA 加载失败: {e2}")
+                    return False
+            else:
+                print(f"❌ LoRA 加载失败: {e}")
+                return False
     
     def unload(self, pipeline) -> bool:
         try:
@@ -78,7 +103,8 @@ class LoraManager:
                 pipeline.unload_lora_weights()
                 self._loaded_loras = []
                 return True
-        except: pass
+        except:
+            pass
         return False
     
     def get_loaded(self) -> List[Dict]:

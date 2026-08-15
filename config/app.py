@@ -290,5 +290,5 @@ __all__ = [
     'AI_CROP_PERCENT',         # 🆕
     'AI_FINGERPRINT_OBFUSCATION', # 🆕
     'AI_DISTORTION_STRENGTH',  # 🆕
-    'SKETCH_KEYWORDS',         # 🆕
+    'SKETCH_KEYWORDS',         # 🆕    
 ]

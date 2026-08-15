@@ -25,7 +25,7 @@ from core.model import ModelManager
 from core.lora import LoraManager
 from core.prompts import PromptLoader
 from config.app import config, load_user_config, save_user_config, SD_MODEL_PATH, FINAL_LORA_LIST
-
+from core.pipeline import setup_pipeline
 
 def parse_lora_spec(spec: str) -> tuple:
     """解析 LoRA 规格: 'name' 或 'name@0.8'"""
@@ -184,43 +184,15 @@ def main():
         if not model_mgr.load(args.model, args.model_type):
             return
     else:
-        if SD_MODEL_PATH and os.path.exists(SD_MODEL_PATH):
-            if not model_mgr._load_from_path(SD_MODEL_PATH):
-                return
-        else:
-            models = model_mgr.list_models(args.model_type)
-            if not models:
-                print("❌ 未找到任何模型")
-                return
-            if not model_mgr.load(models[0]['name']):
-                return
-    
+        # 改为：
+        pipe = setup_pipeline()
+        model_mgr.pipeline = pipe
+        model_mgr.current = os.path.basename(SD_MODEL_PATH)
+        model_mgr.model_type = pipe.__class__.__name__.lower().replace('pipeline', '').replace('stablefusion', '').replace('x', 'xl')
+
     # ===== 3. 加载 LoRA =====
-    lora_specs = []
-    if args.no_lora:
-        print("🔗 LoRA 已禁用")
-    elif args.lora:
-        for spec in args.lora:
-            name, weight = parse_lora_spec(spec)
-            lora_specs.append((name, weight))
-    else:
-        user_config = load_user_config()
-        default_loras = user_config.get('default_loras', [])
-        if default_loras:
-            print(f"🔗 使用默认 LoRA: {len(default_loras)} 个")
-            for lora in default_loras:
-                lora_specs.append((lora['name'], lora.get('weight', 1.0)))
-        elif FINAL_LORA_LIST:
-            print(f"🔗 使用配置 LoRA: {len(FINAL_LORA_LIST)} 个")
-            for lora in FINAL_LORA_LIST:
-                lora_name = os.path.basename(lora['path'])
-                lora_name = os.path.splitext(lora_name)[0]  # 🆕 去掉扩展名
-                lora_specs.append((lora_name, lora.get('weight', 1.0)))
-    
-    for name, weight in lora_specs:
-        if lora_mgr.load_by_name(model_mgr.get_pipeline(), name, weight,
-                                 model_mgr.get_model_type()):
-            print(f"🔗 加载 LoRA: {name} (权重: {weight})")
+    # LoRA 由 pipeline.py 在加载模型时自动加载
+    print(f"🔗 使用配置 LoRA（已在模型加载时自动加载）")
     
     # ===== 4. 生成 =====
     print(f"\n🎨 开始生成 {total_count} 张...")
