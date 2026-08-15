@@ -7,6 +7,13 @@
 
 import sys
 import os
+
+# ✅ 修复：路径不要有空格
+os.environ["HF_HOME"] = r"E:\hf_cache\.cache"
+os.environ["TRANSFORMERS_CACHE"] = r"E:\hf_cache\.cache\hub"
+os.environ["HF_HUB_CACHE"] = r"E:\hf_cache\.cache\hub"
+os.environ["HUGGINGFACE_HUB_CACHE"] = r"E:\hf_cache\.cache\hub"
+
 import io
 
 # 修复 Windows 终端编码问题

@@ -1,10 +1,13 @@
-# SD Generator - 自动匹配最新版本
+# SD Generator - 已验证兼容版本
 torch
 torchvision
-diffusers
-transformers
-accelerate
-safetensors
+diffusers==0.26.0
+transformers==4.40.0
+accelerate==1.14.0
+safetensors==0.8.0
+huggingface_hub==0.24.0
+tokenizers==0.19.0
+peft==0.10.0
 pillow
 numpy
 psutil
@@ -12,4 +15,3 @@ tqdm
 python-docx
 piexif
 opencv-python
-peft
