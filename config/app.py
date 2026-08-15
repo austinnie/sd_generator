@@ -319,33 +319,31 @@ AI_DISTORTION_STRENGTH = 0.0005
 # 图像生成方式: "local" | "tongyi" | "yige" | "hunyuan" | "huggingface"
 #IMAGE_API_PROVIDER = "local"  # 默认使用本地 SD
 
-IMAGE_API_PROVIDER = "tongyi"  # 默认使用本地 SD
+# config/app.py
+import os
+from dotenv import load_dotenv
+
+# 加载 .env 文件（从项目根目录）
+load_dotenv()
+
+# ==================== 🖼️ API 图像生成配置 ====================
+IMAGE_API_PROVIDER = os.getenv("IMAGE_API_PROVIDER", "local")
 
 # 通义万相（阿里云）
-TONGYI_API_KEY = ""  # sk-xxxxxxxx
-
-
-# 日常使用（性价比最高）
-TONGYI_MODEL = "wan2.1-t2i-plus"
-
-## 高质量（效果最好）
-#TONGYI_MODEL = "qwen-image3.0-pro"
-
-## 快速测试（最便宜）
-#TONGYI_MODEL = "wan2.1-t2i-turbo"
-
+TONGYI_API_KEY = os.getenv("TONGYI_API_KEY", "")
+TONGYI_MODEL = os.getenv("TONGYI_MODEL", "wan2.1-t2i-plus")
 
 # 文心一格（百度）
-YIGE_API_KEY = ""
-YIGE_SECRET_KEY = ""
+YIGE_API_KEY = os.getenv("YIGE_API_KEY", "")
+YIGE_SECRET_KEY = os.getenv("YIGE_SECRET_KEY", "")
 
 # 腾讯混元
-HUNYUAN_SECRET_ID = ""
-HUNYUAN_SECRET_KEY = ""
+HUNYUAN_SECRET_ID = os.getenv("HUNYUAN_SECRET_ID", "")
+HUNYUAN_SECRET_KEY = os.getenv("HUNYUAN_SECRET_KEY", "")
 
 # HuggingFace
-HF_API_TOKEN = ""  # hf_xxxxxxxx
-HF_MODEL = "sdxl"  # sdxl | sd3 | flux | sd15
+HF_API_TOKEN = os.getenv("HF_API_TOKEN", "")
+HF_MODEL = os.getenv("HF_MODEL", "sdxl")
 
 __all__ = [
     'config',
