@@ -315,6 +315,38 @@ AI_CROP_PERCENT = 0.005
 AI_FINGERPRINT_OBFUSCATION = False
 AI_DISTORTION_STRENGTH = 0.0005
 
+# ==================== 🖼️ API 图像生成配置 ====================
+# 图像生成方式: "local" | "tongyi" | "yige" | "hunyuan" | "huggingface"
+#IMAGE_API_PROVIDER = "local"  # 默认使用本地 SD
+
+IMAGE_API_PROVIDER = "tongyi"  # 默认使用本地 SD
+
+# 通义万相（阿里云）
+TONGYI_API_KEY = ""  # sk-xxxxxxxx
+
+
+# 日常使用（性价比最高）
+TONGYI_MODEL = "wan2.1-t2i-plus"
+
+## 高质量（效果最好）
+#TONGYI_MODEL = "qwen-image3.0-pro"
+
+## 快速测试（最便宜）
+#TONGYI_MODEL = "wan2.1-t2i-turbo"
+
+
+# 文心一格（百度）
+YIGE_API_KEY = ""
+YIGE_SECRET_KEY = ""
+
+# 腾讯混元
+HUNYUAN_SECRET_ID = ""
+HUNYUAN_SECRET_KEY = ""
+
+# HuggingFace
+HF_API_TOKEN = ""  # hf_xxxxxxxx
+HF_MODEL = "sdxl"  # sdxl | sd3 | flux | sd15
+
 __all__ = [
     'config',
     'SD_MODEL_PATH', 'AVAILABLE_MODELS', 'MODEL_INDEX',
@@ -325,24 +357,34 @@ __all__ = [
     'get_lora_path_by_index',
     'load_user_config', 'save_user_config',
     'AI_APPRECIATION_ENGINE',
-    'OLLAMA_MODEL',  # ✅ 新增
+    'OLLAMA_MODEL',
     'OLLAMA_HOST',
     'OLLAMA_TEMPERATURE',
     'OLLAMA_MAX_TOKENS',
-    'REMOVE_AI_TRACES',        # 🆕
-    'AI_CLEAR_METADATA',       # 🆕
-    'AI_REALISTIC',            # 🆕
-    'AI_CAMERA',               # 🆕
-    'AI_STRENGTH',             # 🆕
-    'AI_INJECT_EXIF',          # 🆕
-    'AI_CHROMATIC_ABERRATION', # 🆕
-    'AI_CHROMATIC_STRENGTH',   # 🆕
-    'AI_REALISTIC_NOISE',      # 🆕
-    'AI_NOISE_ISO_BASE',       # 🆕
-    'AI_NOISE_RANDOMIZE',      # 🆕
-    'AI_MINOR_CROP',           # 🆕
-    'AI_CROP_PERCENT',         # 🆕
-    'AI_FINGERPRINT_OBFUSCATION', # 🆕
-    'AI_DISTORTION_STRENGTH',  # 🆕
-    'SKETCH_KEYWORDS',         # 🆕    
+    'REMOVE_AI_TRACES',
+    'AI_CLEAR_METADATA',
+    'AI_REALISTIC',
+    'AI_CAMERA',
+    'AI_STRENGTH',
+    'AI_INJECT_EXIF',
+    'AI_CHROMATIC_ABERRATION',
+    'AI_CHROMATIC_STRENGTH',
+    'AI_REALISTIC_NOISE',
+    'AI_NOISE_ISO_BASE',
+    'AI_NOISE_RANDOMIZE',
+    'AI_MINOR_CROP',
+    'AI_CROP_PERCENT',
+    'AI_FINGERPRINT_OBFUSCATION',
+    'AI_DISTORTION_STRENGTH',
+    'SKETCH_KEYWORDS',
+    # API 配置
+    'IMAGE_API_PROVIDER',
+    'TONGYI_API_KEY',
+    'TONGYI_MODEL',
+    'YIGE_API_KEY',
+    'YIGE_SECRET_KEY',
+    'HUNYUAN_SECRET_ID',
+    'HUNYUAN_SECRET_KEY',
+    'HF_API_TOKEN',
+    'HF_MODEL',
 ]

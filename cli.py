@@ -31,18 +31,32 @@ from core.engine import GenerationEngine
 from core.model import ModelManager
 from core.lora import LoraManager
 from core.prompts import PromptLoader
-from core.appraiser import Appraiser  # ✅ 添加这行
+from core.appraiser import Appraiser
 from config.app import (
     config, 
     load_user_config, 
     save_user_config, 
     SD_MODEL_PATH, 
     FINAL_LORA_LIST,
-    AI_APPRECIATION_ENGINE,  # ✅ 添加这行
-    REMOVE_AI_TRACES,        # ✅ 添加这行
-    SKETCH_KEYWORDS          # ✅ 添加这行（可选，但建议加上）
+    AI_APPRECIATION_ENGINE,
+    REMOVE_AI_TRACES,
+    SKETCH_KEYWORDS,
+    # API 配置
+    IMAGE_API_PROVIDER,
+    TONGYI_API_KEY,
+    TONGYI_MODEL,
+    YIGE_API_KEY,
+    YIGE_SECRET_KEY,
+    HUNYUAN_SECRET_ID,
+    HUNYUAN_SECRET_KEY,
+    HF_API_TOKEN,
+    HF_MODEL,
 )
 from core.pipeline import setup_pipeline
+
+# ✅ 添加 API 引擎导入
+from core.api_engines import create_api_engine
+
 
 def parse_lora_spec(spec: str) -> tuple:
     """解析 LoRA 规格: 'name' 或 'name@0.8'"""
@@ -89,7 +103,24 @@ def main():
     parser.add_argument("--clear", action="store_true", help="清除默认配置")
     parser.add_argument("--show-config", action="store_true", help="显示当前配置")
     
+    # ✅ 添加 API 相关参数
+    parser.add_argument("--api", choices=["tongyi", "yige", "hunyuan", "huggingface"], 
+                        help="使用 API 生成图片 (覆盖配置)")
+    parser.add_argument("--list-apis", action="store_true", help="列出可用的 API 提供商")
+    
     args = parser.parse_args()
+    
+    # ✅ 列出可用 API
+    if args.list_apis:
+        print("\n📚 可用的 API 提供商:")
+        print("=" * 50)
+        print("  tongyi      通义万相（阿里云）")
+        print("  yige        文心一格（百度）")
+        print("  hunyuan     腾讯混元")
+        print("  huggingface HuggingFace Inference API")
+        print("\n💡 使用 --api <名称> 切换到指定 API")
+        print("   或在 config/app.py 中设置 IMAGE_API_PROVIDER")
+        return
     
     model_mgr = ModelManager()
     lora_mgr = LoraManager()
@@ -150,6 +181,7 @@ def main():
         print("\n📊 当前配置:")
         print(f"  模式: smart")
         print(f"  模型: {os.path.basename(SD_MODEL_PATH) if SD_MODEL_PATH else '未设置'}")
+        print(f"  图像生成: {args.api or IMAGE_API_PROVIDER}")
         loras = user_config.get('default_loras', [])
         if loras:
             default_lora_str = ', '.join([f"{l['name']}@{l.get('weight', 1.0)}" for l in loras])
@@ -164,6 +196,10 @@ def main():
         print("\n❌ 请指定风格名称")
         print("   提示: 使用 --list-styles 查看所有可用风格")
         return
+    
+    # ===== 确定使用的 API 提供商 =====
+    api_provider = args.api or IMAGE_API_PROVIDER
+    use_api = api_provider != "local"
     
     # ===== 1. 加载提示词 =====
     print("📝 加载提示词...")
@@ -190,40 +226,84 @@ def main():
     total_combinations = style_info.get('total_combinations', 1)
     if args.count is None:
         if style_info.get('type') == 'hierarchical':
-            total_count = min(total_combinations, 20)  # ← 这里定义了 total_count
+            total_count = min(total_combinations, 20)
             print(f"📊 分层模式：将生成 {total_count} 张（全部组合）")
         else:
-            total_count = style_info.get('subjects', 1)  # ← 这里也定义了
+            total_count = style_info.get('subjects', 1)
             print(f"📊 扁平模式：将生成 {total_count} 张（全部提示词）")
     else:
-        total_count = args.count  # ← 这里也定义了
+        total_count = args.count
         if total_count > total_combinations:
             print(f"⚠️ 指定数量 {total_count} 超过组合数 {total_combinations}，实际生成 {total_combinations}")
             total_count = total_combinations
     
-    # ===== 2. 加载模型 =====
-    if args.model:
-        if not model_mgr.load(args.model, args.model_type):
-            return
-    else:
-        # ✅ 使用 setup_pipeline 直接加载模型和 LoRA
-        pipe = setup_pipeline()
-        model_mgr.pipeline = pipe
-        model_mgr.current = os.path.basename(SD_MODEL_PATH)
-        model_mgr.model_type = pipe.__class__.__name__.lower().replace('pipeline', '').replace('stablefusion', '').replace('x', 'xl')
-        
-    # ===== 3. LoRA 状态（只显示，不加载） =====
-    if args.no_lora:
-        print(f"🔗 LoRA 已禁用（--no-lora）")
-    else:
-        if FINAL_LORA_LIST:
-            print(f"🔗 已配置 {len(FINAL_LORA_LIST)} 个 LoRA（已在模型加载时自动加载）")
-        else:
-            print(f"🔗 未配置 LoRA")
+    # ===== 2. 创建生成引擎 =====
+    engine = None
+    api_engine = None
     
-    # ===== 4. 生成 =====
+    if use_api:
+        # ✅ 使用 API 引擎
+        print(f"🌐 使用 API 图像生成: {api_provider}")
+        
+        # 构建 API 配置
+        api_config = {
+            "TONGYI_API_KEY": TONGYI_API_KEY,
+            "TONGYI_MODEL": TONGYI_MODEL,
+            "YIGE_API_KEY": YIGE_API_KEY,
+            "YIGE_SECRET_KEY": YIGE_SECRET_KEY,
+            "HUNYUAN_SECRET_ID": HUNYUAN_SECRET_ID,
+            "HUNYUAN_SECRET_KEY": HUNYUAN_SECRET_KEY,
+            "HF_API_TOKEN": HF_API_TOKEN,
+            "HF_MODEL": HF_MODEL,
+        }
+        
+        # 检查 API Key
+        if api_provider == "tongyi" and not TONGYI_API_KEY:
+            print(f"❌ 请设置 TONGYI_API_KEY")
+            return
+        if api_provider == "yige" and not (YIGE_API_KEY and YIGE_SECRET_KEY):
+            print(f"❌ 请设置 YIGE_API_KEY 和 YIGE_SECRET_KEY")
+            return
+        if api_provider == "hunyuan" and not (HUNYUAN_SECRET_ID and HUNYUAN_SECRET_KEY):
+            print(f"❌ 请设置 HUNYUAN_SECRET_ID 和 HUNYUAN_SECRET_KEY")
+            return
+        if api_provider == "huggingface" and not HF_API_TOKEN:
+            print(f"❌ 请设置 HF_API_TOKEN")
+            return
+        
+        try:
+            api_engine = create_api_engine(api_provider, api_config)
+            print(f"✅ API 引擎初始化成功: {api_provider}")
+        except Exception as e:
+            print(f"❌ API 引擎初始化失败: {e}")
+            return
+    
+    else:
+        # ✅ 使用本地 SD 引擎
+        print(f"🖥️ 使用本地 SD 图像生成")
+        
+        if args.model:
+            if not model_mgr.load(args.model, args.model_type):
+                return
+        else:
+            pipe = setup_pipeline()
+            model_mgr.pipeline = pipe
+            model_mgr.current = os.path.basename(SD_MODEL_PATH)
+            model_mgr.model_type = pipe.__class__.__name__.lower().replace('pipeline', '').replace('stablefusion', '').replace('x', 'xl')
+        
+        # ===== LoRA 状态 =====
+        if args.no_lora:
+            print(f"🔗 LoRA 已禁用（--no-lora）")
+        else:
+            if FINAL_LORA_LIST:
+                print(f"🔗 已配置 {len(FINAL_LORA_LIST)} 个 LoRA（已在模型加载时自动加载）")
+            else:
+                print(f"🔗 未配置 LoRA")
+        
+        engine = GenerationEngine(model_mgr.get_pipeline())
+    
+    # ===== 3. 生成 =====
     print(f"\n🎨 开始生成 {total_count} 张...")
-    engine = GenerationEngine(model_mgr.get_pipeline())
     os.makedirs(config.output_dir, exist_ok=True)
 
     # 初始化鉴赏器
@@ -251,14 +331,29 @@ def main():
         prompts_used.append(prompt)
         
         try:
-            image = engine.generate_single(
-                prompt=prompt,
-                steps=args.steps,
-                cfg=args.cfg,
-                width=args.width,
-                height=args.height,
-                seed=args.seed if args.seed != -1 else None,
-            )
+            # ✅ 根据引擎类型生成图片
+            if use_api:
+                # 使用 API 引擎
+                image = api_engine.generate_single(
+                    prompt=prompt,
+                    negative=config.default_negative,
+                    width=args.width,
+                    height=args.height,
+                    steps=args.steps,
+                    cfg=args.cfg,
+                    seed=args.seed if args.seed != -1 else None,
+                )
+            else:
+                # 使用本地引擎
+                image = engine.generate_single(
+                    prompt=prompt,
+                    negative=config.default_negative,
+                    width=args.width,
+                    height=args.height,
+                    steps=args.steps,
+                    cfg=args.cfg,
+                    seed=args.seed if args.seed != -1 else None,
+                )
             
             filename = f"{args.style}_{datetime.now():%Y%m%d_%H%M%S}_{i+1}.png"
             filepath = os.path.join(config.output_dir, filename)
@@ -274,7 +369,6 @@ def main():
                 final_path = remove_ai_traces(filepath, is_sketch=is_sketch)
                 if final_path != filepath:
                     print(f"   ✅ 后处理完成: {os.path.basename(final_path)}")
-                    # ✅ 更新为最终的 JPG 路径
                     generated_files[-1] = final_path
             
             # ===== AI 鉴赏 =====
@@ -305,13 +399,9 @@ def main():
             
             print(f"\n📄 正在生成 Word 文档...")
             
-            # 获取实际输出目录（可能包含子文件夹）
             output_dir = os.path.dirname(generated_files[0])
             
-            # 生成 Word 文档
             doc_success = generate_word_doc(output_dir, args.style, appraisals)
-            
-            # 生成文本摘要
             txt_success = generate_text_summary(output_dir, args.style, appraisals)
             
             if doc_success:
@@ -327,6 +417,8 @@ def main():
 
     print(f"\n✅ 完成，共 {total_count} 张")
     print(f"📁 输出目录: {config.output_dir}")
+    if use_api:
+        print(f"🌐 API 提供商: {api_provider}")
 
 
 if __name__ == "__main__":
