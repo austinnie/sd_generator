@@ -62,6 +62,42 @@ MODEL_TYPE = "sd15"  # 默认 SD1.5
 # sdxl: ../models/sdxl-lora/
 ```
 
+### 配置 API Key（可选）
+创建 .env 文件（不要提交到 Git）：
+```
+env
+# ==================== 图像生成 API 配置 ====================
+# 默认提供商: local | tongyi | yige | hunyuan | huggingface
+IMAGE_API_PROVIDER=local
+
+# ==================== 通义万相（阿里云） ====================
+# 注册: https://dashscope.console.aliyun.com/
+# 免费额度: 2000 张
+TONGYI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+TONGYI_MODEL=wan2.1-t2i-plus
+# 可选模型: wan2.1-t2i-plus, qwen-image3.0-pro, qwen-image-max, wan2.1-t2i-turbo
+
+# ==================== 文心一格（百度） ====================
+# 注册: https://console.bce.baidu.com/ai/#/ai/yige/app/list
+# 免费额度: 200 张/月
+YIGE_API_KEY=xxxxxxxxxxxxxxxx
+YIGE_SECRET_KEY=xxxxxxxxxxxxxxxx
+
+# ==================== 腾讯混元 ====================
+# 注册: https://cloud.tencent.com/product/hunyuan
+# 免费额度: 50 张
+HUNYUAN_SECRET_ID=xxxxxxxxxxxxxxxx
+HUNYUAN_SECRET_KEY=xxxxxxxxxxxxxxxx
+
+# ==================== HuggingFace（完全免费） ====================
+# 注册: https://huggingface.co/
+# 获取 Token: https://huggingface.co/settings/tokens
+# 免费额度: 无限（限速）
+HF_API_TOKEN=hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+HF_MODEL=sdxl
+# 可选: sdxl, sd3, flux, sd15
+```
+
 ### 切换模型和 LoRA
 
 **切换模型类型**：
@@ -134,7 +170,70 @@ python main.py
 
 **LoRA 自动适配**：当切换模型类型时，LoRA 会自动跟随，确保 SD1.5 的 LoRA 不会加载到 SDXL 上。
 
-## 五、工具脚本说明
+
+##五、云端 API 图像生成
+支持 4 种云端图像生成 API，可与本地 SD 无缝切换。
+
+### API 提供商对比
+
+| API | 免费额度 | 速度 | 中文支持 | 注册难度 |
+|---|---|---|---|---|
+| 通义万相（阿里云） | 2000 张 | 快 | ⭐⭐⭐⭐⭐ | 需实名认证 |
+| 文心一格（百度） | 200 张/月 | 快 | ⭐⭐⭐⭐⭐ | 需实名认证 |
+| 腾讯混元 | 50 张 | 快 | ⭐⭐⭐⭐⭐ | 需申请 |
+| HuggingFace | 无限（限速） | 慢 | ⭐⭐ | 简单 |
+
+
+### API 命令
+```bash
+# 通义万相（阿里云）
+python cli.py mecha_glow -n 1 --api tongyi --steps 20
+
+# 文心一格（百度）
+python cli.py mecha_glow -n 1 --api yige --steps 20
+
+# 腾讯混元
+python cli.py mecha_glow -n 1 --api hunyuan --steps 20
+
+# HuggingFace（完全免费）
+python cli.py mecha_glow -n 1 --api huggingface --steps 20
+
+# 切换回本地 SD
+python cli.py mecha_glow -n 1 --api local --steps 20
+
+# 查看所有可用 API
+python cli.py --list-apis
+
+# 查看当前配置
+python cli.py --show-config
+```
+
+### 通义万相模型选择
+
+| 模型 | 价格（元/张） | 质量 | 推荐场景 |
+|---|---|---|---|
+| `wan2.1-t2i-turbo` | ¥0.04-0.06 | ⭐⭐⭐ | 快速测试 |
+| `wan2.1-t2i-plus` | ¥0.06-0.10 | ⭐⭐⭐⭐ | 日常使用（推荐） |
+| `qwen-image-plus` | ¥0.08-0.12 | ⭐⭐⭐⭐ | 平衡选择 |
+| `qwen-image3.0-pro` | ¥0.10-0.16 | ⭐⭐⭐⭐⭐ | 高质量需求 |
+| `qwen-image-max` | ¥0.12-0.20 | ⭐⭐⭐⭐⭐ | 最高质量 |
+
+
+### 配置文件 `.env` 说明
+
+| 变量 | 说明 | 示例 |
+|---|---|---|
+| `IMAGE_API_PROVIDER` | 默认提供商 | `local` / `tongyi` / `yige` / `hunyuan` / `huggingface` |
+| `TONGYI_API_KEY` | 通义万相 API Key | `sk-xxx...` |
+| `TONGYI_MODEL` | 通义万相模型 | `wan2.1-t2i-plus` |
+| `YIGE_API_KEY` | 文心一格 API Key | `xxx...` |
+| `YIGE_SECRET_KEY` | 文心一格 Secret Key | `xxx...` |
+| `HUNYUAN_SECRET_ID` | 腾讯混元 Secret ID | `xxx...` |
+| `HUNYUAN_SECRET_KEY` | 腾讯混元 Secret Key | `xxx...` |
+| `HF_API_TOKEN` | HuggingFace Token | `hf_xxx...` |
+| `HF_MODEL` | HuggingFace 模型 | `sdxl` / `sd3` / `flux` / `sd15` |
+
+## 六、工具脚本说明
 
 ### scripts/model_index.py - 模型索引生成器
 
@@ -196,7 +295,7 @@ python scripts/switch_model.py --refresh          # 重新生成索引
 
 ### scripts/switch_lora.py - LoRA 切换工具
 
-切换和管理 LoRA 权重，**自动匹配模型类型**。
+切换和管理 LoRA 权重，自动匹配模型类型。
 
 用法：
 ```bash
@@ -229,6 +328,29 @@ python scripts/switch_lora.py --refresh          # 重新生成索引
 | 1 | anmi_sdxl | style | Anmi 画风 |
 | 2 | qipao_sdxl | clothing | 旗袍风格 |
 
+
+### scripts/switch_ollama_model.py - Ollama 模型切换工具
+
+切换 AI 鉴赏使用的 Ollama 模型。
+
+用法：
+```bash
+python scripts/switch_ollama_model.py --status    # 显示当前状态
+python scripts/switch_ollama_model.py --list      # 列出已安装的模型
+python scripts/switch_ollama_model.py --set qwen2.5:7b  # 切换到指定模型
+python scripts/switch_ollama_model.py --recommended  # 显示推荐模型
+```
+
+### 推荐的 Ollama 模型
+
+| 模型 | 说明 | 下载命令 |
+|---|---|---|
+| `qwen2.5:1.5b` | 轻量，速度快 | `ollama pull qwen2.5:1.5b` |
+| `qwen2.5:7b` | 中文理解最佳（推荐） | `ollama pull qwen2.5:7b` |
+| `deepseek-r1:7b` | 推理能力强 | `ollama pull deepseek-r1:7b` |
+| `phi:latest` | 英文能力强 | `ollama pull phi` |
+| `tinyllama:latest` | 最轻量 | `ollama pull tinyllama` |
+
 ### scripts/organize_output.py - 输出整理工具
 
 将 output 目录中的图片按每 5 张一组整理到子文件夹中。
@@ -247,7 +369,7 @@ python scripts/organize_output.py
 python scripts/test_import.py
 ```
 
-## 六、CLI 命令参考
+## 七、CLI 命令参考
 
 ```bash
 python cli.py <风格名> [选项]
@@ -280,6 +402,13 @@ python cli.py <风格名> [选项]
 | `--list-loras` | 列出所有可用 LoRA |
 | `--no-lora` | 禁用所有 LoRA |
 
+**API 选择选项**：
+
+| 选项 | 说明 | 
+|------|------|
+| `--api`	| 使用云端 API 生成 (tongyi/yige/hunyuan/huggingface)| 
+| `-list-apis`	| 列出所有可用的 API 提供商| 
+
 **配置管理选项**：
 
 | 选项 | 说明 |
@@ -288,7 +417,7 @@ python cli.py <风格名> [选项]
 | `--clear` | 清除默认配置 |
 | `--show-config` | 显示当前配置 |
 
-## 七、内置风格
+## 八、内置风格
 
 | 风格名 | 分类 | 说明 |
 |--------|------|------|
@@ -299,7 +428,7 @@ python cli.py <风格名> [选项]
 
 添加新风格：在 `prompts/` 目录下创建 `.py` 文件，按照 STYLE 格式定义即可。
 
-## 八、完整工作流示例
+## 九、完整工作流示例
 
 ```bash
 # 1. 首次使用：生成索引
@@ -329,17 +458,20 @@ python scripts/switch_lora.py --active 0 --type sd15
 # 7. 生成图片
 python cli.py bird_sketch -n 1
 
-# 8. 临时指定不同配置
+# 8. 使用云端 API 生成
+python cli.py mecha_glow -n 1 --api tongyi --steps 20
+
+# 9. 临时指定不同配置
 python cli.py mecha_blueprint -n 1 --model DreamShaper --lora MechaGirlFigure_v1@0.8
 
-# 9. 使用多个 LoRA
+# 10. 使用多个 LoRA
 python cli.py gallery_elegant -n 1 -l eula_v2@0.6 -l busty_slider@0.5
 
-# 10. 查看当前配置
+# 11. 查看当前配置
 python cli.py --show-config
 ```
 
-## 九、目录结构
+## 十、目录结构
 
 ```
 sd_generator/
@@ -355,7 +487,15 @@ sd_generator/
 │   ├── engine.py         # 生成引擎
 │   ├── model.py          # 模型管理（支持 SD1.5/SDXL）
 │   ├── lora.py           # LoRA 管理（自动匹配类型）
-│   └── prompts.py        # 提示词加载
+│   ├── prompts.py        # 提示词加载
+│   ├── appraiser.py      # AI 图像鉴赏（Ollama）
+│   ├── postprocessor.py  # 消除 AI 痕迹
+│   ├── pipeline.py       # Pipeline 管理
+│   └── api_engines/      # API 图像生成引擎
+│       ├── tongyi.py     # 通义万相
+│       ├── yige.py       # 文心一格
+│       ├── hunyuan.py    # 腾讯混元
+│       └── huggingface.py # HuggingFace
 │
 ├── prompts/              # 提示词库
 │   ├── base/
@@ -368,14 +508,24 @@ sd_generator/
 │   ├── lora_index.py     # LoRA 索引生成器（双模型）
 │   ├── switch_model.py   # 模型切换工具（双模型）
 │   ├── switch_lora.py    # LoRA 切换工具（双模型）
+│   ├── switch_ollama_model.py # Ollama 模型切换工具
 │   ├── organize_output.py # 输出整理工具
 │   ├── test_import.py    # 配置测试工具
 │   ├── models_index.json # 模型索引数据（自动生成）
 │   └── lora_index.json   # LoRA 索引数据（自动生成）
 │
-└── output/               # 生成图片输出目录
+├── utils/                # 工具模块
+│   ├── doc_generator.py  # Word 文档生成
+│   ├── exif_injector.py  # EXIF 注入
+│   ├── imagemeta_cleaner.py # 元数据清理
+│   ├── logger.py         # 日志
+│   ├── photo_realistic.py # 照片真实化
+│   └── watermark.py      # 水印处理
+│
+├── output/               # 生成图片输出目录
+└── .env                  # API Key 配置（不提交到 Git）
 ```
 
-## 十、License
+## 十一、License
 
 MIT License
