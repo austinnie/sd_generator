@@ -144,7 +144,6 @@ AVAILABLE_LORAS = LORA_INDEX.get("loras", [])
 
 # ==================== LoRA 配置 ====================
 LORA_ACTIVE_INDICES = [1]  # 例如 [0] 启用第一个
-FINAL_LORA_LIST = []
 
 # 从索引中获取 LoRA 路径
 def get_lora_path_by_index(idx):
@@ -158,14 +157,67 @@ def get_lora_path_by_index(idx):
         return lora_entry["absolute_path"]
     return None
 
-if LORA_ACTIVE_INDICES:
+# ✅ 改为动态计算函数
+def get_final_lora_list():
+    """动态获取 LoRA 列表"""
+    lora_list = []
+    if not LORA_ACTIVE_INDICES:
+        return lora_list
+    
+    # 先按类型过滤
+    type_loras = [l for l in AVAILABLE_LORAS if l.get('lora_type') == MODEL_TYPE]
+    
     for idx in LORA_ACTIVE_INDICES:
-        path = get_lora_path_by_index(idx)
-        if path and os.path.exists(path):
-            FINAL_LORA_LIST.append({
-                "path": path,
-                "weight": 0.8
-            })
+        if 0 <= idx < len(type_loras):
+            lora = type_loras[idx]
+            # 解析路径
+            lora_path = lora.get("absolute_path")
+            if not lora_path or not os.path.exists(lora_path):
+                rel_path = lora.get("path")
+                if rel_path:
+                    lora_path = os.path.normpath(os.path.join(PROJECT_ROOT, rel_path))
+            
+            if lora_path and os.path.exists(lora_path):
+                lora_list.append({
+                    "path": lora_path,
+                    "weight": 0.8,
+                    "name": lora.get("name", f"lora_{idx}"),
+                })
+    
+    return lora_list
+
+# ✅ 使用动态函数
+def get_final_lora_list_safe():
+    """安全获取 LoRA 列表（自动修正索引）"""
+    lora_list = []
+    if not LORA_ACTIVE_INDICES:
+        return lora_list
+    
+    type_loras = [l for l in AVAILABLE_LORAS if l.get('lora_type') == MODEL_TYPE]
+    
+    for idx in LORA_ACTIVE_INDICES:
+        if idx >= len(type_loras):
+            print(f"⚠️ LoRA 索引 {idx} 超出范围（共 {len(type_loras)} 个 {MODEL_TYPE} LoRA），自动使用索引 0")
+            idx = 0
+        if idx < len(type_loras):
+            lora = type_loras[idx]
+            lora_path = lora.get("absolute_path")
+            if not lora_path or not os.path.exists(lora_path):
+                rel_path = lora.get("path")
+                if rel_path:
+                    lora_path = os.path.normpath(os.path.join(PROJECT_ROOT, rel_path))
+            
+            if lora_path and os.path.exists(lora_path):
+                lora_list.append({
+                    "path": lora_path,
+                    "weight": 0.8,
+                    "name": lora.get("name", f"lora_{idx}"),
+                })
+    
+    return lora_list
+
+# ✅ 使用安全版本
+FINAL_LORA_LIST = get_final_lora_list_safe()
 
 # ==================== 生成参数 ====================
 STEPS = 25

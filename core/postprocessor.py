@@ -30,6 +30,7 @@ from config.app import (
     AI_CROP_PERCENT,
     AI_FINGERPRINT_OBFUSCATION,
     AI_DISTORTION_STRENGTH,
+    SKETCH_KEYWORDS,  # ✅ 添加这一行
 )
 
 

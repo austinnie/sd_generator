@@ -127,10 +127,13 @@ def _resolve_model_path(model_path):
     return model_path
 
 
+# core/pipeline.py
 def _load_loras(pipe):
-    """加载 LoRA"""
+    """加载 LoRA - 使用 LoraManager 统一管理"""
     try:
+        from core.lora import LoraManager
         from config.app import FINAL_LORA_LIST
+        import os
         
         lora_list = FINAL_LORA_LIST
         
@@ -139,25 +142,27 @@ def _load_loras(pipe):
             return
         
         print(f"   📦 准备加载 {len(lora_list)} 个 LoRA...")
-        adapter_names = []
-        adapter_weights = []
+        
+        # 创建 LoraManager 实例
+        lora_manager = LoraManager()
         
         for i, lora_info in enumerate(lora_list):
             lora_path = lora_info.get('path', '')
             lora_weight = lora_info.get('weight', 0.8)
+            
             if os.path.exists(lora_path):
-                adapter_name = f"lora_{i}"
                 print(f"      🔗 加载 LoRA {i+1}: {os.path.basename(lora_path)} (权重: {lora_weight})")
-                pipe.load_lora_weights(lora_path, adapter_name=adapter_name)
-                adapter_names.append(adapter_name)
-                adapter_weights.append(lora_weight)
-        
-        if adapter_names:
-            pipe.set_adapters(adapter_names, adapter_weights=adapter_weights)
-            print(f"      ✅ 全部 {len(adapter_names)} 个 LoRA 加载成功！")
+                # ✅ 使用 LoraManager 的 load 方法
+                success = lora_manager.load(pipe, lora_path, lora_weight)
+                if success:
+                    print(f"      ✅ LoRA {i+1} 加载成功")
+                else:
+                    print(f"      ⚠️ LoRA {i+1} 加载失败")
+            else:
+                print(f"      ⚠️ LoRA 文件不存在: {lora_path}")
+            
     except Exception as e:
         print(f"   ⚠️ LoRA 加载跳过: {e}")
-
 
 def _configure_scheduler(pipe):
     """配置调度器"""
