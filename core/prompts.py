@@ -5,7 +5,7 @@ import os
 import glob
 import random
 from typing import Dict, List, Optional, Union
-
+import requests  # 别忘了在文件顶部导入
 
 class PromptLoader:
     """提示词加载器 - 支持扁平/分层两种格式"""
@@ -149,3 +149,34 @@ class PromptLoader:
             info["subjects"] = len(style_data.get("subjects", []))
         
         return info
+
+    def generate_prompt_with_ollama(self, user_desc: str) -> str:
+        """使用当前配置的 Ollama 模型生成提示词"""
+        try:
+            # 读取当前配置的模型
+            from config.app import OLLAMA_MODEL
+            
+            # 构建系统提示词（这个比鉴赏提示词更偏向“指令性”）
+            system_prompt = (
+                "你是一个Stable Diffusion提示词专家。请将用户的描述转换为一段高质量的英文AI绘画提示词。"
+                "要求：包含主体、环境、光影、画质修饰词，以逗号分隔。只输出提示词，不要解释。"
+            )
+            
+            response = requests.post(
+                "http://localhost:11434/api/generate",
+                json={
+                    "model": OLLAMA_MODEL,
+                    "prompt": f"{system_prompt}\n用户描述：{user_desc}",
+                    "stream": False,
+                    "temperature": 0.7
+                },
+                timeout=30
+            )
+            
+            if response.status_code == 200:
+                return response.json().get("response", "").strip()
+            return "cat, masterpiece, best quality, 8k"  # 备用
+        except Exception as e:
+            print(f"⚠️ Ollama 提示词生成失败: {e}")
+            return "cat, masterpiece, best quality, 8k"
+            

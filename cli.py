@@ -321,7 +321,16 @@ def main():
     prompts_used = []
 
     for i in range(total_count):
-        prompt = prompts.get_prompt(args.style, i)
+        # ✅ 动态 OLLAMA 生成模式
+        if args.style == "dynamic_prompt":
+            user_desc = input("\n💬 请输入你想要生成的画面描述（中文/英文均可）: ")
+            # 🚀 调用你刚在 prompts.py 里写的 Ollama 生成方法
+            prompt = prompts.generate_prompt_with_ollama(user_desc)
+            # 如果 Ollama 失败返回了备用提示词，依然保留
+            print(f"   🤖 Ollama 已根据您的描述生成提示词。")
+        else:
+            prompt = prompts.get_prompt(args.style, i)  
+
         if not prompt:
             print(f"❌ 提示词不足（只有 {total_combinations} 个组合）")
             break
