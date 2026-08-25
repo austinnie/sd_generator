@@ -40,7 +40,6 @@ class ClothesRemover:
             try:
                 from diffusers import StableDiffusionInpaintPipeline
                 
-                # 🔥 使用你本地的模型
                 model_path = r"E:\SD_OpenVINO\models\sd-v1-5\sd-v1-5-inpainting-tiny.safetensors"
                 
                 if not os.path.exists(model_path):
@@ -119,13 +118,26 @@ class ClothesRemover:
         seed: Optional[int] = None,
         save_mask: bool = False
     ) -> str:
-        """去除衣服"""
+        """去除衣服 - 保持原始尺寸"""
         sd = self._load_sd_model()
         if sd is None or sd is False:
             raise RuntimeError("SD 模型不可用")
         
+        # 🔥 保存原始尺寸
         image = Image.open(image_path).convert("RGB")
-        print(f"   📷 处理: {os.path.basename(image_path)} ({image.size[0]}x{image.size[1]})")
+        original_size = image.size  # (width, height)
+        
+        print(f"   📷 处理: {os.path.basename(image_path)} ({original_size[0]}x{original_size[1]})")
+        
+        # 🔥 如果图片太大，缩小到 768x768 以内（加速）
+        max_size = 768
+        if max(original_size) > max_size:
+            ratio = max_size / max(original_size)
+            new_size = (int(original_size[0] * ratio), int(original_size[1] * ratio))
+            # 确保是 64 的倍数（SD 要求）
+            new_size = (new_size[0] - new_size[0] % 64, new_size[1] - new_size[1] % 64)
+            image = image.resize(new_size, Image.Resampling.LANCZOS)
+            print(f"   📐 缩放至: {new_size[0]}x{new_size[1]}")
         
         print("   🎯 生成遮罩...")
         mask = self._generate_mask(image)
@@ -141,6 +153,8 @@ class ClothesRemover:
         if seed is not None:
             generator = torch.Generator(device=self.device).manual_seed(seed)
         
+        # 🔥 使用当前图片尺寸
+        current_size = image.size
         result = sd(
             prompt=prompt,
             negative_prompt=negative_prompt,
@@ -150,7 +164,14 @@ class ClothesRemover:
             num_inference_steps=steps,
             guidance_scale=7.5,
             generator=generator,
+            width=current_size[0],
+            height=current_size[1],
         ).images[0]
+        
+        # 🔥 恢复原始尺寸
+        if result.size != original_size:
+            print(f"   📐 恢复原始尺寸: {original_size[0]}x{original_size[1]}")
+            result = result.resize(original_size, Image.Resampling.LANCZOS)
         
         if output_path is None:
             base, ext = os.path.splitext(image_path)
