@@ -84,7 +84,9 @@ def main():
     parser.add_argument("--width", type=int, default=512, help="宽度")
     parser.add_argument("--height", type=int, default=768, help="高度")
     parser.add_argument("--seed", type=int, default=-1, help="种子")
-    
+
+
+                        
     # 模型选择
     parser.add_argument("--model", "-m", help="指定模型名称")
     parser.add_argument("--model-type", choices=["sd15", "sdxl"], help="模型类型")
@@ -107,7 +109,17 @@ def main():
     parser.add_argument("--api", choices=["tongyi", "yige", "hunyuan", "huggingface"], 
                         help="使用 API 生成图片 (覆盖配置)")
     parser.add_argument("--list-apis", action="store_true", help="列出可用的 API 提供商")
-    
+
+                    
+                    
+    # ===== 👕 去衣服功能 =====
+    parser.add_argument("--remove-clothes", action="store_true", 
+                        help="去除图片中的衣服（保留姿态和脸部）")
+    parser.add_argument("--clothes-method", choices=["integrated", "script"], default="integrated",
+                        help="去衣服方式: integrated=集成模块(默认), script=独立脚本")
+    parser.add_argument("--clothes-strength", type=float, default=0.7,
+                        help="去衣服强度 (0.3-1.0, 仅集成模式有效)")
+                        
     args = parser.parse_args()
     
     # ✅ 列出可用 API
@@ -401,6 +413,100 @@ def main():
             import traceback
             traceback.print_exc()
 
+    # ==================== 👕 去衣服处理 ====================
+    if args.remove_clothes and generated_files:
+        clothes_removed_files = []
+        method_used = None
+        
+        # ===== 方式1: 优先尝试独立脚本 =====
+        script_path = os.path.join(os.path.dirname(__file__), "scripts", "remove_clothes.py")
+        
+        if os.path.exists(script_path):
+            print(f"\n👕 尝试脚本模式...")
+            script_success = True
+            
+            for idx, filepath in enumerate(generated_files):
+                print(f"\n   [{idx+1}/{len(generated_files)}] 处理: {os.path.basename(filepath)}")
+                try:
+                    base, ext = os.path.splitext(filepath)
+                    output_path = f"{base}_nude{ext}"
+                    
+                    result = subprocess.run([
+                        sys.executable, script_path,
+                        filepath,
+                        "-o", output_path,
+                        "--method", "auto"
+                    ], capture_output=True, text=True, timeout=60)
+                    
+                    if result.returncode == 0:
+                        clothes_removed_files.append(output_path)
+                        print(f"   ✅ 完成: {os.path.basename(output_path)}")
+                    else:
+                        print(f"   ❌ 脚本失败: {result.stderr}")
+                        script_success = False
+                        clothes_removed_files.append(filepath)
+                        break  # 失败则跳出，尝试集成模式
+                except subprocess.TimeoutExpired:
+                    print(f"   ⚠️ 超时")
+                    script_success = False
+                    clothes_removed_files.append(filepath)
+                    break
+                except Exception as e:
+                    print(f"   ❌ 错误: {e}")
+                    script_success = False
+                    clothes_removed_files.append(filepath)
+                    break
+            
+            if script_success and len(clothes_removed_files) == len(generated_files):
+                generated_files = clothes_removed_files
+                method_used = "脚本模式"
+                print(f"\n✅ 去衣服完成 (脚本模式)，共 {len(generated_files)} 张")
+        
+        # ===== 方式2: 脚本失败或不存在，回退到集成模式 =====
+        if method_used is None:
+            print(f"\n👕 脚本模式不可用，回退到集成模式...")
+            try:
+                from core.clothes_remover import ClothesRemover
+                remover = ClothesRemover()
+                
+                # 如果之前脚本部分失败了，clothes_removed_files 可能部分有值
+                # 重新从 generated_files 开始
+                if len(clothes_removed_files) != len(generated_files):
+                    clothes_removed_files = []
+                
+                start_idx = len(clothes_removed_files)
+                if start_idx > 0:
+                    print(f"   📌 从第 {start_idx + 1} 张继续...")
+                
+                for idx, filepath in enumerate(generated_files[start_idx:], start=start_idx):
+                    print(f"\n   [{idx+1}/{len(generated_files)}] 处理: {os.path.basename(filepath)}")
+                    try:
+                        output = remover.remove_clothes(
+                            filepath,
+                            strength=args.clothes_strength if hasattr(args, 'clothes_strength') else 0.7,
+                            steps=20
+                        )
+                        clothes_removed_files.append(output)
+                    except Exception as e:
+                        print(f"   ❌ 失败: {e}")
+                        clothes_removed_files.append(filepath)  # 保留原图
+                
+                generated_files = clothes_removed_files
+                method_used = "集成模式"
+                print(f"\n✅ 去衣服完成 (集成模式)，共 {len(generated_files)} 张")
+                
+            except ImportError as e:
+                print(f"⚠️ 集成模式缺少依赖: {e}")
+                print(f"💡 安装: pip install ultralytics opencv-python")
+            except Exception as e:
+                print(f"⚠️ 集成模式失败: {e}")
+                import traceback
+                traceback.print_exc()
+        
+        # 如果两种模式都失败了，至少保留原图
+        if method_used is None:
+            print(f"⚠️ 去衣服失败，保留原图")
+            
     # ==================== ✅ 生成 Word 文档 ====================
     if appraisals and generated_files:
         try:
