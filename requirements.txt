@@ -35,6 +35,11 @@ dashscope==1.27.1
 # 腾讯混元（如果需要，取消注释安装）
 # tencentcloud-sdk-python==3.0.1200
 
+# ==================== ControlNet 增强（可选） ====================
+controlnet-aux>=0.0.10
+mediapipe>=1.0.0
+
 # ==================== 开发工具（可选） ====================
 # ultralytics 用于 YOLO 人体分割（去衣服功能）
 # ultralytics==8.4.131
+
