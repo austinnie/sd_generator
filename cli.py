@@ -57,7 +57,7 @@ from core.pipeline import setup_pipeline
 
 # ✅ 添加 API 引擎导入
 from core.api_engines import create_api_engine
-
+from PIL import Image
 
 def parse_lora_spec(spec: str) -> tuple:
     """解析 LoRA 规格: 'name' 或 'name@0.8'"""
@@ -101,7 +101,23 @@ def main():
     parser.add_argument("--lora", "-l", action="append", help="LoRA (name@weight)")
     parser.add_argument("--list-loras", action="store_true", help="列出所有可用 LoRA")
     parser.add_argument("--no-lora", action="store_true", help="禁用所有 LoRA")
-    
+
+
+    # ===== ControlNet 参数（新增） =====
+    parser.add_argument("--controlnet", "-cn", 
+                        choices=["openpose", "canny", "hed", "lineart", "depth", 
+                                 "normal", "mlsd", "openpose_full", "seg", "scribble"],
+                        help="使用 ControlNet 控制生成")
+    parser.add_argument("--controlnet-strength", type=float, default=0.8,
+                        help="ControlNet 控制强度 (0.0-1.0)")
+    parser.add_argument("--save-control", action="store_true",
+                        help="保存 ControlNet 控制图")
+
+    # ===== 🆕 图生图 / ControlNet 控制源 =====
+    parser.add_argument("--image", "-i", type=str, 
+                        help="输入图片路径（图生图或 ControlNet 控制源）")
+                        
+                    
     # 风格列表
     parser.add_argument("--list-styles", action="store_true", help="列出所有可用风格")
     
@@ -523,6 +539,72 @@ def main():
         prompts_used.append(prompt)
         
         try:
+
+            # ==================== 🎯 ControlNet 控制 ====================
+            if args.controlnet and not use_api:
+                # ControlNet 目前只支持本地 SD
+                try:
+                    from core.controlnet import Controlnet
+                    
+                    # 检查是否有控制源图片
+                    if not args.image:
+                        print(f"\n⚠️ ControlNet 需要 --image 指定控制源图片")
+                        print(f"   💡 示例: python cli.py bird_sketch -i pose.jpg --controlnet openpose")
+                        # 继续生成，但不使用 ControlNet（降级到普通生成）
+                    else:
+                        print(f"\n🎯 ControlNet 控制: {args.controlnet} (强度: {args.controlnet_strength})")
+                        
+                        cn = Controlnet(config={
+                            'device': 'cpu',
+                            'default_model_path': SD_MODEL_PATH,
+                        })
+                        
+                        # 1. 检测控制图
+                        result = cn.detect_pose(
+                            image=args.image,
+                            controlnet_type=args.controlnet,
+                            output_path=None  # 自动保存到 output/controlnet/
+                        )
+                        
+                        if result['status'] == 'success':
+                            control_image_path = result['output_path']
+                            print(f"   ✅ 控制图: {os.path.basename(control_image_path)}")
+                            
+                            # 2. 使用 ControlNet Pipeline 生成（绕过 engine）
+                            gen_result = cn.generate(
+                                image=args.image,
+                                prompt=prompt,
+                                controlnet_type=args.controlnet,
+                                model_path=SD_MODEL_PATH,
+                                negative_prompt=config.default_negative,
+                                num_inference_steps=args.steps,
+                                guidance_scale=args.cfg,
+                                seed=args.seed if args.seed != -1 else None,
+                                controlnet_conditioning_scale=args.controlnet_strength,
+                            )
+                            
+                            if gen_result['status'] == 'success':
+                                # 使用 ControlNet 生成的图片
+                                image = Image.open(gen_result['output_path'])
+                                filename = f"{args.style}_controlnet_{datetime.now():%Y%m%d_%H%M%S}_{i+1}.png"
+                                filepath = os.path.join(config.output_dir, filename)
+                                image.save(filepath)
+                                print(f"   ✅ ControlNet 生成完成: {filepath}")
+                                generated_files.append(filepath)
+                                
+                                # 跳过后面的 engine.generate_single
+                                continue
+                            else:
+                                print(f"   ⚠️ ControlNet 生成失败: {gen_result.get('error')}")
+                                # 降级到普通生成
+                        else:
+                            print(f"   ⚠️ ControlNet 检测失败: {result.get('error')}")
+                            
+                except ImportError as e:
+                    print(f"   ⚠️ ControlNet 模块未安装: {e}")
+                except Exception as e:
+                    print(f"   ⚠️ ControlNet 处理失败: {e}")
+        
             # ✅ 根据引擎类型生成图片
             if use_api:
                 # 使用 API 引擎
