@@ -1,0 +1,20 @@
+# SD Generator - Python 3.14 兼容版本
+# 使用 >= 允许自动升级
+
+torch>=2.13.0
+torchvision>=0.28.0
+diffusers>=0.40.0
+transformers>=5.16.0
+accelerate>=1.14.0
+safetensors>=0.8.0
+huggingface_hub>=1.29.0
+tokenizers>=0.23.0
+peft>=0.20.0
+pillow>=12.3.0
+numpy>=2.5.0
+opencv-python>=5.0.0
+psutil>=7.2.0
+tqdm>=4.70.0
+python-docx>=1.2.0
+piexif>=1.1.0
+dashscope>=1.27.0

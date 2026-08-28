@@ -68,7 +68,7 @@ class ModelManager:
         """从路径加载模型（自动识别 SD1.5 / SDXL）"""
         self.unload()
         try:
-            from config.app import MODEL_TYPE
+            from config.app import MODEL_TYPE, FINAL_LORA_LIST
             
             path_lower = path.lower()
             is_sdxl = False
@@ -118,14 +118,12 @@ class ModelManager:
             lora_list = FINAL_LORA_LIST
             if lora_list:
                 print(f"   📦 加载 {len(lora_list)} 个 LoRA...")
-                from core.lora import LoraManager
-                lora_manager = LoraManager()
                 for i, lora_info in enumerate(lora_list):
                     lora_path = lora_info.get('path', '')
                     lora_weight = lora_info.get('weight', 0.8)
                     if os.path.exists(lora_path):
                         try:
-                            # ✅ 直接使用 pipeline.load_lora_weights，不经过 LoraManager
+                            # ✅ 使用 pipeline.load_lora_weights 兼容方式
                             self.pipeline.load_lora_weights(lora_path)
                             print(f"      ✅ LoRA {i+1}: {os.path.basename(lora_path)}")
                         except Exception as e:

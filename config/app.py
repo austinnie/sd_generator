@@ -143,7 +143,7 @@ LORA_INDEX = load_lora_index()
 AVAILABLE_LORAS = LORA_INDEX.get("loras", [])
 
 # ==================== LoRA 配置 ====================
-LORA_ACTIVE_INDICES = [1]  # 例如 [0] 启用第一个
+LORA_ACTIVE_INDICES = [0]  # 例如 [0] 启用第一个
 
 # 从索引中获取 LoRA 路径
 def get_lora_path_by_index(idx):
@@ -189,6 +189,8 @@ def get_final_lora_list():
 
 # config/app.py
 
+# config/app.py
+
 def get_final_lora_list_safe():
     """安全获取 LoRA 列表（自动修正索引）"""
     lora_list = []
@@ -198,10 +200,19 @@ def get_final_lora_list_safe():
     # 从 AVAILABLE_LORAS 中获取当前类型的 LoRA
     type_loras = [l for l in AVAILABLE_LORAS if l.get('lora_type') == MODEL_TYPE]
     
+    # ✅ 增加一个明确的检查：如果没有找到任何 LoRA，直接返回空列表
+    if not type_loras:
+        print(f"⚠️ 没有找到 {MODEL_TYPE} 类型的 LoRA，跳过加载。")
+        # 可选：尝试降级到默认类型或做其他处理
+        return lora_list
+    
     for idx in LORA_ACTIVE_INDICES:
+        # ✅ 确保索引在范围内
         if idx >= len(type_loras):
-            print(f"⚠️ LoRA 索引 {idx} 超出范围（共 {len(type_loras)} 个 {MODEL_TYPE} LoRA），自动使用索引 0")
+            print(f"⚠️ LoRA 索引 {idx} 超出范围（共 {len(type_loras)} 个 {MODEL_TYPE} LoRA），使用索引 0")
             idx = 0
+        
+        # ✅ 再次确保索引有效
         if idx < len(type_loras):
             lora = type_loras[idx]
             lora_path = lora.get("absolute_path")
@@ -220,7 +231,7 @@ def get_final_lora_list_safe():
                 print(f"⚠️ LoRA 文件不存在: {lora.get('name', 'unknown')}")
     
     return lora_list
-
+    
 # ✅ 使用安全版本
 FINAL_LORA_LIST = get_final_lora_list_safe()
 

@@ -4,21 +4,18 @@
 import sys
 import os
 
-# 添加当前目录到 Python 路径（用于找 model_index.py）
+# 添加项目根目录到 Python 路径
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, CURRENT_DIR)
-
-# 添加 tools 目录到 Python 路径（用于找 config.py）
-PROJECT_ROOT = os.path.dirname(CURRENT_DIR)  # v8_universal_generator/
-TOOLS_DIR = os.path.join(PROJECT_ROOT, "tools")
-sys.path.insert(0, TOOLS_DIR)
+PROJECT_ROOT = os.path.dirname(CURRENT_DIR)  # sd_generator/
+sys.path.insert(0, PROJECT_ROOT)
 
 print(f"📁 当前目录: {CURRENT_DIR}")
-print(f"📁 tools 目录: {TOOLS_DIR}")
+print(f"📁 项目根目录: {PROJECT_ROOT}")
 print("=" * 60)
 
 try:
-    from config import (
+    # ✅ 修正：从 config.app 导入，而不是 config
+    from config.app import (
         SD_MODEL_PATH, 
         AVAILABLE_MODELS, 
         MODEL_SELECTION_MODE,
@@ -26,91 +23,98 @@ try:
         FINAL_LORA_LIST,
         LORA_ACTIVE_INDICES,
         USE_OPENVINO_MODEL,
-        LORA_INDEX,  # ← 添加这个导入
-        MODEL_INDEX  # ← 可选，用于模型默认推荐
+        LORA_INDEX,
+        MODEL_INDEX,
+        MODEL_TYPE,  # ✅ 添加这个
     )
     
-    print("✅ 成功导入 config.py")
+    print("✅ 成功导入 config.app")
     print("=" * 60)
+    
+    # ==================== 基本信息 ====================
+    print(f"\n📊 基本信息:")
+    print(f"  模型类型: {MODEL_TYPE}")
+    print(f"  选择模式: {MODEL_SELECTION_MODE}")
+    print(f"  OpenVINO: {USE_OPENVINO_MODEL}")
     
     # ==================== 模型信息 ====================
     print(f"\n📦 SD 模型信息:")
-    print(f"  选择模式: {MODEL_SELECTION_MODE}")
-    print(f"  模型路径: {SD_MODEL_PATH}")
-    print(f"  模型名称: {os.path.basename(SD_MODEL_PATH)}")
-    print(f"  OpenVINO: {USE_OPENVINO_MODEL}")
     print(f"  可用模型总数: {len(AVAILABLE_MODELS)} 个")
+    print(f"  模型路径: {SD_MODEL_PATH}")
+    print(f"  模型名称: {os.path.basename(SD_MODEL_PATH) if SD_MODEL_PATH else '未设置'}")
     
-    # 显示当前模型信息
-    current_model = None
-    for m in AVAILABLE_MODELS:
-        if m.get("path") == SD_MODEL_PATH or m.get("absolute_path") == SD_MODEL_PATH:
-            current_model = m
-            break
-    
-    if current_model:
-        print(f"\n📊 当前模型详情:")
-        print(f"  名称: {current_model['name']}")
-        print(f"  大小: {current_model['size_gb']} GB")
-        print(f"  标签: {', '.join(current_model['tags'])}")
-        print(f"  评分: {current_model['score']}")
-        print(f"  OpenVINO可用: {current_model['is_ov']}")
-        print(f"  相对路径: {current_model.get('path', 'N/A')}")
-    else:
-        print(f"\n⚠️ 当前模型未在索引中找到（可能是 legacy 模式）")
-        print(f"   使用路径: {SD_MODEL_PATH}")
+    if AVAILABLE_MODELS:
+        print(f"\n⭐ Top 5 推荐模型:")
+        for i, m in enumerate(AVAILABLE_MODELS[:5]):
+            stars = "⭐" * (m.get("score", 0) // 20)
+            default_tag = " 👑" if m.get("name") == MODEL_INDEX.get("default") else ""
+            print(f"   {i+1}. {m.get('name', 'unknown')[:40]:40s} {m.get('size_gb', 0):.1f}GB {stars}{default_tag}")
     
     # ==================== LoRA 信息 ====================
     print(f"\n🎯 LoRA 信息:")
     print(f"  LoRA 总数: {len(AVAILABLE_LORAS)} 个")
     print(f"  激活索引: {LORA_ACTIVE_INDICES}")
-    print(f"  激活数量: {len(FINAL_LORA_LIST)} 个")
+    print(f"  当前类型: {MODEL_TYPE}")
     
-    if FINAL_LORA_LIST:
-        print(f"\n📋 当前激活的 LoRA:")
-        for i, lora in enumerate(FINAL_LORA_LIST):
-            lora_name = os.path.basename(lora["path"])
-            lora_weight = lora["weight"]
-            
-            # 从索引中查找 LoRA 详情
-            lora_info = None
-            for l in AVAILABLE_LORAS:
-                if l.get("filename") == lora_name or l.get("name") in lora_name:
-                    lora_info = l
-                    break
-            
-            print(f"  [{i+1}] {lora_name}")
-            print(f"      权重: {lora_weight}")
-            if lora_info:
-                print(f"      标签: {', '.join(lora_info.get('tags', ['无']))}")
-                print(f"      大小: {lora_info.get('size_mb', 0)} MB")
-                print(f"      评分: {lora_info.get('score', 0)}")
-    else:
-        print(f"  ⚠️ 没有激活任何 LoRA")
-    
-    # ==================== Top 5 推荐模型 ====================
-    print(f"\n⭐ Top 5 推荐 SD 模型:")
-    for i, m in enumerate(AVAILABLE_MODELS[:5]):
-        stars = "⭐" * (m["score"] // 20)
-        default_tag = " 👑" if m["name"] == MODEL_INDEX.get("default") else ""
-        print(f"   {i+1}. {m['name'][:40]:40s} {m['size_gb']:.1f}GB {stars}{default_tag}")
-    
-    # ==================== Top 5 推荐 LoRA ====================
     if AVAILABLE_LORAS:
-        print(f"\n⭐ Top 5 推荐 LoRA:")
-        for i, l in enumerate(AVAILABLE_LORAS[:5]):
-            stars = "⭐" * (l["score"] // 20)
-            default_tag = " 👑" if l["name"] == LORA_INDEX.get("default") else ""
-            print(f"   {i+1}. {l['name'][:40]:40s} {l['size_mb']:.1f}MB {stars}{default_tag}")
+        # 统计各类型数量
+        type_counts = {}
+        for l in AVAILABLE_LORAS:
+            lora_type = l.get('lora_type', 'unknown')
+            type_counts[lora_type] = type_counts.get(lora_type, 0) + 1
+        
+        print(f"\n  📊 LoRA 类型统计:")
+        for lora_type, count in type_counts.items():
+            print(f"     {lora_type}: {count} 个")
+        
+        # 显示当前类型的 LoRA
+        type_loras = [l for l in AVAILABLE_LORAS if l.get('lora_type') == MODEL_TYPE]
+        print(f"\n  📋 {MODEL_TYPE} 类型的 LoRA: {len(type_loras)} 个")
+        
+        if type_loras:
+            print(f"\n  ⭐ Top 5 推荐 {MODEL_TYPE} LoRA:")
+            for i, l in enumerate(type_loras[:5]):
+                stars = "⭐" * (l.get("score", 0) // 20)
+                default_tag = " 👑" if l.get("name") == LORA_INDEX.get("default") else ""
+                print(f"     {i+1}. {l.get('name', 'unknown')[:40]:40s} {l.get('size_mb', 0):.1f}MB {stars}{default_tag}")
+        
+        # 检查激活的 LoRA
+        if LORA_ACTIVE_INDICES and type_loras:
+            print(f"\n  🔗 当前激活的 LoRA 索引: {LORA_ACTIVE_INDICES}")
+            for idx in LORA_ACTIVE_INDICES:
+                if idx < len(type_loras):
+                    l = type_loras[idx]
+                    print(f"     [{idx}] {l.get('name', 'unknown')}")
+                    print(f"         路径: {l.get('path', 'N/A')}")
+                    print(f"         存在: {'✅' if os.path.exists(l.get('absolute_path', '')) else '❌'}")
+                else:
+                    print(f"     ⚠️ 索引 {idx} 超出范围（共 {len(type_loras)} 个）")
+    
+    # ==================== 最终 LoRA 列表 ====================
+    print(f"\n📦 FINAL_LORA_LIST:")
+    if FINAL_LORA_LIST:
+        print(f"  共 {len(FINAL_LORA_LIST)} 个 LoRA 将被加载:")
+        for i, lora in enumerate(FINAL_LORA_LIST):
+            print(f"    [{i+1}] {lora.get('name', 'unknown')}")
+            print(f"        权重: {lora.get('weight', 1.0)}")
+            print(f"        路径: {lora.get('path', 'N/A')}")
+            print(f"        存在: {'✅' if os.path.exists(lora.get('path', '')) else '❌'}")
+    else:
+        print(f"  ⚠️ FINAL_LORA_LIST 为空")
+        print(f"  可能原因:")
+        print(f"    1. AVAILABLE_LORAS 为空")
+        print(f"    2. 没有 {MODEL_TYPE} 类型的 LoRA")
+        print(f"    3. LORA_ACTIVE_INDICES 索引超出范围")
     
     print("\n" + "=" * 60)
+    print("✅ 测试完成")
     
 except ImportError as e:
     print(f"❌ 导入失败: {e}")
     print(f"\n💡 请检查:")
-    print(f"   1. tools/config.py 是否存在")
-    print(f"   2. scripts/lora_index.json 是否存在")
-    print(f"   3. 当前工作目录: {os.getcwd()}")
+    print(f"   1. config/app.py 是否存在")
+    print(f"   2. 当前工作目录: {os.getcwd()}")
+    print(f"   3. Python 路径: {sys.path}")
     
 except Exception as e:
     print(f"❌ 运行时错误: {e}")
