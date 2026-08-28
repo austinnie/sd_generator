@@ -282,6 +282,7 @@ SKETCH_KEYWORDS = [
     "baimiao", "素描", "线稿", "白描", "水墨", "铅笔", "炭笔", "速写"
 ]
 
+
 # ==================== 🎨 AI 鉴赏配置 ====================
 AI_APPRECIATION_ENGINE = "llm"  # tag / blip / llm / prompt
 
@@ -297,6 +298,13 @@ OLLAMA_MODEL = "qwen2.5:1.5b"  # 当前使用的模型
 OLLAMA_HOST = "http://localhost:11434"
 OLLAMA_TEMPERATURE = 0.7
 OLLAMA_MAX_TOKENS = 200
+
+# ==================== 🤖 Ollama 动态提示词配置 ====================
+OLLAMA_DYNAMIC_PROMPT_ENABLED = True
+OLLAMA_DYNAMIC_MODEL = OLLAMA_MODEL  # 默认使用主模型
+OLLAMA_PROMPT_TIMEOUT = 45
+OLLAMA_PROMPT_TEMPERATURE = 0.7
+OLLAMA_PROMPT_MAX_TOKENS = 200
 
 # ==================== 📷 消除AI痕迹配置 ====================
 REMOVE_AI_TRACES = True
