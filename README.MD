@@ -158,6 +158,167 @@ python cli.py gallery_elegant -n 1 --lora eula_v2@0.6 --lora busty_slider@0.5
 python main.py
 ```
 
+## 三.五、🤖 动态提示词生成（AI 辅助创作）
+
+`dynamic_prompt` 风格可以与 Ollama 配合，根据您的自然语言描述自动生成高质量的 SD 提示词。
+
+### 使用场景
+- 不知道怎么写提示词？用中文描述画面即可
+- 想快速尝试不同风格？一句话生成多种变体
+- 灵感枯竭时？让 AI 帮你扩展创意
+
+### 使用方法
+
+```bash
+# 进入动态提示词模式
+python cli.py dynamic_prompt
+```
+
+### 交互流程示例：
+```text
+🤖 Ollama 动态提示词生成模式
+==================================================
+💡 可选的风格提示:
+   [general]  通用 - 适合大多数场景
+   [anime]    动漫 - 日系插画风格
+   [realistic]写实 - 摄影风格
+   [sketch]   素描 - 线稿/白描风格
+   [mecha]    机甲 - 科幻机械风格
+==================================================
+请选择风格提示 (回车默认 general): realistic
+
+使用哪个 Ollama 模型 (回车默认 qwen2.5:1.5b): 
+
+💬 请输入画面描述: 一个穿着白色连衣裙的女孩，站在向日葵花田里，夕阳照在她脸上
+
+⏳ 正在用 qwen2.5:1.5b 生成提示词...
+
+✅ 生成的提示词:
+   📝 a young woman in a flowing white dress, standing in a sunflower field, golden sunset light illuminating her face, warm orange and yellow tones, soft bokeh background, photorealistic, highly detailed, sharp focus, 8k, professional photography
+
+是否使用此提示词生成? (y/n，回车=y): y
+
+🎨 开始生成...
+```
+
+### 一键生成（非交互模式）
+
+```bash
+# 直接指定描述和风格，一步生成
+python cli.py dynamic_prompt --prompt "赛博朋克风格的机甲少女" --style-hint mecha -n 1
+```
+注意：动态提示词模式需要 Ollama 在后台运行 (ollama serve)。如果 Ollama 不可用，会自动降级为备用提示词。
+
+
+### 可选的风格提示参数
+
+| 参数值 | 说明 | 适用场景 |
+|--------|------|----------|
+| `general` | 通用风格 | 大多数场景（默认） |
+| `anime` | 动漫风格 | 日系插画、二次元 |
+| `realistic` | 写实风格 | 摄影、写实人像 |
+| `sketch` | 素描风格 | 线稿、白描、铅笔素描 |
+| `mecha` | 机甲风格 | 科幻、机械、赛博朋克 |
+
+
+### 命令速查
+
+| 模式 | 命令 | 说明 |
+|------|------|------|
+| 交互模式 | `python cli.py dynamic_prompt` | 完整对话体验，适合探索 |
+| 非交互模式 | `python cli.py dynamic_prompt --prompt "描述"` | 直接生成，默认 general 风格 |
+| 指定风格 | `python cli.py dynamic_prompt --prompt "描述" --style-hint mecha` | 指定动漫/写实/素描/机甲风格 |
+| 完整参数 | `python cli.py dynamic_prompt --prompt "描述" --style-hint anime --steps 30 -n 1` | 同时指定步数和数量 |
+
+**示例**：
+
+```bash
+# 交互模式 - 完整对话体验
+python cli.py dynamic_prompt
+
+# 非交互模式 - 直接生成
+python cli.py dynamic_prompt --prompt "穿着白色连衣裙的女孩在向日葵花田里"
+
+# 指定风格
+python cli.py dynamic_prompt --prompt "机甲少女在赛博朋克城市" --style-hint mecha
+
+# 指定步数等其他参数
+python cli.py dynamic_prompt --prompt "夕阳下的武士" --style-hint anime --steps 30 -n 1
+```
+
+### 推荐的 Ollama 模型
+
+| 模型 | 推荐度 | 说明 |
+|------|--------|------|
+| `qwen2.5:1.5b` | ⭐⭐⭐⭐⭐ | 轻量快速，中文理解最佳 |
+| `qwen2.5:7b` | ⭐⭐⭐⭐ | 质量更高，需更多资源 |
+| `deepseek-r1:7b` | ⭐⭐⭐⭐ | 推理能力强，适合复杂描述 |
+| `phi` | ⭐⭐⭐ | 英文能力强 |
+| `tinyllama` | ⭐⭐ | 最轻量，速度最快 |
+
+### 目录结构
+
+```text
+sd_generator/
+├── cli.py # 命令行入口
+├── main.py # 交互式入口
+├── requirements.txt
+├── README.md
+│
+├── config/
+│ └── app.py # 配置中心（含智能模型选择）
+│
+├── core/
+│ ├── engine.py # 生成引擎
+│ ├── model.py # 模型管理（支持 SD1.5/SDXL）
+│ ├── lora.py # LoRA 管理（自动匹配类型）
+│ ├── prompts.py # 提示词加载
+│ ├── appraiser.py # AI 图像鉴赏（Ollama）
+│ ├── postprocessor.py # 消除 AI 痕迹
+│ ├── pipeline.py # Pipeline 管理
+│ └── api_engines/ # API 图像生成引擎
+│ ├── tongyi.py # 通义万相
+│ ├── yige.py # 文心一格
+│ ├── hunyuan.py # 腾讯混元
+│ └── huggingface.py # HuggingFace
+│
+├── prompts/ # 提示词库
+│ ├── base/ # 基础风格
+│ ├── gallery/ # 画廊/展示风格
+│ ├── mecha/ # 机甲/科幻风格
+│ ├── portrait/ # 人像/摄影风格
+│ ├── sketch/ # 素描/线稿风格
+│ ├── anime/ # 动漫风格
+│ ├── chinese/ # 国风/水墨风格
+│ ├── animals/ # 动物/生肖风格
+│ ├── zodiac/ # 十二生肖
+│ └── dynamic_prompt.py # 🤖 触发 Ollama 动态生成模式
+│
+├── scripts/ # 工具脚本
+│ ├── model_index.py # 模型索引生成器（双模型）
+│ ├── lora_index.py # LoRA 索引生成器（双模型）
+│ ├── switch_model.py # 模型切换工具（双模型）
+│ ├── switch_lora.py # LoRA 切换工具（双模型）
+│ ├── switch_ollama_model.py # Ollama 模型切换工具
+│ ├── organize_output.py # 输出整理工具
+│ ├── test_import.py # 配置测试工具
+│ ├── remove_clothes.py # 衣服移除独立脚本
+│ ├── models_index.json # 模型索引数据（自动生成）
+│ └── lora_index.json # LoRA 索引数据（自动生成）
+│
+├── utils/ # 工具模块
+│ ├── doc_generator.py # Word 文档生成
+│ ├── exif_injector.py # EXIF 注入
+│ ├── imagemeta_cleaner.py # 元数据清理
+│ ├── logger.py # 日志
+│ ├── photo_realistic.py # 照片真实化
+│ └── watermark.py # 水印处理
+│
+├── output/ # 生成图片输出目录
+└── .env # API Key 配置（不提交到 Git）
+```
+
+
 ## 四、双模型支持说明
 
 | 特性 | SD1.5 | SDXL |
