@@ -58,6 +58,7 @@ from core.pipeline import setup_pipeline
 # ✅ 添加 API 引擎导入
 from core.api_engines import create_api_engine
 from PIL import Image
+import random
 
 def parse_lora_spec(spec: str) -> tuple:
     """解析 LoRA 规格: 'name' 或 'name@0.8'"""
@@ -579,7 +580,7 @@ def main():
                                 negative_prompt=config.default_negative,
                                 num_inference_steps=args.steps,
                                 guidance_scale=args.cfg,
-                                seed=args.seed if args.seed != -1 else None,
+                                seed=args.seed if args.seed != -1 else random.randint(0, 2**32 - 1),
                                 controlnet_conditioning_scale=args.controlnet_strength,
                             )
                             
@@ -615,7 +616,7 @@ def main():
                     height=args.height,
                     steps=args.steps,
                     cfg=args.cfg,
-                    seed=args.seed if args.seed != -1 else None,
+                    seed=args.seed if args.seed != -1 else random.randint(0, 2**32 - 1),
                 )
             else:
                 # 使用本地引擎
@@ -626,7 +627,7 @@ def main():
                     height=args.height,
                     steps=args.steps,
                     cfg=args.cfg,
-                    seed=args.seed if args.seed != -1 else None,
+                    seed=args.seed if args.seed != -1 else random.randint(0, 2**32 - 1),
                 )
             
             filename = f"{args.style}_{datetime.now():%Y%m%d_%H%M%S}_{i+1}.png"

@@ -243,9 +243,15 @@ class Controlnet:
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
         # 配置
-        self.device = self.config.get('device', 'cuda' if torch.cuda.is_available() else 'cpu')
+        self.device = self.config.get('device', 'cpu')
         self.max_size = self.config.get('max_size', 512)
-        self.cache_dir = self.config.get('cache_dir', str(self.skill_dir / 'cache'))
+
+
+        # 🆕 缓存目录：使用 HF_HOME 环境变量
+        # 使用 HF_HUB_CACHE（和 cli.py 保持一致）
+        #default_cache = os.environ.get('HF_HUB_CACHE', os.environ.get('HF_HOME', str(self.skill_dir / 'cache')))
+        #self.cache_dir = self.config.get('cache_dir', default_cache)
+        self.cache_dir = self.config.get('cache_dir', r"E:\SD_OpenVINO\models\controlnet")
         
         # ===== 🆕 自动读取 SD_MODEL_PATH =====
         # 1. 优先使用 config 传入的
