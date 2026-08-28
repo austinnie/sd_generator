@@ -6,10 +6,13 @@ from typing import List, Optional, Dict
 from diffusers import StableDiffusionPipeline, StableDiffusionXLPipeline
 
 from config.app import (
-    SD_MODEL_PATH, AVAILABLE_MODELS, MODEL_INDEX,
-    resolve_model_path_from_index, MODEL_SELECTION_MODE
+    SD_MODEL_PATH, 
+    AVAILABLE_MODELS, 
+    MODEL_INDEX,
+    resolve_model_path_from_index, 
+    MODEL_SELECTION_MODE,
+    FINAL_LORA_LIST,  # ✅ 新增
 )
-
 
 class ModelManager:
     def __init__(self):
