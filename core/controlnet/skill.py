@@ -15,6 +15,85 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+# ==================== 🔥 修复 mediapipe API 不兼容 ====================
+try:
+    import mediapipe as mp
+    if not hasattr(mp, 'solutions'):
+        from types import SimpleNamespace
+        
+        # 创建所有需要的 mock 对象
+        mp.solutions = SimpleNamespace(
+            # 基础 drawing
+            drawing_utils=SimpleNamespace(
+                _normalized_to_pixel_coordinates=lambda *args, **kwargs: None,
+                draw_landmarks=lambda *args, **kwargs: None,
+                draw_axis=lambda *args, **kwargs: None,
+            ),
+            drawing_styles=SimpleNamespace(
+                get_default_face_mesh_tesselation_style=lambda: None,
+                get_default_face_mesh_contours_style=lambda: None,
+                get_default_face_mesh_iris_connections_style=lambda: None,
+            ),
+            # face_detection
+            face_detection=SimpleNamespace(
+                FaceDetection=lambda *args, **kwargs: SimpleNamespace(
+                    process=lambda *args, **kwargs: SimpleNamespace(
+                        detections=[]
+                    )
+                )
+            ),
+            # face_mesh
+            face_mesh=SimpleNamespace(
+                FaceMesh=lambda *args, **kwargs: SimpleNamespace(
+                    process=lambda *args, **kwargs: SimpleNamespace(
+                        multi_face_landmarks=[]
+                    )
+                ),
+                FACEMESH_TESSELATION=[],
+                FACEMESH_CONTOURS=[],
+                FACEMESH_IRIS=[],
+            ),
+            face_mesh_connections=SimpleNamespace(
+                FACEMESH_TESSELATION=[],
+                FACEMESH_CONTOURS=[],
+                FACEMESH_IRIS=[],
+            ),
+            # pose
+            pose=SimpleNamespace(
+                Pose=lambda *args, **kwargs: SimpleNamespace(
+                    process=lambda *args, **kwargs: SimpleNamespace(
+                        pose_landmarks=None
+                    )
+                ),
+                POSE_CONNECTIONS=[],
+            ),
+            # hands
+            hands=SimpleNamespace(
+                Hands=lambda *args, **kwargs: SimpleNamespace(
+                    process=lambda *args, **kwargs: SimpleNamespace(
+                        multi_hand_landmarks=[]
+                    )
+                ),
+                HAND_CONNECTIONS=[],
+            ),
+            # holistic
+            holistic=SimpleNamespace(
+                Holistic=lambda *args, **kwargs: SimpleNamespace(
+                    process=lambda *args, **kwargs: SimpleNamespace(
+                        pose_landmarks=None,
+                        face_landmarks=None,
+                        left_hand_landmarks=None,
+                        right_hand_landmarks=None,
+                    )
+                ),
+                POSE_CONNECTIONS=[],
+                FACE_CONNECTIONS=[],
+            ),
+        )
+        print("⚠️ mediapipe.solutions 已 mock (新版 API 兼容)")
+except ImportError:
+    pass
+    
 # ==================== 依赖检查 ====================
 try:
     import torch
@@ -25,6 +104,9 @@ try:
 except ImportError as e:
     TORCH_AVAILABLE = False
     logger.warning(f"基础依赖未安装: {e}")
+
+import os
+os.environ["MEDIAPIPE_DISABLE_GPU"] = "1"  # 禁用 mediapipe GPU 加速
 
 try:
     from diffusers import ControlNetModel, StableDiffusionControlNetPipeline
