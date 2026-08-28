@@ -41,6 +41,7 @@ from config.app import (
     AI_APPRECIATION_ENGINE,
     REMOVE_AI_TRACES,
     SKETCH_KEYWORDS,
+    OLLAMA_MODEL, 
     # API 配置
     IMAGE_API_PROVIDER,
     TONGYI_API_KEY,
@@ -85,6 +86,10 @@ def main():
     parser.add_argument("--height", type=int, default=768, help="高度")
     parser.add_argument("--seed", type=int, default=-1, help="种子")
 
+    # 动态提示词专用参数    
+    parser.add_argument("--prompt", type=str, help="动态提示词模式：直接指定画面描述")
+    parser.add_argument("--style-hint", choices=["general", "anime", "realistic", "sketch", "mecha"], 
+                        default="general", help="动态提示词风格提示")
 
                         
     # 模型选择
@@ -332,17 +337,183 @@ def main():
     appraisals = []
     prompts_used = []
 
-    for i in range(total_count):
-        # ✅ 动态 OLLAMA 生成模式
-        if args.style == "dynamic_prompt":
-            user_desc = input("\n💬 请输入你想要生成的画面描述（中文/英文均可）: ")
-            # 🚀 调用你刚在 prompts.py 里写的 Ollama 生成方法
-            prompt = prompts.generate_prompt_with_ollama(user_desc)
-            # 如果 Ollama 失败返回了备用提示词，依然保留
-            print(f"   🤖 Ollama 已根据您的描述生成提示词。")
-        else:
-            prompt = prompts.get_prompt(args.style, i)  
+    # ============================================================
+    # ✅ 动态 OLLAMA 提示词生成（循环外，只执行一次）
+    # ============================================================
+    dynamic_prompt_text = None  # 用于存储动态生成的提示词
 
+    if args.style == "dynamic_prompt":
+        import requests
+        
+        # ============================================================
+        # 🚀 非交互模式：直接使用 --prompt 参数
+        # ============================================================
+        if args.prompt:
+            print(f"\n🤖 非交互模式：动态生成提示词")
+            print(f"   📝 描述: {args.prompt}")
+            print(f"   🎨 风格: {args.style_hint}")
+            
+            # 检查 Ollama 是否可用
+            ollama_available = False
+            try:
+                resp = requests.get(f"{OLLAMA_HOST}/api/tags", timeout=3)
+                ollama_available = resp.status_code == 200
+            except:
+                pass
+            
+            if not ollama_available:
+                print("\n⚠️ 无法连接到 Ollama 服务")
+                print("💡 请确保 Ollama 正在运行: ollama serve")
+                return
+            
+            print(f"\n⏳ 正在用 '{OLLAMA_MODEL}' 生成提示词...")
+            dynamic_prompt_text = prompts.generate_prompt_with_ollama(
+                args.prompt,
+                style_hint=args.style_hint,
+                retry=2
+            )
+            
+            print(f"\n✅ 生成的提示词:")
+            print(f"   ─────────────────────────────────────────────")
+            print(f"   {dynamic_prompt_text}")
+            print(f"   ─────────────────────────────────────────────")
+            
+            # 动态模式默认生成 1 张
+            if args.count is None:
+                total_count = 1
+                print("   📌 动态模式默认生成 1 张")
+            else:
+                total_count = min(args.count, 1)
+                if args.count > 1:
+                    print(f"   📌 动态模式最多生成 1 张，已从 {args.count} 调整为 1")
+            
+            # 跳过交互，直接进入生成循环
+            # 使用标志跳过后续的交互代码
+            skip_interactive = True
+        else:
+            skip_interactive = False
+        
+        # ============================================================
+        # 🎯 交互模式（仅在未提供 --prompt 时执行）
+        # ============================================================
+        if not skip_interactive:
+            # 检查 Ollama 是否可用
+            ollama_available = False
+            try:
+                resp = requests.get(f"{OLLAMA_HOST}/api/tags", timeout=3)
+                ollama_available = resp.status_code == 200
+            except:
+                pass
+            
+            if not ollama_available:
+                print("\n⚠️ 无法连接到 Ollama 服务")
+                print("💡 请确保 Ollama 正在运行: ollama serve")
+                print("💡 或使用已有风格: python cli.py --list-styles")
+                return
+            
+            print("\n" + "=" * 55)
+            print("   🤖 Ollama 动态提示词生成模式")
+            print("=" * 55)
+            print("\n💡 风格提示:")
+            style_options = {
+                "general": "通用 - 适合大多数场景",
+                "anime": "动漫 - 日系插画风格",
+                "realistic": "写实 - 摄影风格",
+                "sketch": "素描 - 线稿/白描风格",
+                "mecha": "机甲 - 科幻机械风格"
+            }
+            for key, desc in style_options.items():
+                print(f"   [{key:9s}] {desc}")
+            print("=" * 55)
+            
+            # 选择风格
+            while True:
+                style_hint = input("\n请选择风格提示 (回车默认 general): ").strip().lower() or "general"
+                if style_hint in style_options:
+                    break
+                print(f"   ⚠️ 无效选项，请选择: {', '.join(style_options.keys())}")
+            
+            # 获取可用 Ollama 模型列表
+            try:
+                resp = requests.get(f"{OLLAMA_HOST}/api/tags", timeout=3)
+                if resp.status_code == 200:
+                    installed_models = [m["name"] for m in resp.json().get("models", [])]
+                else:
+                    installed_models = []
+            except:
+                installed_models = []
+            
+            # 选择模型
+            if installed_models:
+                print(f"\n📦 已安装: {', '.join(installed_models)}")
+                default_model = OLLAMA_MODEL if OLLAMA_MODEL in installed_models else installed_models[0]
+                model_input = input(f"使用哪个模型 (回车默认 {default_model}): ").strip()
+                model = model_input or default_model
+                if model not in installed_models:
+                    print(f"   ⚠️ 切换至可用模型: {default_model}")
+                    model = default_model
+            else:
+                print(f"\n⚠️ 未检测到已安装的模型，使用默认: {OLLAMA_MODEL}")
+                print(f"   💡 安装: ollama pull qwen2.5:1.5b")
+                model = OLLAMA_MODEL
+            
+            # 输入描述
+            print("\n💬 请输入画面描述 (支持中英文):")
+            user_desc = input("> ").strip()
+            if not user_desc:
+                print("❌ 描述不能为空")
+                return
+            
+            # 生成提示词
+            print(f"\n⏳ 正在用 '{model}' 生成提示词...")
+            dynamic_prompt_text = prompts.generate_prompt_with_ollama(
+                user_desc,
+                model=model,
+                style_hint=style_hint,
+                retry=2
+            )
+            
+            print(f"\n✅ 生成的提示词:")
+            print(f"   ─────────────────────────────────────────────")
+            print(f"   {dynamic_prompt_text}")
+            print(f"   ─────────────────────────────────────────────")
+            
+            # 确认生成
+            confirm = input("\n是否使用此提示词生成? (y=生成 / n=重新描述 / q=取消): ").strip().lower()
+            if confirm == 'q':
+                print("已取消生成")
+                return
+            elif confirm == 'n':
+                print("请重新运行: python cli.py dynamic_prompt")
+                return
+            else:
+                print("\n✅ 开始生成...")
+            
+            # 动态模式默认生成 1 张
+            if args.count is None:
+                total_count = 1
+                print("   📌 动态模式默认生成 1 张")
+            else:
+                total_count = min(args.count, 1)
+                if args.count > 1:
+                    print(f"   📌 动态模式最多生成 1 张，已从 {args.count} 调整为 1")
+    # ============================================================
+    # ✅ 生成循环
+    # ============================================================
+    for i in range(total_count):
+        # 获取提示词
+        if args.style == "dynamic_prompt" and dynamic_prompt_text:
+            # 使用动态生成的提示词（所有图片共用同一个）
+            prompt = dynamic_prompt_text
+            # 如果生成多张，可以略微变化（如添加不同的质量词）
+            if total_count > 1:
+                variations = ["", "high quality", "detailed", "intricate"]
+                if i > 0 and i < len(variations):
+                    prompt = f"{dynamic_prompt_text}, {variations[i]}"
+        else:
+            # 普通风格：从提示词库获取
+            prompt = prompts.get_prompt(args.style, i)
+        
         if not prompt:
             print(f"❌ 提示词不足（只有 {total_combinations} 个组合）")
             break
